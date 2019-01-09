@@ -2,7 +2,7 @@
 
 from random import randrange as rand
 from copy import deepcopy
-import numpy as np
+# import numpy as np
 
 def clay_init(tiles, dim=14):
   """
