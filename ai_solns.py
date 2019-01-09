@@ -4,9 +4,10 @@ from random import randrange as rand
 from copy import deepcopy
 import numpy as np
 
-def clay_init(dim=14):
+def clay_init(dim=14, tiles):
   """
-  Initialize a square claypit od dimension widh == height = dim. 
+  Initialize a square claypit of tiles with dimensions width == height = dim.
+  Return the x coord index of the H2O source tile at y == 0. 
   """
   #clay0 = ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.','.', '.']
 
@@ -29,6 +30,9 @@ def clay_init(dim=14):
       if( yesno == 0 ):
         clay[y][x] =  '#' # '|' '~'
     print('{0: >2}'.format(y), clay[y])
+
+  tiles = deepcopy(clay)
+  return xsrc
 
 def flow_down(y0=1, x0=dim/2, dim=14, tiles):
   """
