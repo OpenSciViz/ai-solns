@@ -35,17 +35,27 @@ def clay_init(tiles, dim=14):
   tiles = deepcopy(clay)
   return xsrc
 
-def clay_readfile(clay_tiles, filename='./testclay.txt', dim=14):
+def clay_writefile(clay_tiles, filename='./testclay.txt', dim=14):
    bcnt = len(clay_tiles)
+   t0 = time.time()
+   with open(filename, 'w+') as outfile:
+     outfile.writelines(clay_tiles)
+
+   outfile.close()
+   print(time.time() - t0)
    return bcnt
 
-def flow_down(tiles, yy0=1, x0=7, dim=14):
-    if(tiles[y][x0-1-x] == '#'):
-      return x0-1-x
-    # if we get here no clay tile found below x, y0
-    return -1
-  
+def clay_readfile(clay_tiles, filename='./testclay.txt', dim=14):
+   bcnt = len(clay_tiles)
+   t0 = time.time()
+   with open(inputPath, 'r+') as infile:
+     lines = infile.readlines()
 
+   infile.close()
+   print(time.time() - t0)
+   return bcnt
+
+  
 if __name__ == '__main__':
   tiles = [['.', '.', '+', '.', '.'], ['.', '#', '#', '.', '.'], ['.', '.', '.', '.', '.']]
   x = clay_init(tiles)
