@@ -3,8 +3,17 @@
 #include "stdlib.h"
 #include "string.h"
 
+char** alloc_tiles(const int dim) {
+  char** tiles = (char**) calloc(dim+1, sizeof(char*));;
+  int y = 0;
+  while( y < dim ) {
+    tiles[y++] = (char*) calloc(dim+1, sizeof(char));
+  }
+  return tiles;
+}
+
 size_t read_tiles(const int dim, const char* filename, char** tiles) {
-  if( tiles == NULL ) tiles = (char**) calloc(dim, dim+1);
+  if( tiles == NULL ) tiles = alloc_tiles(dim);
   FILE* fp = fopen(filename, "r+");
   size_t nr = 0, y = 0;
   char* s = ".";
@@ -31,7 +40,7 @@ size_t set_tiles(const int dim, int c, char** tiles) {
   size_t ns = 0, y = 0;
 
   while( y < dim ) {
-    memset(tiles[y], c, dim);
+    memset(tiles[y], c, dim*sizeof(char));
     y += 1; // C src should be readily ported to python , so no y++ 
     ns += dim;
   }
@@ -50,7 +59,7 @@ size_t print_tiles(const int dim, char** tiles) {
 
 int main(int argc, char** args) {
   const int dim = 14;
-  char** tiles = (char**) calloc(dim, dim+1);
+  char** tiles = alloc_tiles(dim);
   size_t ns = set_tiles(dim, '.', tiles);
   size_t nw = write_tiles(dim, "tiles14x14.txt", tiles);
   size_t nr = read_tiles(dim, "tiles14x14.txt", tiles);
