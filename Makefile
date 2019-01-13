@@ -5,9 +5,11 @@ data_io:
 	ld -g -shared data_io.o -o $@.so 
 #	ld -g --entry=main data_io.o -o $@ -lm -lc 
 	gcc -g -std=c11 data_io.c -o $@ -lm -lc 
+	ldd $@
 
 cppdata_io:
 	g++ -g -std=c++11 data_io.cc -o $@ -lm -lc 
+	ldd $@
 
 clean:
 	-rm -rf *.o *.so data_io cppdata_io
