@@ -1,8 +1,16 @@
 #!/usr/bin/env python
 
+# import numpy as np
+import os, sys
+
 from random import randrange as rand
 from copy import deepcopy
-# import numpy as np
+
+try:
+  import data_io as cio
+except:
+  print("failed to import data_io swigged C moduke")
+  sys.exit(1)
 
 def clay_init(tiles, dim=14):
   """
