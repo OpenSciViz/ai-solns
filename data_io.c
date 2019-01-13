@@ -1,7 +1,32 @@
+#if !defined(__data_io_c__)
+#define __data_io_c__  __FILE__ // "$Name$ $Id$"
+static const char __version_data_io_c[] = "0.0.0";
+
+#include "data_io.h"
+__data_io__(c);
+
+//#include "logger.h"
+//__logger_h__(c);
+
+#include "dirent.h"
+#include "errno.h"
+#include "fcntl.h"
+#include "limits.h"
 #include "math.h"
-#include "stdio.h"
+#include "linux/nfs4.h"
+#include "time.h"
+#include "termio.h"
+#include "signal.h"
 #include "stdlib.h"
+#include "stdio.h"
 #include "string.h"
+#include "strings.h"
+#include "sys/uio.h"
+#include "sys/stat.h"
+#include "unistd.h"
+
+//static char _errmsg[NAME_MAX];
+static char _errmsg[FILENAME_MAX];
 
 char** alloc_tiles(const int dim) {
   // alloc 1 extra char for null termination of each string
@@ -46,7 +71,7 @@ size_t write_tiles(char** tiles, const char* filename, const int dim) {
   while( y < dim ) {
     nw += fputs(tiles[y], fp);
     y += 1; // C src should be readily ported to python , so no y++ 
-  }
+  } 
   fclose(fp);
   return nw; //sizeof(tiles);
 }
@@ -56,7 +81,7 @@ size_t set_tiles(char** tiles, int c, const int dim) {
 
   while( y < dim ) {
     memset(tiles[y], c, (dim-1)*sizeof(char));
-    y += 1; // C src should be readily ported to python , so no y++ 
+    y += 1; // C src shoultd be readily ported to python , so no y++ 
     ns += dim;
   }
   print_tiles(tiles, dim);
@@ -72,3 +97,4 @@ int main(int argc, char** args) {
   print_tiles(tiles, dim);
 }
 
+#endif // data_io.c -- in the event someone includes this c file, etc. 
