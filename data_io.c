@@ -53,7 +53,7 @@ size_t read_tiles(char** tiles, const char* filename, const int dim) {
   FILE* fp = fopen(filename, "r");
   if( ! fp ) return -1;
 
-  char* s = ".";
+  char* s = (char*) ".";
   size_t nr = 0, y = 0;
   while( y < dim && s != NULL  ) {
     s = fgets(tiles[y], dim, fp);
