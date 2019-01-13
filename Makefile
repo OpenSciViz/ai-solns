@@ -39,3 +39,6 @@ pyswig: clean
 	gcc -fPIC -c data_io.c data_io_wrap.c -I$(PYINC)
 	ld -shared data_io.o data_io_wrap.o -o data_io.so 
 
+pytest:
+	-python2 -c 'import data_io'
+	-python3 -c 'import data_io'

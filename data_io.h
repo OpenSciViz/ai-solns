@@ -9,6 +9,7 @@ extern "C" {
 #endif
  
 #ifdef SWIG
+// %module _data_io 
 %module data_io 
 %{
 #define SWIG_FILE_WITH_INIT
