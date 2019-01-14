@@ -10,21 +10,28 @@ __flow__(c);
 
 int flow_down(char** tiles, const int x0, const int y0, const size_t dim) {
   // port pyhthon function to equiv C
+  printf("flow_down> \n");
   return -1;
 }
  
 int flow_right(char** tiles, const int x0, const int y0, const size_t dim) {
   // port python function to equiv C
+  printf("flow_right> \n");
   return -1;
 }
 
 int flow_left(char** tiles, const int x0, const int y0, const size_t dim) {
   // port python function to equiv C
+  printf("flow_left> \n");
   return -1;
 }
 
 int flow_direction(char** tiles, const int x0, const int y0, const size_t dim) {
   // port python function to equiv C
+  printf("flow_direction> \n");
+  flow_down(tiles, x0, y0, dim);
+  flow_left(tiles, x0, y0, dim);
+  flow_right(tiles, x0, y0, dim);
   return -1;
 }
 

@@ -24,7 +24,7 @@ cppflow:
 
 clean:
 	@$(info swig module cdata_io.py should be regenerated) 
-	-rm -rf *_wrap.* *.o *.so *.pyc cdata_io.py data_io cppdata_io
+	-rm -rf *_wrap.* *.o *.so *.pyc cdata_io.py data_io cppdata_io flow cppflow
 
 test: data_io cppdata_io
 	-@echo test data_io
@@ -34,7 +34,7 @@ test: data_io cppdata_io
 	-@echo test flow
 	-./flow
 	-@echo test cppflow
-	-cppflow
+	-./cppflow
 
 ifndef SWIG
   SWIG := $(shell swig -version)
