@@ -3,7 +3,7 @@
 #define __data_io__(arg) const char arg##data_io_h__Id[] = __data_io_h__;
 static const char __version_data_io_h[] = "0.0.0";
 
-// allow the use in c++ code ... ala /usr/include/regex.h
+// allow the use in c++ code ... ala /usr/include
 #ifdef __cplusplus
 extern "C" {
 #endif

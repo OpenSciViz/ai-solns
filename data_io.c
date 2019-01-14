@@ -8,23 +8,6 @@ __data_io__(c);
 //#include "logger.h"
 //__logger_h__(c);
 
-#include "dirent.h"
-#include "errno.h"
-#include "fcntl.h"
-#include "limits.h"
-#include "math.h"
-#include "linux/nfs4.h"
-#include "time.h"
-#include "termio.h"
-#include "signal.h"
-#include "stdlib.h"
-#include "stdio.h"
-#include "string.h"
-#include "strings.h"
-#include "sys/uio.h"
-#include "sys/stat.h"
-#include "unistd.h"
-
 //static char _errmsg[NAME_MAX];
 static char _errmsg[FILENAME_MAX];
 

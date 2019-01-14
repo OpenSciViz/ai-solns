@@ -1,19 +1,30 @@
-all: clean data_io cppdata_io test
+$(info TBD compile make rules)
+
+all: clean data_io flow cppflow cppdata_io test
 
 data_io:
 	gcc -g -std=c11 -fPIC -c $@.c
 #	ld -g -shared data_io.o -o $@.so 
 #	ld -g --entry=main data_io.o -o $@ -lm -lc 
-	gcc -g -std=c11 data_io.c -o $@ -lm -lc 
+	gcc -g -std=c11 $@.c -o $@ -lm -lc 
+
+flow:
+	gcc -g -std=c11 -fPIC -c $@.c
+	gcc -g -std=c11 $@.c -o $@ -lm -lc 
+#	gcc -g -std=c11 $@.c -o $@ data_io.o -lm -lc 
 	ldd $@
 
 cppdata_io:
 	g++ -g -std=c++11 data_io.cc -o $@ -lm -lc 
+
+cppflow:
+	g++ -g -std=c++11 flow.cc -o $@ -lm -lc 
+#	g++ -g -std=c11 $@.c -o $@ data_io.o -lm -lc 
 	ldd $@
 
 clean:
 	@$(info swig module cdata_io.py should be regenerated) 
-	-rm -rf *_wrap.* *.o *.so cdata_io.py data_io cppdata_io
+	-rm -rf *_wrap.* *.o *.so *.pyc cdata_io.py data_io cppdata_io
 
 test: data_io cppdata_io
 	-@echo test data_io
