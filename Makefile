@@ -31,6 +31,10 @@ test: data_io cppdata_io
 	-./data_io
 	-@echo test c++ compiled data_io
 	-./cppdata_io
+	-@echo test flow
+	-./flow
+	-@echo test cppflow
+	-cppflow
 
 ifndef SWIG
   SWIG := $(shell swig -version)
