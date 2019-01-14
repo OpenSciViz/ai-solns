@@ -1,8 +1,14 @@
+Sunday Jan 13 2019 PST 6pm status:
+
+Makefile and C funstion stubs and Python partial implementation.
+Once Python implementation is complete, port to C and test and compare.
+Python code is C-like (no classes/objects, and minimal Python Zen). 
+
 # swig example from:
 
 http://www.swig.org/tutorial.html
 
-# ai-solns
+# ai-solns from JP:
 For the take-home coding challenge, Id like you to take a look at the following problem: https://adventofcode.com/2018/day/17
 
 
