@@ -12,7 +12,8 @@ cppdata_io:
 	ldd $@
 
 clean:
-	-rm -rf *_wrap.* *.o *.so data_io cppdata_io
+	@$(info swig module cdata_io.py should be regenerated) 
+	-rm -rf *_wrap.* *.o *.so cdata_io.py data_io cppdata_io
 
 test: data_io cppdata_io
 	-@echo test data_io
