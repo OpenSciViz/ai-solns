@@ -62,6 +62,7 @@ def flow_direction(tiles, x0=0, y0=0, dim=14):
   down_clay = flow_down(tiles, x0, y0, dim)
  
   left_clay = flow_left(tiles, x0, y0, dim)
+
   right_clay = flow_right(tiles, x0, y0, dim)
 
 

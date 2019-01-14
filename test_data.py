@@ -25,22 +25,23 @@ def clay_init(tiles, dim=14):
     clay0.append('.')
 # print(clay0)
 
-  clay = []
+  clay = tiles[:] = []
   for idx in range(0,dim):
     clay.append(deepcopy(clay0)) # np.zeros((14,14))
 
   xsrc = rand(dim/4, dim-3) # place the fountain source randomly, but within a few tiles of the borders
   y = 0 ; clay[y][xsrc] = '+'
-  print('{0: >2}'.format(y), clay[y])
+  tiles.append(deepcopy(clay[y]))
+  print('{0: >2}'.format(y), tiles[y])
 
   for y in range(1,14):
     for x in range(0,14):
       yesno = rand(0,3)
       if( yesno == 0 ):
         clay[y][x] =  '#' # '|' '~'
-    print('{0: >2}'.format(y), clay[y])
+    tiles.append(deepcopy(clay[y]))
+    print('{0: >2}'.format(y), tiles[y])
 
-  tiles = deepcopy(clay)
   return xsrc
 
 def clay_writefile(clay_tiles, filename='./testclay.txt', dim=14):
