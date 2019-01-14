@@ -2,7 +2,7 @@ Sunday Jan 13 2019 PST 6pm status:
 
 Makefile and C function stubs and (pure) Python partial implementation.
 Also some SWIG boilerplate, allowing C code to be used/tested as a Python module
-As (pure) Python implementation becomes mature/complete, port to C and test and compare.
+as (pure) Python implementation becomes mature/complete, port to C and test and compare.
 Python code should be C-like (no classes/objects, with minimal Python Zen). 
 
 # swig example from:
