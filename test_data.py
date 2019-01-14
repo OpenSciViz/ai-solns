@@ -6,11 +6,11 @@ import os, sys
 from random import randrange as rand
 from copy import deepcopy
 
-try:
-  import data_io as cio
-except:
-  print("failed to import data_io swigged C moduke")
-  sys.exit(1)
+#try:
+#  import cdata_io as cio
+#except:
+#  print("failed to import data_io swigged C moduke")
+#  sys.exit(1)
 
 def clay_init(tiles, dim=14):
   """
@@ -63,8 +63,7 @@ def clay_readfile(clay_tiles, filename='./testclay.txt', dim=14):
    print(time.time() - t0)
    return bcnt
 
-  
-if __name__ == '__main__':
+if(__name__ == '__main__'):
   tiles = [['.', '.', '+', '.', '.'], ['.', '#', '#', '.', '.'], ['.', '.', '.', '.', '.']]
   x = clay_init(tiles)
 

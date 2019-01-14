@@ -52,7 +52,7 @@ def flow_left(tiles, x0=0, y0=0, dim=14):
     # if we get here no clay tile found left of x0, y0
     return -1
   
-def flow_direction(ytiles, x0=0, y0=0, dim=14):
+def flow_direction(tiles, x0=0, y0=0, dim=14):
   """
   Inspect tiles to left and right of current (x0, y0) and alse directly below
   to left and right of (x0, y0+1). If symmetric, flow should go both ways and
