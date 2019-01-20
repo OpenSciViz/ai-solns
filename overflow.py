@@ -18,8 +18,10 @@ def flow_right(tiles, x0=0, y0=0, dim=14):
       return xr
     else:
       tiles[y]xr] = '|' ; _flowcnt += 1 # keep flowing right
-    # if we get here no clay tile found right of x0, y0
-    return -1
+
+  # if we get here no clay tile found right of x0, y0
+  print("flow_right> _flowcnt:", _flowcnt)
+  return -1
   
 def flow_left(tiles, x0=0, y0=0, dim=14):
   """
@@ -36,8 +38,10 @@ def flow_left(tiles, x0=0, y0=0, dim=14):
       return x0-1-x
     else:
       tiles[y][xl] = '|' ; _flowcnt += 1 # keep flowing left
-    # if we get here no clay tile found left of x0, y0
-    return -1
+
+  # if we get here no clay tile found left of x0, y0
+  print("flow_left> _flowcnt:", _flowcnt)
+  return -1
 
 def flow_down(tiles, x0=0, y0=0, dim=14):
   """
@@ -64,6 +68,7 @@ def flow_down(tiles, x0=0, y0=0, dim=14):
   for y in range(y0, down_clay-y0-1):
     tiles[y][x0] = '|' ; _flowcnt += 1
 
+  print("flow_down> _flowcnt:", _flowcnt)
   return yclay
   
 def flow(tiles, x0=0, y0=0, dim=14):
@@ -86,6 +91,7 @@ def flow(tiles, x0=0, y0=0, dim=14):
     y = down_clay = flow_down(tiles, x0, y0, dim)
     xr = flow_left(tiles, xr, y, dim)
 
+  print("flowt> _flowcnt:", _flowcnt)
   return _flowcnt
 
 def overflow(times, x0-0, y0=0, dim=14):
@@ -95,6 +101,9 @@ def overflow(times, x0-0, y0=0, dim=14):
   For eash row od tiles, find areas bounnded by clay left-right-below, anf if tile(s) are
   marked as '|', set to '~'.
   """
+  global _flowcnt
+  print("overflowt> _flowcnt:", _flowcnt)
+  return _flowcnt
 
 if __name__  == '__main__':
   tiles = [['.', '.', '+', '.', '.'], ['.', '#', '#', '.', '.'], ['.', '.', '.', '.', '.']]
