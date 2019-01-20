@@ -1,3 +1,5 @@
+Sunday Jan 20 initial overflow func ...
+
 Sunday Jan 13 2019 PST 6pm status:
 
 Makefile and C function stubs and (pure) Python partial implementation.
