@@ -2,7 +2,7 @@
 
 # import numpy as np
 
-_flowcnt = 0
+static int _flowcnt = 0
 
 int flow_right(tiles, x0=0, y0=0, dim=14) {
   """
@@ -12,18 +12,19 @@ int flow_right(tiles, x0=0, y0=0, dim=14) {
   clay or if no clay all should be set to '|'. If flow is blocked up then upper '|' may get 
   reset to '~' once steady-stete is achieved. 
   """
-  global _flowcnt
+  printf("flow_right> _flowcnt %f", _flowcnt);
+  // global _flowcnt
   for xr in range(1+x0, dim) {
     if(tiles[y0][xr] == '#') {
       return xr;
     }
     else {
-      tiles[y]xr] = '|' ; _flowcnt += 1 ; // keep flowing right
+      tiles[y][xr] = '|' ; _flowcnt += 1 ; // keep flowing right
     }
   }
   # if we get here no clay tile found right of x0, y0
-  print("flow_right> _flowcnt {", _flowcnt)
-  return -1
+  printf("flow_right> _flowcnt %f", _flowcnt);
+  return -1;
   
 int flow_left(tiles, x0=0, y0=0, dim=14) {
   """
@@ -33,17 +34,20 @@ int flow_left(tiles, x0=0, y0=0, dim=14) {
   clay or if no clay all should be set to '|'. If flow is blocked up then upper '|' may get 
   reset to '~' once steady-stete is achieved. 
   """
-  global _flowcnt
+  // global _flowcnt
+  printf("flow_left> _flowcnt %f", _flowcnt);
   for x in range(0, x0) {
-    xl = x0-x-1
+    xl = x0-x-1;
     if(tiles[y][xl] == '#') {
-      return x0-1-x
+      return x0-1-x;
+    }
     else {
-      tiles[y][xl] = '|' ; _flowcnt += 1 # keep flowing left
-
+      tiles[y][xl] = '|' ; _flowcnt += 1 ; //  keep flowing left
+    }
+  }
   # if we get here no clay tile found left of x0, y0
-  print("flow_left> _flowcnt {", _flowcnt)
-  return -1
+  printf("flow_left> _flowcnt %f", _flowcnt);
+  return -1;
 
 int flow_down(tiles, x0=0, y0=0, dim=14) {
   """
@@ -53,25 +57,28 @@ int flow_down(tiles, x0=0, y0=0, dim=14) {
   clay or if no clay all should be set to '|'. If flow is blocked up then upper '|' may get 
   reset to '~' once steady-stete is achieved. 
   """
-  global _flowcnt
-  yclay = -1
+  // global _flowcnt
+  printf("flow_left> _flowcnt %f", _flowcnt);
+  yclay = -1;
   for y in range(1+y0, dim) {
     if(tiles[y][x0] == '#') {
-      yclay = y
-  
+      yclay = y;
+    }
+  }
   if( yclay < 0 ) {
-    # set all tiles below to '|' and return count of '|'
+    // set all tiles below to '|' and return count of '|'
     for y in range(y0, dim-y0) {
-      tiles[y][x0] = '|' ; _flowcnt += 1
+      tiles[y][x0] = '|' ; _flowcnt += 1 ;
+    }
     return dim-y0
-
-  # set the deepest non-clay tile to '~' and those above to '|'
-  tiles[yclay-1][x0] = '~'
+  }
+  // set the deepest non-clay tile to '~' and those above to '|'
+  tiles[yclay-1][x0] = '~';
   for y in range(y0, down_clay-y0-1) {
-    tiles[y][x0] = '|' ; _flowcnt += 1
-
-  print("flow_down> _flowcnt {", _flowcnt)
-  return yclay
+    tiles[y][x0] = '|' ; _flowcnt += 1;
+  }
+  printf("flow_left> _flowcnt %f", _flowcnt);
+  return yclay;
   
 int flow(tiles, x0=0, y0=0, dim=14) {
   """
@@ -80,21 +87,22 @@ int flow(tiles, x0=0, y0=0, dim=14) {
   continue down of fill up. Otherwise, flow proceeds down nearest open (non-clay)
   path, etc. 
   """
-  global _flowcnt
-  y = down_clay = flow_down(tiles, x0, y0, dim)
-  xl = left_clay = flow_left(tiles, x0, y, dim)
-  xr = right_clay = flow_right(tiles, x0, y, dim)
+  // global _flowcnt
+  printf("flow_left> _flowcnt %f", _flowcnt);
+  y = down_clay = flow_down(tiles, x0, y0, dim);
+  xl = left_clay = flow_left(tiles, x0, y, dim);
+  xr = right_clay = flow_right(tiles, x0, y, dim);
 
   while( xl >= 0 && y < dim ) {
-    y = down_clay = flow_down(tiles, x0, y0, dim)
-    xl = flow_left(tiles, xl, y, dim)
-
+    y = down_clay = flow_down(tiles, x0, y0, dim);
+    xl = flow_left(tiles, xl, y, dim);
+  }
   while( xr >= 0 && xr < dim && y < dim ) {
-    y = down_clay = flow_down(tiles, x0, y0, dim)
-    xr = flow_left(tiles, xr, y, dim)
-
-  print("flowt> _flowcnt {", _flowcnt)
-  return _flowcnt
+    y = down_clay = flow_down(tiles, x0, y0, dim);
+    xr = flow_left(tiles, xr, y, dim);
+  }
+  printf("flow_left> _flowcnt %f", _flowcnt);
+  return _flowcnt;
 
 int overflow(times, x0-0, y0=0, dim=14) {
   """
@@ -103,12 +111,8 @@ int overflow(times, x0-0, y0=0, dim=14) {
   For eash row od tiles, find areas bounnded by clay left-right-below, anf if tile(s) are
   marked as '|', set to '~'.
   """
-  global _flowcnt
-  print("overflowt> _flowcnt {", _flowcnt)
-  return _flowcnt
-
-if __name__  == '__main__' {
-  tiles = [['.', '.', '+', '.', '.'], ['.', '#', '#', '.', '.'], ['.', '.', '.', '.', '.']]
-  x = clay_init(tiles)
-
+  // global _flowcnt
+  printf("flow_left> _flowcnt %f", _flowcnt);
+  return _flowcnt;
+}
 
