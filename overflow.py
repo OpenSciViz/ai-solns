@@ -3,6 +3,8 @@
 # import numpy as np
 
 _flowcnt = 0
+_wetcnt = 0
+_dims = [xdim, ydim]
 
 def flow_right(tiles, x0=0, y0=0, dim=14):
   """
@@ -13,7 +15,7 @@ def flow_right(tiles, x0=0, y0=0, dim=14):
   reset to '~' once steady-stete is achieved. 
   """
   global _flowcnt
-  for xr in range(1+x0, dim):
+  for xr in range(1+x0, dim-1):
     if(tiles[y0][xr] == '#'):
       return xr
     else:
@@ -53,13 +55,13 @@ def flow_down(tiles, x0=0, y0=0, dim=14):
   """
   global _flowcnt
   yclay = -1
-  for y in range(1+y0, dim):
+  for y in range(1+y0, dim-1):
     if(tiles[y][x0] == '#'):
       yclay = y
   
   if( yclay < 0 ):
     # set all tiles below to '|' and return count of '|'
-    for y in range(y0, dim-y0):
+    for y in range(y0, dim-y0-1):
       tiles[y][x0] = '|' ; _flowcnt += 1
     return dim-y0
 
@@ -94,16 +96,24 @@ def flow(tiles, x0=0, y0=0, dim=14):
   print("flowt> _flowcnt:", _flowcnt)
   return _flowcnt
 
-def overflow(times, x0-0, y0=0, dim=14):
+def overflow(times, dim=14):
   """
   Once all the left-right-downward flow has been established, evaluate the overflow tiles
   that hold steady-state H2O and reset their respective '|' values to '~'.
-  For eash row od tiles, find areas bounnded by clay left-right-below, anf if tile(s) are
-  marked as '|', set to '~'.
+  For eash row of tiles, find areas bounded by clay left-right-below, anf if tile(s) are
+  marked as '|', set to '~'. Perhapes simplest to navigate is bottom-up, assumimg top-down
+  flow has been handled, and '|' tiles have ben set. 
   """
   global _flowcnt
+  global _wetcnt
+  for y in range(dim-2, 0, -1):
+    for x in range(0, dim-1): 
+      if(tiles[y][x] == '|' && tiles[y+1][x] == '#'):
+        tiles[y][x] = '~'
+        _flowcnt += -1
+        _wetcnt += 1
   print("overflowt> _flowcnt:", _flowcnt)
-  return _flowcnt
+  return [_flowcnt, _wetcnt]
 
 if __name__  == '__main__':
   tiles = [['.', '.', '+', '.', '.'], ['.', '#', '#', '.', '.'], ['.', '.', '.', '.', '.']]
