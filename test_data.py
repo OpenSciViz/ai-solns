@@ -12,6 +12,10 @@ from copy import deepcopy
 #  print("failed to import data_io swigged C moduke")
 #  sys.exit(1)
 
+def print_tiles(times, dim=14):
+  for y in range(0, dim):
+    print('{0: >2}'.format(y), tiles[y])
+
 def clay_init(tiles, dim=14):
   """
   Initialize a square claypit of tiles with dimensions width == height = dim.
@@ -23,26 +27,26 @@ def clay_init(tiles, dim=14):
   clay0 = []
   for idx in range(0,dim):
     clay0.append('.')
-# print(clay0)
 
   clay = tiles[:] = []
   for idx in range(0,dim):
     clay.append(deepcopy(clay0)) # np.zeros((14,14))
 
   xsrc = rand(dim/4, dim-3) # place the fountain source randomly, but within a few tiles of the borders
+  print("clay_init> xsrc:", xsrc)
+
   y = 0 ; clay[y][xsrc] = '+'
   tiles.append(deepcopy(clay[y]))
-  print('{0: >2}'.format(y), tiles[y])
 
-  for y in range(1,14):
-    for x in range(0,14):
+  for y in range(1, dim):
+    for x in range(0, dim):
       yesno = rand(0,3)
       if( yesno == 0 ):
         clay[y][x] =  '#' # '|' '~'
     tiles.append(deepcopy(clay[y]))
-    print('{0: >2}'.format(y), tiles[y])
 
-  return xsrc
+  # return dimension and location of source time (xsrc)
+  return [dim, xsrc]
 
 def clay_writefile(clay_tiles, filename='./testclay.txt', dim=14):
    bcnt = len(clay_tiles)
@@ -66,6 +70,9 @@ def clay_readfile(clay_tiles, filename='./testclay.txt', dim=14):
 
 if(__name__ == '__main__'):
   tiles = [['.', '.', '+', '.', '.'], ['.', '#', '#', '.', '.'], ['.', '.', '.', '.', '.']]
-  x = clay_init(tiles)
+  dimsrc = clay_init(tiles)
+  dim = dimsrc[0] ; xsrc = dimsrc[1]
+  print_tiles(tiles, dim)
+
 
 

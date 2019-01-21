@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 
 # import numpy as np
+import os, sys
+
+try:
+  from test_data import clay_init, clay_read, clay_write
+except:
+  print("overflow import of test_data module failed")
+  sys.exit(1)
 
 _flowcnt = 0
 _wetcnt = 0
@@ -19,7 +26,7 @@ def flow_right(tiles, x0=0, y0=0, dim=14):
     if(tiles[y0][xr] == '#'):
       return xr
     else:
-      tiles[y]xr] = '|' ; _flowcnt += 1 # keep flowing right
+      tiles[y][xr] = '|' ; _flowcnt += 1 # keep flowing right
 
   # if we get here no clay tile found right of x0, y0
   print("flow_right> _flowcnt:", _flowcnt)
@@ -73,7 +80,7 @@ def flow_down(tiles, x0=0, y0=0, dim=14):
   print("flow_down> _flowcnt:", _flowcnt)
   return yclay
   
-def flow(tiles, x0=0, y0=0, dim=14):
+def flow(tiles, dim=14):
   """
   Inspect tiles to left and right of current (x0, y0) and alse directly below
   to left and right of (x0, y0+1). If symmetric, flow should go both ways and
@@ -81,17 +88,12 @@ def flow(tiles, x0=0, y0=0, dim=14):
   path, etc. 
   """
   global _flowcnt
-  y = down_clay = flow_down(tiles, x0, y0, dim)
-  xl = left_clay = flow_left(tiles, x0, y, dim)
-  xr = right_clay = flow_right(tiles, x0, y, dim)
-
-  while( xl >= 0 && y < dim ):
-    y = down_clay = flow_down(tiles, x0, y0, dim)
-    xl = flow_left(tiles, xl, y, dim)
-
-  while( xr >= 0 && xr < dim && y < dim ):
-    y = down_clay = flow_down(tiles, x0, y0, dim)
-    xr = flow_left(tiles, xr, y, dim)
+  for y in range(0, dim-1): 
+    for x in range(0, dim-1): 
+      yd = down_clay = flow_down(tiles, x, y, dim)
+      xl = flow_left(tiles, x, y, dim)
+      xr = right_clay = flow_right(tiles, x, y, dim)
+      print("flowt> yd, xl, xr", yd, xl, xr)
 
   print("flowt> _flowcnt:", _flowcnt)
   return _flowcnt
@@ -106,17 +108,22 @@ def overflow(times, dim=14):
   """
   global _flowcnt
   global _wetcnt
+  cnt = flow(tiles, dim)
+
   for y in range(dim-2, 0, -1):
     for x in range(0, dim-1): 
-      if(tiles[y][x] == '|' && tiles[y+1][x] == '#'):
+      if(tiles[y][x] == '|' and tiles[y+1][x] == '#'):
         tiles[y][x] = '~'
         _flowcnt += -1
         _wetcnt += 1
+
   print("overflowt> _flowcnt:", _flowcnt)
   return [_flowcnt, _wetcnt]
 
 if __name__  == '__main__':
   tiles = [['.', '.', '+', '.', '.'], ['.', '#', '#', '.', '.'], ['.', '.', '.', '.', '.']]
-  x = clay_init(tiles)
+  dimsrc = clay_init(tiles)
+  dim = dixsrc[0] ; xsrc = dimsrc[1]
+  cnts = overflow(times, dim)
 
 
