@@ -4,14 +4,14 @@
 import os, sys
 
 try:
-  from test_data import clay_init, clay_read, clay_write
+  from test_data import clay_init, clay_readfile, clay_writefile, clay_print
 except:
   print("overflow import of test_data module failed")
   sys.exit(1)
 
 _flowcnt = 0
 _wetcnt = 0
-_dims = [xdim, ydim]
+_dims = [14, 14]
 
 def flow_right(tiles, x0=0, y0=0, dim=14):
   """
@@ -26,7 +26,7 @@ def flow_right(tiles, x0=0, y0=0, dim=14):
     if(tiles[y0][xr] == '#'):
       return xr
     else:
-      tiles[y][xr] = '|' ; _flowcnt += 1 # keep flowing right
+      tiles[y0][xr] = '|' ; _flowcnt += 1 # keep flowing right
 
   # if we get here no clay tile found right of x0, y0
   print("flow_right> _flowcnt:", _flowcnt)
@@ -43,10 +43,10 @@ def flow_left(tiles, x0=0, y0=0, dim=14):
   global _flowcnt
   for x in range(0, x0):
     xl = x0-x-1
-    if(tiles[y][xl] == '#'):
+    if(tiles[y0][xl] == '#'):
       return x0-1-x
     else:
-      tiles[y][xl] = '|' ; _flowcnt += 1 # keep flowing left
+      tiles[y0][xl] = '|' ; _flowcnt += 1 # keep flowing left
 
   # if we get here no clay tile found left of x0, y0
   print("flow_left> _flowcnt:", _flowcnt)
@@ -74,7 +74,7 @@ def flow_down(tiles, x0=0, y0=0, dim=14):
 
   # set the deepest non-clay tile to '~' and those above to '|'
   tiles[yclay-1][x0] = '~'
-  for y in range(y0, down_clay-y0-1):
+  for y in range(yclay-1, 0, -1):
     tiles[y][x0] = '|' ; _flowcnt += 1
 
   print("flow_down> _flowcnt:", _flowcnt)
@@ -123,7 +123,7 @@ def overflow(times, dim=14):
 if __name__  == '__main__':
   tiles = [['.', '.', '+', '.', '.'], ['.', '#', '#', '.', '.'], ['.', '.', '.', '.', '.']]
   dimsrc = clay_init(tiles)
-  dim = dixsrc[0] ; xsrc = dimsrc[1]
-  cnts = overflow(times, dim)
+  dim = dimsrc[0] ; xsrc = dimsrc[1]
+  cnts = overflow(tiles, dim)
 
 
