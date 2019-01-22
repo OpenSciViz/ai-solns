@@ -12,7 +12,7 @@ from copy import deepcopy
 #  print("failed to import data_io swigged C moduke")
 #  sys.exit(1)
 
-def clay_print(times, dim=14):
+def clay_print(tiles, dim=14):
   for y in range(0, dim):
     print('{0: >2}'.format(y), tiles[y])
 

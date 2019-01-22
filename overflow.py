@@ -27,6 +27,8 @@ def flow_right(tiles, x0=0, y0=0, dim=14):
       return xr
     else:
       tiles[y0][xr] = '|' ; _flowcnt += 1 # keep flowing right
+      if( tiles[y0+1][xr] == '.' ):
+        return xr
 
   # if we get here no clay tile found right of x0, y0
   print("flow_right> _flowcnt:", _flowcnt)
@@ -41,12 +43,13 @@ def flow_left(tiles, x0=0, y0=0, dim=14):
   reset to '~' once steady-stete is achieved. 
   """
   global _flowcnt
-  for x in range(0, x0):
-    xl = x0-x-1
+  for xl in range(x0-1, 0, -1):
     if(tiles[y0][xl] == '#'):
-      return x0-1-x
+      return xl
     else:
       tiles[y0][xl] = '|' ; _flowcnt += 1 # keep flowing left
+      if( tiles[y0+1][xl] == '.' ):
+        return xl
 
   # if we get here no clay tile found left of x0, y0
   print("flow_left> _flowcnt:", _flowcnt)
@@ -80,7 +83,7 @@ def flow_down(tiles, x0=0, y0=0, dim=14):
   print("flow_down> _flowcnt:", _flowcnt)
   return yclay
   
-def flow(tiles, dim=14):
+def flow(tiles, xsrc, dim=14):
   """
   Inspect tiles to left and right of current (x0, y0) and alse directly below
   to left and right of (x0, y0+1). If symmetric, flow should go both ways and
@@ -88,17 +91,16 @@ def flow(tiles, dim=14):
   path, etc. 
   """
   global _flowcnt
-  for y in range(0, dim-1): 
-    for x in range(0, dim-1): 
-      yd = down_clay = flow_down(tiles, x, y, dim)
-      xl = flow_left(tiles, x, y, dim)
-      xr = right_clay = flow_right(tiles, x, y, dim)
-      print("flowt> yd, xl, xr", yd, xl, xr)
+  y = 0
+  yd = flow_down(tiles, xsrc, y, dim)
+  xl = flow_left(tiles, xsrc, y, dim)
+  xr = flow_right(tiles, xsrc, y, dim)
+  print("flowt> yd, xl, xr", yd, xl, xr)
 
   print("flowt> _flowcnt:", _flowcnt)
   return _flowcnt
 
-def overflow(times, dim=14):
+def overflow(times, xsrc, dim=14):
   """
   Once all the left-right-downward flow has been established, evaluate the overflow tiles
   that hold steady-state H2O and reset their respective '|' values to '~'.
@@ -108,7 +110,7 @@ def overflow(times, dim=14):
   """
   global _flowcnt
   global _wetcnt
-  cnt = flow(tiles, dim)
+  cnt = flow(tiles, xsrc, dim)
 
   for y in range(dim-2, 0, -1):
     for x in range(0, dim-1): 
@@ -124,6 +126,6 @@ if __name__  == '__main__':
   tiles = [['.', '.', '+', '.', '.'], ['.', '#', '#', '.', '.'], ['.', '.', '.', '.', '.']]
   dimsrc = clay_init(tiles)
   dim = dimsrc[0] ; xsrc = dimsrc[1]
-  cnts = overflow(tiles, dim)
+  cnts = overflow(tiles, xsrc, dim)
 
 
