@@ -13,49 +13,6 @@ _flowcnt = 0
 _wetcnt = 0
 _dims = [14, 14]
 
-def flow_right(tiles, x0=0, y0=0, dim=14):
-  """
-  Return index of first clay tile found right of current/origin tile and if none are found, return -1.
-  Rightward flow is possible (not blocked by clay), if -1 is returned, or an index > x+1 is returned,
-  otherwise rightward flow is blocked. Set wet tiles to either '|' along path to clay or if no clay all
-  should be set to '|'. If flow is blocked up then '|' may get reset to '~' once steady-stete is achieved. 
-  """
-  global _flowcnt
-  for xr in range(x0+1, dim-1):
-    if(tiles[y0][xr] == '#'):
-      return xr
-    else:
-      tiles[y0][xr] = '|' ; _flowcnt += 1 # flowing right
-    if( tiles[y0+1][xr] == '.' ): # flow down -- stop flowing right
-      tiles[y0+1][xr] = '|'
-      return xr
-
-  # if we get here no clay tile found right of x0, y0
-  print("flow_right> _flowcnt:", _flowcnt)
-  return -1
- 
-def flow_left(tiles, x0=0, y0=0, dim=14):
-  """
-  Return index of first clay tile found left of current/origin tile and if none are found, return -1.
-  Leftward flow is possible (not blocked by clay), if -1 is returned, or an index < x-1 is returned,
-  otherwise leftwardward flow is blocked. Set wet tiles to either '|' or '+' along path to
-  clay or if no clay all should be set to '|'. If flow is blocked up then upper '|' may get 
-  reset to '~' once steady-stete is achieved. 
-  """
-  global _flowcnt
-  for xl in range(x0-1, 0, -1):
-    if(tiles[y0][xl] == '#'):
-      return xl
-    else:
-      tiles[y0][xl] = '|' ; _flowcnt += 1 # flowing left
-      if( tiles[y0+1][xl] == '.' ): # stop flowing left and head down
-        tiles[y0+1][xl] = '|' 
-        return xl
-
-  # if we get here no clay tile found left of x0, y0
-  print("flow_left> _flowcnt:", _flowcnt)
-  return -1
-
 def flow_down(tiles, x0=0, y0=0, dim=14):
   """
   Return index of first clay tile found below current/origin tile and if none are found, return -1.
@@ -83,8 +40,52 @@ def flow_down(tiles, x0=0, y0=0, dim=14):
 
   print("flow_down> _flowcnt:", _flowcnt)
   return yclay
+
+def flow_right(tiles, x0=0, y0=0, dim=14):
+  """
+  Return index of first clay tile found right of current/origin tile and if none are found, return -1.
+  Rightward flow is possible (not blocked by clay), if -1 is returned, or an index > x+1 is returned,
+  otherwise rightward flow is blocked. Set wet tiles to either '|' along path to clay or if no clay all
+  should be set to '|'. If flow is blocked up then '|' may get reset to '~' once steady-stete is achieved. 
+  """
+  global _flowcnt
+  for xr in range(x0+1, dim-1):
+    if(tiles[y0][xr] == '#'):
+      return xr
+    else:
+      tiles[y0][xr] = '|' ; _flowcnt += 1 # flowing right
+    if( tiles[y0+1][xr] == '.' ): # flow down -- stop flowing right and try down
+      flow_down(tiles, xr, y0+1, dim)
+      return xr
+
+  # if we get here no clay tile found right of x0, y0
+  print("flow_right> _flowcnt:", _flowcnt)
+  return -1
+ 
+def flow_left(tiles, x0=0, y0=0, dim=14):
+  """
+  Return index of first clay tile found left of current/origin tile and if none are found, return -1.
+  Leftward flow is possible (not blocked by clay), if -1 is returned, or an index < x-1 is returned,
+  otherwise leftwardward flow is blocked. Set wet tiles to either '|' or '+' along path to
+  clay or if no clay all should be set to '|'. If flow is blocked up then upper '|' may get 
+  reset to '~' once steady-stete is achieved. 
+  """
+  global _flowcnt
+  for xl in range(x0-1, 0, -1):
+    if(tiles[y0][xl] == '#'):
+      return xl
+    else:
+      tiles[y0][xl] = '|' ; _flowcnt += 1 # flowing left
+      if( tiles[y0+1][xl] == '.' ): # stop flowing left and head down
+        tiles[y0][xl] = '|' 
+        flow_down(tiles,xl,y0+1,dim)
+        return xl
+
+  # if we get here no clay tile found left of x0, y0
+  print("flow_left> _flowcnt:", _flowcnt)
+  return -1
   
-def flow(tiles, xsrc, dim=14):
+def flow(tiles, xsrc, y0, dim=14):
   """
   Inspect tiles to left and right of current (x0, y0) and alse directly below
   to left and right of (x0, y0+1). If symmetric, flow should go both ways and
@@ -93,12 +94,10 @@ def flow(tiles, xsrc, dim=14):
   """
   global _flowcnt
   xl = xr = xsrc
-  yd = flow_down(tiles, xr, 0, dim)
-  xr = flow_right(tiles, xr, yd, dim)
-  clay_print(tiles, dim)
 
-  yd = flow_down(tiles, xl, 0, dim)
-  xl = flow_left(tiles, xl, yd, dim)
+  yd = flow_down(tiles, xsrc, y0, dim)
+  xl = flow_left(tiles, xl, y0, dim)
+  xr = flow_right(tiles, xr, y0, dim)
   clay_print(tiles, dim)
 
   print("flowt> _flowcnt:", _flowcnt)
@@ -114,7 +113,7 @@ def overflow(times, xsrc, dim=14):
   """
   global _flowcnt
   global _wetcnt
-  cnt = flow(tiles, xsrc, dim)
+  cnt = flow(tiles, xsrc, 0, dim)
 
   for y in range(dim-2, 0, -1):
     for x in range(0, dim-1): 
