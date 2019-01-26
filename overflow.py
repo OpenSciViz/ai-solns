@@ -54,12 +54,12 @@ def flow_right(tiles, x0=0, y0=0, dim=14):
   global _flowcnt
   for xr in range(x0+1, dim-1):
     if(tiles[y0][xr] == '#'):
-      return xr
+      return [xr, y0]
     else:
       tiles[y0][xr] = '|' ; _flowcnt += 1 # flowing right
-    if( tiles[y0+1][xr] == '.' ): # flow down -- stop flowing right and try down
-      deepest = flow_down(tiles, xr, y0+1, dim)
-      return [xr, deepest]
+      if( tiles[y0+1][xr] == '.' ): # flow down -- stop flowing right and flow down
+        deepest = flow_down(tiles, xr, y0+1, dim)
+        return [xr, deepest]
 
   # if we get here no clay tile found right of x0, y0
   print("flow_right> _flowcnt:", _flowcnt)
@@ -99,13 +99,15 @@ def flow(tiles, xsrc, y0, dim=14):
   xl = xr = xsrc
 
   yd = flow_down(tiles, xsrc, y0, dim)
+  clay_print(tiles, dim)
+
   xld = flow_left(tiles, xl, y0, dim)
-  print("flow left-down: ", xld)
+  clay_print(tiles, dim)
+# print("flow left-down: ", xld)
 
   xrd = flow_right(tiles, xr, y0, dim)
-  print("flow right-down: ", xrd)
-
   clay_print(tiles, dim)
+# print("flow right-down: ", xrd)
 
   print("flow> _flowcnt:", _flowcnt)
   return _flowcnt
@@ -130,8 +132,8 @@ def overflow(times, xsrc, dim=14):
           _flowcnt += -1
           _wetcnt += 1
 
-  print("overflow> _flowcnt:", _flowcnt)
   clay_print(tiles, dim)
+  print("overflow> _flowcnt:", _flowcnt)
   return [_flowcnt, _wetcnt]
 
 if __name__  == '__main__':
@@ -140,5 +142,4 @@ if __name__  == '__main__':
   dim = dimsrc[0] ; xsrc = dimsrc[1]
   cnt = flow(tiles, xsrc, 0, dim)
   cnts = overflow(tiles, xsrc, dim)
-
 
