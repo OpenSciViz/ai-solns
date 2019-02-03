@@ -1,5 +1,7 @@
-$(info TBD compile make rules)
 SHELL := /bin/bash
+CWD := $(shell pwd)
+
+$(info TBD compile make rules ... shell: $(SHELL) ... pwd: $(CWD))
 
 all: clean data_io flow cppflow cppdata_io test
 
@@ -52,6 +54,7 @@ py2swig: clean
 	swig -python data_io.h
 	gcc -fPIC -c data_io.c data_io_wrap.c -I$(PY2INC)
 	ld -shared data_io.o data_io_wrap.o -o data_io.so.$(PY2) 
+	file data_io.so.$(PY2)
 
 py3swig: clean
 	@$(info $(SWIG) python3)
@@ -61,13 +64,14 @@ py3swig: clean
 	swig -python data_io.h
 	gcc -fPIC -c data_io.c data_io_wrap.c -I$(PY3INC) 
 	ld -shared data_io.o data_io_wrap.o -o data_io.so.$(PY3) 
+	file data_io.so.$(PY3)
 
 py2test: py2swig
-	-unlink -f data_io.so && ln -s data_io.so data_io.so.$(PY2)
-	-python -c 'import data_io'
+	-rm -f data_io.so && ln -s data_io.so.$(PY2) data_io.so
+	-env LD_LIBRARY_PATH=$(CWD) python -c 'import data_io'
 
 py3test: py3swig
-	-unlink -f data_io.so && ln -s date_io.so data_io.so.$(PY3)
+	-rm -f data_io.so && ln -s data_io.so.$(PY3) data_io.so
 	-python3 -c 'import data_io'
 
 pytest: py2test py3test
