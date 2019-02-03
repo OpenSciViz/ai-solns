@@ -96,11 +96,18 @@ def flow(tiles, xsrc, y0, dim=14):
   path, etc. 
   """
   global _flowcnt
+  if( y0 < 0 or y0 >= dim-1 ): return -1
+
   xl = xr = xsrc
+  deepest = dim -1
 
-  yd = flow_down(tiles, xsrc, y0, dim)
+  if( not (tiles[y0+1][xsrc] == '#') ):
+    yd = flow_down(tiles, xsrc, y0, dim) 
+    while( not (yd < 0) and (yd <= deepest) ):
+      yd = deepest = flow(tiles, xsrc, yd, dim)
+  
   clay_print(tiles, dim)
-
+  
   xld = flow_left(tiles, xl, y0, dim)
   clay_print(tiles, dim)
 # print("flow left-down: ", xld)
