@@ -1,0 +1,17 @@
+HD_COMPONENT_NAME	= astroh
+
+HD_COMPONENT_VERS	= 
+
+HD_TEST_CXXTASK		= test_next
+
+HD_TEST_CXXTASK_SRC_cxx	= ${HD_TEST_CXXTASK}.cxx
+
+HD_CXXFLAGS		= ${HD_STD_CXXFLAGS}
+
+HD_CXXLIBS		= ${HD_LFLAGS} -lahgen -lahfits -lahlog -lst_stream ${HD_STD_LIBS} ${SYSLIBS}
+
+HD_TEST_TASKS		= ${HD_TEST_CXXTASK}
+
+HD_INSTALL_HELP		= ${HD_TEST_CXXTASK}.html
+
+include ${HD_STD_MAKEFILE}

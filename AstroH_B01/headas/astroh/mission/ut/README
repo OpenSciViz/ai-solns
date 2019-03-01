@@ -1,0 +1,3 @@
+This contains unit tests for AstroH core libraries and applications (tasks),
+which will include input files as well as test configuration (aht manifest)
+files.

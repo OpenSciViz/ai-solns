@@ -1,0 +1,295 @@
+/*! \mainpage CCfits Documentation
+
+<CENTER>CCfits requires <A HREF="http://heasarc.gsfc.nasa.gov/docs/software/fitsio/fitsio.html">CFITSIO</A></CENTER>
+\htmlonly
+<b><a href="http://heasarc.gsfc.nasa.gov/docs/software/fitsio/ccfits/index.html">Return To CCfits Home Page</a></b><br><br>
+\endhtmlonly
+
+  \section intro Introduction
+  
+  CCfits is an object oriented interface to the cfitsio library.
+  cfitsio is a widely used library for manipulating FITS (Flexible
+  Image Transport System) formatted files.
+  This following documentation assumes prior knowledge of the FITS format and
+   some knowledge of the use of the cfitsio library, which is in wide use,
+   well developed, and available on many platforms. 
+
+  \htmlonly
+  
+  For information about FITS and cfitsio, refer to:
+  
+  <UL>
+  <LI><A HREF="http://fits.gsfc.nasa.gov">
+  Details about the FITS format and the current standard</A>
+
+  <LI>Home page for the
+       <A HREF="http://heasarc.gsfc.nasa.gov/docs/software/fitsio/fitsio.html">
+	cfitsio library</A>
+  </UL>
+  \endhtmlonly
+
+   \latexonly
+   Readers unfamiliar with 
+   FITS but in need of performing I/O with FITS data sets are directed to the first
+   cfitsio manual, available at
+	{\it http://heasarc.gsfc.nasa.gov/docs/software/fitsio/fitsio.html}
+   Information about the FITS file format and the current standard is available from
+   {\it http://fits.gsfc.nasa.gov}
+   \endlatexonly     
+  
+   
+   The CCfits library  provides an interface
+   that allows the user to manipulate FITS format data through the
+   high-level building blocks of FITS files and Header-Data Units
+   (HDUs).    The implementation is designed to hide the details of
+   performing FITS I/O from the user, who will write calls that
+   manipulate FITS objects by passing filenames and lists of strings
+   that represent HDUs, keywords, image data and data columns. Unlike cfitsio, which typically requires
+   several calls to access data  <i>(e.g. open file, move to correct header, determine
+   column containing table data, read data)</i> CCfits is designed
+   to make reading data atomic. For example, it
+   exploits internally existing optimization techniques for FITS I/O,
+   choosing the optimal reading strategy as available [see the cfitsio manual, Chapter 13]
+   when data are read on initialization. 
+   Data written by CCfits will also be compliant with the FITS standard by
+   specification of class constructors representing FITS dataset elements.
+     
+   
+   CCfits necessarily works in a fundamentally different way than cfitsio.
+   The general pattern of usage for CCfits is: create a FITS object, which either opens a disk file
+or creates a new disk file, create references to existing or new HDU objects within it,
+and manipulated the data through the references. For files with Write access the 
+library is designed to keep the FITS object on disk in sync with the memory copy.
+The additional memory copy increases the resources required by a calling program in
+return for some flexibility in accessing the data.
+     
+   \section about About this Manual
+   
+   This document lays out the specification for the CCfits library. 
+   
+    \latexonly 
+   The next sections  document
+   the installation procedure and the demonstration program {\it cookbook} which gives 
+   examples of usage with comments.
+  
+   Following sections give a list of what is implemented in CCfits compared to the cfitsio
+   library. For background information and as an example there is  a section describing how CCfits
+   is to be used in XSPEC, for which it was originally designed, which may serve to give
+   the reader some insight into the design decisions made.
+   
+   \endlatexonly
+   
+   \htmlonly
+   The hyperlinks below document the installation procedure, and the demonstration program
+   <i>cookbook</i> which gives 
+   examples of usage with comments.
+   
+<UL>
+  <LI><a href="./installation.html">Installing the Package</a> 
+   
+  <LI><a href="./cookbook.html">Getting Started</a>
+  
+  <LI><a href="./missing.html">What's Present, What's Missing, and Calling CFITSIO</a>
+  
+  <LI><a href="./implementation.html">Implementation Notes</a>
+    
+</UL>
+   \endhtmlonly   
+  
+   \section rel1 Release Notes for Version 2.4 Dec 2011
+   Fixes:
+   - Compressed images may now be written with BITPIX=32.  This fix was made
+   by internally storing the image array as int types rather than longs (see
+   backwards compatibility issues).
+   - For variable-width columns, the write functions now allow all of the same
+   type conversions as had been working with fixed-width columns.
+   - The null-value versions of the primary and extension image write functions
+   are now working.
+   - The basic FITS constructor can now handle files containing multiple extensions
+   which have the same name AND version number.  (Note that this is still not
+   a recommended file structure.)
+   - BinTable's addColumn function now automatically first makes itself the
+   current extension so that the user doesn't have to call ExtHDU::makeThisCurrent().
+   - Bug fix to Table's deleteRows function.  This error had been preventing the
+   output stream operator from working on vector columns after rows had been deleted.
+   
+   Backwards Compatibility Issue:
+   - For images of BITPIX=32, CCfits now stores the values in a valarray of
+   ints rather than longs.  This affects the public interface in one place:
+   the return type of the ImageExt<T>::image() function.
+   
+   \section rel2 Release Notes For Version 2.3 Nov 2010
+   Enhancements to CCfits:
+   - 3 previously protected functions are now made public:  Keyword::keytype(),
+   PHDU::simple(), and PHDU::extend().
+   - New function: ExtHDU::isCompressed().
+   - Uses less memory during the image loading operations for primary and
+     extension HDUs.
+   - When the basic version of the FITS constructor is called in Write mode on
+   a pre-existing file, it will now automatically read ALL of the headers rather
+   than just the primary.  This makes it conform more closely to the Read mode
+   behavior, and it makes things easier when trying to append new HDUs to files
+   containing an unknown number of existing HDUs.  (See Backwards Compatibility)
+   
+   Bug Fixes:
+   - In the 2 FITS class deleteExtension functions, the index numbers of all
+   HDU objects which follow the deleted are now decremented by one.
+   (See Backwards Compatibility)
+   - Fix to the PHDU write functions which take a nullValue argument.  Neither
+   could be instantiated due to an invalid static_cast of pointers.
+   - Fix needed for the FITS::copy function to allow the Columns in the newly
+   created HDU to be modifiable.
+   - The basic version of the FITS constructor, when in Write mode, was
+   ignoring the user's readDataFlag and optional primary keys input.
+   - An error in the (seldom instantiated) Image class assignment operator
+   was preventing compilation with the nvcc compiler.
+   - On 64-bit Linux only, a bad cast error is triggered when trying to
+   read an image of type signed or unsigned long, into a valarray with the
+   opposite signed/unsigned qualifier.
+   - All of the FITS::read functions now perform a check to prevent
+   multiple entries of the same HDU from appearing in the FITS::extension()
+   multimap.
+   - For case of Columns of type unsigned longs, the object's lower data
+   limit value was left unitialized.
+   
+   Backwards Compatibility Issues:
+   - If you're calling either FITS::deleteExtension function AND you have
+   saved references to any of the ExtHDU objects which follow the deleted
+   object, note that those ExtHDUs will now have an index number 1 less than before.
+   Their indices will now correctly match what's actually in the FITS file.
+   - When using the basic version of the FITS constructor in Write mode on a pre-existing file, you no
+   longer need to first call FITS::read to access any of the ExtHDUs.  These are
+   now read automatically, same as when this constructor is called in Read mode.
+   However this change shouldn't require the removal of the FITS::read calls 
+   from your code.  They will merely be redundant if left in.  
+   
+   \section rel3 Release Notes For Version 2.2 Sep 2009
+   Enhancements to CCfits:
+   - Added an auto-generated pkg-config file to the stand-alone distribution.
+   - Added an option for case-insensitive searching in the ExtHDU and Table
+   Column get-by-name functions.
+   - The public functions column() and numCols() have been added to the
+   ExtHDU interface.  They were previously available only in the derived
+   Table class.
+   - New resetRead and getNullValue functions for Column class.
+   - Improved the documentation for the nullValue versions of the Column
+   read/write member functions.
+   
+   Bug Fixes:
+   - Converted non-standard calls to vector and valarray end iterators.
+   These were causing runtime exceptions when built with Microsoft Visual C++ v9.0.
+   - The Column addNullValue function now works for cases where the null value
+   argument is of a type that requires casting to match the type of data stored
+   in the Column.
+   - Fix to the Column writeArrays function for the case where valarrays of
+   varying length were sent to fixed-width columns.  It was previously sending
+   along a default null value even when the user did not request one.
+   - Fix for reading and writing complex data types to scalar columns.  The
+   first "firstRow" complex values were not being written or read.
+   - Renamed private FITS::extension() function to extensionMap().  This is to 
+   prevent user from having to explicitly declare a const FITS pointer in order to
+   use the public const FITS::extension*() function.
+   
+   Backwards Compatibility Issue:
+   - To prevent overloading ambiguity resulting from the new 
+   flag added to ExtHDU/Table get-by-name Column functions for case-insensitive
+   searches, the protected column(string,Column*) function has been renamed to
+   setColumn.  As this is a protected function, the change should not affect
+   standard usage of CCfits.
+   
+   For a more complete listing, see the CHANGES file distributed with the software.
+   For earlier versions, see \ref releases.   
+   
+   \section ack Authors and Acknowledgements
+   
+   CCfits was written as part of a re-engineering effort for the X-Ray data analysis program,
+   XSPEC. It was designed using Rational Rose and originally implemented on a Solaris platform
+   by Ben Dorman to whom blame should be attached. Sandhia Bansal 
+   worked on part of the implementation and, and Paul Kunz (pfkeb@slac.stanford.edu) wrote the
+   configuration scheme and dispensed helpful advice: both are also thanked profusely
+   for the port to Windows2000/VC++.net. Thanks to R. Mathar (MPIA) and 
+   Patrik Jonsson (Lick Obs.) for contributing many helpful suggestions and bug reports, 
+   and ports to HP-UX and AIX respectively.
+   
+   CCfits is currently maintained by Craig Gordon and Bryan Irby (ccfits@heasarc.gsfc.nasa.gov).  Suggestions and  bug reports 
+   are welcome, as are offers to fill out parts of the implementation that are missing. We are 
+   also interested in knowing which parts of cfitsio that are not currently supported should be 
+   the highest priority for future extensions.
+   
+   
+*/
+
+/*! \page  implementation Implementation Notes
+
+
+This section comments on some of the design decisions for CCfits. We 
+note the role of cfitsio in CCfits as the underlying "engine," the use of the C++
+standard library. We also explain some of the choices made for standard library containers
+in the implementation - all of which is hidden from the user [as it should be].
+
+\subsection wrapper CCfits wraps, not replaces, cfitsio.
+
+Most importantly, the  library wraps rather than
+replaces  the use of cfitsio library; it does not perform direct disk I/O.
+The scheme is designed to  retain the well-developed facilities of
+cfitsio (in particular, the extended file syntax), and make them available to
+C++ programmers in an OO framework. Some efficiency is lost over
+a 'pure' C++ FITS library, since the internal C implementation of many functions
+requires processing  if blocks or switch statements that could be recoded in
+C++ using templates. However, we believe that the current version strikes a resonable
+compromise between developer time, utility and efficiency.
+
+\subsection ansi ANSI C++ and the Standard C++ Library
+
+The implementation of CCfits  uses the C++ Standard Library containers
+and algorithms [also referred to as the Standard Template Library,
+(STL)] and exception handling.  Here is a summary of the rationale
+behind the implementation decisions made.
+
+
+<UL>
+<LI> HDUs are contained within a FITS object using a
+std::multimap<string, HDU*> object.  
+<OL>
+<LI>The map object constructs new array members on first reference</LI> 
+<LI> Objects stored in the map are sorted on entry and retrieved efficiently using binary search techniques. </LI>
+<LI>The pointer-to-HDU implementation allows for
+polymorphism: one set of operations will process all HDU objects within
+the FITS file</LI>  
+<LI> String objects (char* ) are represented by the std::string
+class, which has a rich public interface of  search and manipulation
+facilities.
+</OL>
+
+<LI> Scalar column data [one entry per cell] are implemented using std::vector\<T\> objects.
+
+
+<LI> Vector column data [multiple and either fixed or variable numbers of entries per cell]
+are implemented using  std::vector\<std::valarray \<T\> \>
+objects.  The std::valarray template is intended for optimized numeric
+processing.  valarrays are have the following desirable features:
+
+<OL><LI> they are dynamic, but designed to be allocated in full on
+construction rather than dynamic resizing during operation: this is,
+ what is usually needed in FITS files.  
+ <LI> They have built-in 
+vectorized transcendental functions (e.g. <i>std::valarray\<T\> sin(const std::valarray\<T\>& )</i>.
+<LI> They provide std::valarray\<T\> apply(T f(const T&)) operation, to apply a function f to each element
+
+<LI> They provide slicing operations [see the "Getting Started" section for a simple example].
+
+</OL>
+
+</LI>
+
+<LI>Exceptions are provided in  for  by a FitsException hierarchy,
+which prints out messages on errors and returns control to wherever the
+exception is caught. Non-zero status values returned by cfitsio are
+caught by subclass FitsError, which prints the string corresponding to
+an input status flag. FitsException's other subclasses are thrown on
+array bounds errors and other programming errors. Rare [we hope] errors that
+indicate programming flaws in the library throw FitsFatal errors that 
+suggest that the user report the bug.
+</UL>
+*/  
+

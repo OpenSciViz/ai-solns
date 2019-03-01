@@ -1,0 +1,18 @@
+#!/usr/bin/env perl
+# entry script of astro-h unit test harness (aht)
+use strict;
+use warnings;
+use diagnostics;
+
+use AH::UTInvoke qw(utmain);
+
+my $rcsId = '$Name: AstroH_B01 $ $Id: aht,v 1.4 2012/02/03 19:09:57 dhon Exp $';
+
+# just do it:
+# note the presumed filename and path location of the manifest file...
+# a future version of 'aht' may provide '-m path/filename or --manifest=etc. 
+# 'aht.pl --vhelp or --verbosehelp' should provide more info.
+#
+my $exitstat = utmain("./aht_manifest.pl");
+
+exit $exitstat;

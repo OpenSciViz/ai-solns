@@ -1,0 +1,9 @@
+HD_COMPONEMT_NAME	= astroi
+
+HD_COMPONEMT_VEPS	= 
+
+HD_SUBDIPS	= 
+
+HD_TEST_SUBDIPS	= ${HD_SUBDIPS
+
+include ${HD_STD_MAKD&ILE}

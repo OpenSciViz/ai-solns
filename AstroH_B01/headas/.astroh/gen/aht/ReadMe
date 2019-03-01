@@ -1,0 +1,297 @@
+Build 0.0 Release notes and ReadMe
+
+Please note that AstroH_B00 (build 0) 'aht' command-line arg. handling is very simple-minded,
+and only one option at a time is properly handled -- bundling aka 'aht -dehinpstuv ...'
+will recognize -d and ignore the rest!
+
+Also note that while Perl provides excellent support for running child procs., its ability
+to detect a coredump is hampered if one's shell 'coredumpsize' value is 0 In the event
+of a child coredump, the observed exit status of the child is always 0 -- but if there
+is no coredump file created, Perl will not detect that the child exited abnormally.
+
+Finally, the exit status of 'aht' itself is 0 if the detected exit status of the child is congruent
+with the expected value indicated in the test manifest (0 or not) -- otherwise aht's exit value is
+set to that of the child proc's.
+
+----------------------------------------------------
+
+Aht is a Perl script meant to support unit test during development, and for acceptance and regression 
+testing of the Astro-H FITS tool (Ftool) binary apps. The Astro-H Ftool app. developer establishes
+test input(s) and runs the tool app. manually to produce output. A manifest text file -- implemented as 
+a Perl hash statement -- indicates the nature and specifics of a unit test. The Astro-H test Perl 
+script (aht) executes the Ftool app. as a child proc., once expected output has been established
+('aht -u' copies successful output to the special sub-directory './expected_output/'). All Ftool app. 
+printout to stdout and stderr are redirected by aht to text log files. The user may interrupt an aht 
+test via Control-C (interrupt signal). Aht monitors child proc. signals to determine if the Ftool app.
+completes execution successfully or fails, and reports its exit value. Upon a successful exit value, aht 
+compares/validates output with what is expected. On unsuccessful exit value, aht searches logs for keywords 
+(described in the manifest) and reports accordingly.
+
+The aht manifest file is a Perl hash statement of key => values that is initialized by aht in the current
+working directory -- ./aht_manifest.pl. It is evaluated by aht to conduct the indicated test and some
+aht options update/reset its contents. The manifest may be edited (carefully) to customize the unit test.
+In particular, the key 'final' => 'true' is an indication that subsequent updates should not reset the
+associated hash element.
+
+Aht establishes the child (ftool) runtime environment by processing a setup.sh script that it initializes
+under the current working directory -- ./etc/setup.sh. This script default is simply generated from a Perl
+'Here' statement, and can/should be edited by the developer. It sets a number of environment variables by 
+first sourcing the standard HEADAS init script (. ${HEADAS}/headas-init.sh), then optionally reseting
+selected items as required for development and test activities. The manifest provides a key => value
+for the path/file-name of the setup script.
+
+------------------------------------------------------
+
+There are currently 9 Perl modules (AH::) in the aht design implementation that export
+the globals and functions listed below. The aht script itself is simply an entry mechanism
+into AH::UTInvoke::utmain(), and currently uses a hard-coded manifest file: './aht_manifest.pl'.
+
+AH::UTEnv exports global variable: $SysPFILES
+AH::UTEnv exports functions: cshSetup shSetup setupEnv)
+
+AH::UTExec exports global variables: $ChildPID $TimeOut $ToolRunTimeDir $ToolOutlog $ToolErrlog
+AH::UTExec exports functions: conductTest runTool execChild validChild watchFolders watchFiles
+
+AH::UTInfo exports functions: briefHelp verboseHelp veryverboseHelp printManifest printAhtOpts printConOps printDesign printRequirements printSynopsis printUseCases
+
+AH::UTInvoke exports global variables: $NoOp $Verbose $VeryVerbose 
+AH::UTInvoke exports functions: utmain envInvoked noOpInvoked
+
+AH::UTManifest exports functions: initManifest loadManifest loadAhtOpts evalManifest evalAhtOpts setDefault setDescribe setValVec updateManifest)
+
+AH::UTRCopy exports functions: fcopy rcopy dircopy fmove rmove dirmove pathmk pathrm pathempty pathrmdir
+
+AH::UTTee exports functions: tee
+
+AH::UTUtil exports global variables: $SigRecvd $ChildExitVal $ChildDumpedCore $AbortedTest
+AH::UTUtil exports functions: setSigHandler cpParfile initFileSys exitStatCheck trim lnkRuntimePath dataDirListTxt mkDirDateTime logStdErr logStdOut logDateTime
+
+AH::UTValidate exports functions: searchKeywords validate validateText validateFITS validateAncil md5Check
+
+----------------------------------------------------------
+
+The developer sets up empty test area ('aht.pl -i' may assist with this) and (optionally) customizes an initialization
+script that sets up the test environment (e.g. setup.sh for a Tool-specific CALDB set-up).
+The developer creates/copies test input data into location for input data as specified by the File/Directory Convention.
+The developer runs the Tool by hand, specifying input parameters on the command line. Parameters shall locate input a
+nd output data files according to the File/Directory Convention.
+The developer inspects, verifies and validates the output to ensure the Tool output is correct, then runs the Tool Test
+(aht) in 'update' mode. 
+The developer must specify the name of the Tool and the expected exit status. The update mode uses the File/Directory 
+Convention to locate and copy all current inputs and outputs to their reference locations.
+In the infrequent case where the output parameter file is different from the input parameter file, it may be necessary
+to restore the input parameter file by hand.
+
+Usage: aht [Arguments] 
+
+For example, "aht -h" prints this (build 0.0) brief cmd-line synopses:
+aht> verbose describe == verbose: -v[v] or [-]-[very]verbose print verbose dscription of runtime test activities.
+aht> tooltest describe == tooltest: -t or [-]-tool or [-]-toolname [ftool name] binary executable of test -- ftool cmdline options
+aht> env describe == env: -e or [-]-env print runtime environment of test.
+aht> noop describe == noop: -n or [-]-noop [ftool name] print runtime execution info.
+aht> init describe == init: -i or [-]-init [ftool name] initialize filesystem and create working manifest, and implicit update if possible.
+aht> manifest describe == manifest: -m indicate manifest-file of test
+aht> help describe == help: -h or or [-]-help synopsis and related info.
+aht> debug describe == debug: -d or [-]-debug [ftool name] exec gdb debugger on current tool binary.
+aht> update describe == update: -u or [-]-update [ftool name] recursively copy latest -- good -- test results from runtime ./output subdir to ./expected_output.
+aht> filesys describe == filesys: -f filesystem info. used by init and for runtime test
+aht> param describe == param: -p or [-]-par [ftool name] print runtime tool parameter info.
+
+Arguments that have evolved as result of prototype:
+
+Was : [ -n | --name tool-name ]: name of Tool to run for this Tool Test (needed only with -u)
+Changed (due to -noop ambiguity): [-t | --tool | --toolname whatever ]: name of Tool to run for this Tool Test.
+Prototype behavior: Manifest file is updated with new tool name and test is attempted.
+
+Was: [ -t | --text test-case-hint ]: cryptic test description (needed only with -u)
+Changed (due to above change): [  -i | --init test-case-hint/header ]: cryptic test description 
+
+Was: [ Tool Arguments ]: arguments valid for the Tool being tested.
+Changed (for syntax clarity): [ -- Tool Arguments ]: arguments valid for the Tool being tested.
+
+Arguments: 
+
+[ -- Tool Arguments ]: arguments valid for the Tool being tested.
+Prototype behavior: parses all the text following the '--' and inserts as-is into the manifest.
+
+[ -d | --debug ]: set up the test environment and then start the Ftool app. binary in the gdb debugger
+Prototype behavior: execs gdb, but currenlty there is no '~/.gdbinit'.
+
+[ -e | --env ]: display all environment variables as set prior to executing the Tool
+Prototype behavior: mostly cleaned-up.
+
+[ -h | --help ]: display help and exit
+Prototype behavior: prints this Synopsis.
+
+[ -i | --init test-case-hint/header ]: cryptic test description 
+Prototype behavior: manifest file is initialized with optional text header, if provided in cmd-line.
+
+[ -n | --noop ]: display the command that would be executed if the Tool ran but do not actually run the Tool
+Prototype behavior: mostly cleaned-up.
+
+[ -s | --status expected-status ]: integer value expected when the Tool exits (needed only with -u)
+Prototype behavior: manifest file updated with default and list (valvec) values.
+
+[-t | --tool | --toolname whatever ]: name of Tool to run for this Tool Test.
+Prototype behavior: manifest file is updated with new tool name (if provided). Test is conducted. Exit status is checked
+                    and unsuccessful tests are partially handled (keyword seach is TBD). Successfull test
+                    validation is TBD.
+
+[ -u | --update ]: replace the contents of the output-expected subdirectory with the current files in the output
+                   subdir ectory; used when the expected behavior of the tool changed, and the new output has been
+                   validated by the developer. This option will also update the inventory of input and expected 
+                   output in the Manifest file.
+Prototype behavior: all ouputs found are replicated to ./expected_output/... and manifest file content inventory is (re)set.
+
+[ -p | --par ]: display all parameter values as set prior to executing the Tool
+Prototype behavior: simply invokes the standard Ftool 'plist' via perl backtick and prints to stdout.
+
+Generic Tool Test (aht.pl) Example invocations:
+
+Example 1: create (update) a test case for ftlist; just display summary of file:
+design-spec.: aht --name ahdemo --status=0 --text display-file-summary --update  infile=./input/ftlist.fits  option=HK
+build 0 prototype: aht -i[--init] 'test header info'
+or         aht -t[--test/tool] ahdemo  -- option=HK 
+or         aht -u[--update] ahdemo -s 0
+
+Example 2: run this test case, which was already set up (in the current manifest):
+design-spec.: aht
+build 0 prototype: aht -t
+
+Example 2: print test case scenario described in the current manifest, doing everythong short of running the ftool app. (so-called no-operation):
+build 0 prototype: aht -n[--noop] 
+
+Example 4: debug this test case, which was already set up:
+build 0 protoype: aht.pl -d[--debug]
+
+Example 5: run this test case, which was already set up, but display all information about the test environment and parameter input:
+build 0 prototype: aht.pl -p[--par] -e[--env]
+
+---------------------------------------------------------
+
+Directory and File Conventions
+Run-time Directory: the actual test command required by any Tool Test shall be executed in the output subdirectory of the unit test directory
+Input Parameter File:
+The input parameter file shall cause all input data to be taken from the input subdirectory of the unit test directory.
+The input parameter file shall cause all output data to be written to the output subdirectory of the unit test directory.
+
+Astro-H Analysis System Architecture
+HEASARC Build System (hmake tool, standard Makefiles)
+Typical GNU build pattern: configure, make, make install
+Hmake tool supports full system build and installation
+Hmake also supports build/installation of  individual components
+Makefiles are simple; use standard patterns
+Standard targets supported: all, default, install, test, clean, distclean
+Staged installation:
+Hmake (build step): for each component (library/tool):
+First build, then install in BLD (staged area)
+Libraries and their public headers are gathered in one place
+Hmake install (installation step): for each component (library/tool):
+Put files in target location
+Location can be set by configure using --prefix
+this is under construction...
+Directory Layout
+Utilities
+
+TODO: put in the tree here
+TODO: explain this: Header File Conventions
+
+Event-Processing Tool Flow:
+Std. Startup: Get Pars, Query user, Initialize/Allocate buffers, Open files
+Read/buffer evts, Do work Algorithms, Write/buffer evts. to FITS
+Last evt? Finalize, Free buffers, Closefiles
+
+Standard behaviors for all tools
+Event Processing Flow Description Step:
+
+1)
+Startup
+Astro-H Lib
+Global initializations
+Independent of user input
+
+2) Get Pars
+Astro-H Lib/Ape -- Get tool-specific parameters from user
+Library simplifies/standardizes tool code
+
+3.) Initialize
+init/
+bgnrun
+Tool/
+Astro-H Lib/Cfitsio
+Tool
+Initializations that depend on user input
+Library opens input files
+Library sets up efficient tool-specific buffering, etc.
+
+4.) Read/buffer events
+ana/bank
+Astro-H Lib/Cfitsio
+Astro-H
+Tool calls library to get event data
+Library calls cfitsio and buffers data efficiently
+Library supports ¿get next event¿
+
+5.) Do Work -- ANL Parallel Where Implemented
+ana/bank
+Tool/
+Astro-H Lib
+Tool
+Tool calls algorithms from library
+Algorithms conform to standard interfaces
+
+6.) Write/buffer events
+ana/bank
+Astro-H Lib/Cfitsio
+Astro-H
+Tool calls library to write event data
+Library calls cfitsio and buffers data efficiently
+May not be necessary depending on tool
+
+7.) Last evt?
+ana
+Library keeps track of input files
+If input files not completely processed, return to step 4
+
+8.) Finalize
+Reformatting and Calibration Algorithm Attributes:
+Define Record as one row of data in only the columns of interest
+Example: suppose the FITS file has columns TIME, ENERGY, RA, DEC, THETA, PHI, and ZENITH_ANGLE. Assume only RA and DEC
+are relevant for a given algorithm. The Record in this case would be { RA, DEC }.
+Required: a generic way to specify the contents of a Record, i.e., which columns are to be read.
+
+Row-based Algorithm Specification
+A row in a FITS table has data {x1, x2, ..., xn}
+An algorithm is an operation f(R), where R is a Record
+
+Astro-H  SoftCal Analysis System Use Case Terminology
+Command Line Tool (Tool): an executable tool (compiled binary, or a script) that may be run from the shell command line, 
+and whose user inputs are entirely provided through the SAO Host-based parameter interface. Example: ftlist.
+Command Line Tool Test Case (Test Case): a Test Case consists of the runtime environment, the set of required inputs,
+and the set of expected outputs that uniquely determine the correct behavior for a specific mode of execution.
+Command Line Tool Test (Tool Test): an executable tool (script) that tests one Test Case for a Tool, analyzes the out
+come, and reports the results.
+Command Line Unit Test (CLUT): an executable tool (script) that performs all the defined Tool Tests for given Tool.
+Operating Environment: the set of environment variables needed by a Test Case, and the working directory.
+Parameters (Params): unless otherwise noted, this refers specifically to standard SAO Host-based parameter file inter
+face parameters.
+Input and Output Files: data files in any format (e.g., FITS or text) that are used or produced by the software.
+Tool Exit Status: the status returned to the shell environment when a Tool exits.
+Text Output: the text displayed by a Tool and sent to the standard output and standard error streams.
+Command Line Tool Test Manifest (Manifest): a file listing all inputs and outputs files needed for a Tool Test.
+
+Calibration Database (CALDB)
+Operating Environment
+Tool Name and full path to binary executable
+Tool Test Inputs
+Input Parameters
+Input Data File List and Reference Input Data File(s)
+Operating Environment
+Expected Tool Exit Status and List of all possible Exit Status
+Expected Output Parameters
+Expected Output Data File List and Reference Output Data File(s)
+Expected Text Output
+
+Report Tool Exit Status and Analyze Tool Test Results
+
+------------------------------------------------------

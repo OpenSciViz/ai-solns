@@ -1,0 +1,94 @@
+/*!\page releases Previous Release Notes
+
+   Changes for CCfits 2.1 release Nov 2008
+   - Modified several FITS constructors and FITS::open function to allow
+   proper handling of CFITSIO <b>extended filename syntax</b>.
+   - Extended filename syntax example added to cookbook.
+   - Fix made to FITS::read function for case of missing EXTVER keyword when searching for
+   HDU with extver > 1.
+   - Removed inclusion of the internal-only CFITSIO fitsio2.h file from Column.cxx.  LONGLONG limits
+   definitions are now found in fitsio.h. 
+
+   Changes for CCfits 2.0 release Feb 2008
+   Enhancements to CCfits:
+   - <b>Checksum Capability:</b> 4 checksum related functions have been added to the HDU
+   class, which now allows users to set and verify checksums directly from inside CCfits.
+   - <b>Capturing Error Messages:</b> The FitsException base class now stores its output error message,
+   and it can be retrieved from any of the exception subclass objects with a call to
+   the new FitsException::message() function.
+   - <b>Improved Keyword Handling:</b> New functions copyAllKeys, keywordCategories, and
+   a second addKey function have been added to the HDU class.  The Keyword class 
+   now offers a public setValue function to modify an existing keyword.  Also the class
+   member documentation for keyword related functions has been upgraded and expanded.  
+   - <b>Image Scaling:</b> In the HDU class (for instances of its PHDU and image ExtHDU subclasses),
+    scale and zero set functions can now write BSCALE and
+   BZERO keywords to the file.  A new suppressScaling function has been added to
+   temporarily turn off scaling.  The ImageExt\<T\> class has also been added to the documentation.
+   - <b>Miscellaneous New Functions:</b>Table::getRowsize() (submitted by Patrik Jonsson), Fits::fitsPointer(), 
+   Column::parent().
+   
+   Bug Fixes:
+   - FITS constructor in Write mode caused a segmentation fault when used on read-only files. (Reported by Gerard Zins)
+   - Column write functions were not turning off NULL checking even when the nulval pointer
+   was set to 0. (Reported by Gerard Zins)  
+   - For the FITS constructor which takes an existing FITS object as an argument, when
+   given the filename of an existing file (and without the '!' specifier), it places
+   a new primary HDU in the first extension.  It shouldn't allow a write operation at
+   all in this case.  (Reported by Andy Beardmore)
+   - Some additional #include statements are needed for compilation on a test 
+   version of g++4.3 (Reported by Aurelien Jarno)
+   
+   Backwards Compatibility Issues: 
+   - The following documented public access member functions
+   have now been removed or made protected/private.  As these functions were
+   either never fully implemented or could not successfully be used from
+   external code, it is hoped that these removals will not break any pre-existing code:   FITS::clone, HDU::setKeyWord, 
+   the HDU::bitpix set function,  the Keyword class constructors.
+   
+   Changes for CCfits 1.8 release 10/07.
+   - Fixes made to bugs in Column write and writeArrays functions which were
+   preventing the writing of variable-width columns.  Also now allows
+   writing to fixed-width columns with arrays that are shorter than the fixed width.
+   - The HDU::readAllKeys() function will no longer throw if it is unable
+   to read a particular keyword.  Instead it will skip it and move to the
+   next keyword.  This was done primarily to prevent it from tripping
+   on undefined keywords. 
+   
+   Changes for CCfits 1.7 release 6/07.   
+   Fixes for the following bugs:
+   - The FITS::copy function merely wrote the copied HDU to the file, but
+   did not allow it to be accessed for further modifications within CCfits.
+   - When reading compressed images, CCfits should use the ZBITPIX and
+   ZNAXIS keywords rather than BITPIX and NAXIS.  (Fix is based on a 
+   patch submitted by Patrik Jonsson.)
+   - The BSCALE keyword was being ignored if the BZERO keyword didn't also
+   exist.
+   - Cases of out-of-scope usage of std::string's c_str() pointers, could 
+   potentially cause crash. (Fix submitted by Jeremy Sanders.) 
+   
+   Changes for CCfits 1.6 release 11/06
+   - Added capbility to write compressed images, including 6 new wrapper
+   public functions in FITS class.
+   - In FITS::addImage, corrected the logic which checks for a pre-existing
+   image extension with the same version number.
+   - CFITSIO 3.02 renamed fitsfile struct member rice_nbits to noise_nbits.
+   Made corresponding change in copyFitsPtr function in FITSUtil.cxx.  As it
+   stands, this makes this version of CCfits incompatible with earlier
+   versions of CFITSIO
+   - In FITS.h definition, removed both friend declarations of HDUCreator
+   Make functions.  It seems neither function needs to be a friend, and one
+   of them is actually private.  Some compilers don't allow this (report
+   came from MS VisualC++ user).  
+   - Bug fix in Make function of HDUCreator.cxx.  When creating a new
+   ImageExt (and not the primary), it was only passing the version number
+   along for float and double types.  This causes problems when there is
+   more than 1 image extension with the same name, and it needs the version
+   number to distinguish them.
+   - A couple of bug fixes to the first/last/stride version of PHDU read
+   image subset.  It was not passing the proper parameters to 
+   fits_read_subset, and was not always correctly resizing the 
+   internal m_image array.
+   
+   
+
+*/

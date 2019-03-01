@@ -1,0 +1,101 @@
+#!/usr/bin/env perl
+#
+# look for 3-char text strings in binary app file
+# that provide "lib ... .so" or "lib ... .dylib" info.
+#
+# also look for rcs/cvs/svn revision id text
+# via "$id ... $"
+#
+
+sub fetchLibName {
+  my $lib = shift;
+  print "$lib ... \n";
+  my $fh = shift;
+  my $byte = '';
+  my $txt = '';
+  my $stat = 0;
+  do {
+    $stat = sysread($fh, $byte, 1);
+    $txt = unpack("a", $byte);
+#   $txt = $txt . chr($byte);
+  } until( 0 != $stat or $txt eq '.' );
+
+  $lib = $lib . $txt;
+  return $lib;
+}
+
+sub fetchRevision {
+  my $rev = shift;
+  print "$rev ... \n";
+  my $fh = shift;
+  my $byte = '';
+  my $txt = '';
+  my $stat = 0;
+  do {
+    $stat = sysread($fh, $byte, 1);
+    $txt = $txt . unpack("a", $byte);
+#   $txt = $txt . chr($byte);
+  } until( 0 != $stat or $txt eq '$' );
+
+  $rev = $rev . $txt;
+  return $rev;
+}
+
+#
+############ main ###########
+#
+
+my $argcnt = @ARGV;
+print $argcnt, " $ARGV[0] \n";
+my $appname = "ahvbslicer";
+if( $argcnt > 0 ) { $appname = $ARGV[0]; }
+print $appname, "\n";
+open my $fh, '<:raw', $appname or die "Cannot open file '$appname' for binary read";
+
+my $byte = "";
+my $c = "";
+my $lib = "";
+my $rev = "";
+my $total = 0;
+while( 0 != sysread($fh, $byte, 1) ) {
+  $lib = ''; $rev = '';
+# $c = chr($byte);
+  $c = unpack('a', $byte);
+  if( $c eq '$' ) {
+    $rev = $c;
+#   print "$rev ... \n";
+  }
+  if( lc($c) eq 'l' ) {
+    $lib = $c;
+#   print "$lib ... \n";
+  }
+# fetch another byte and check if it is an 'i':
+  sysread($fh, $byte, 1);
+  $c = unpack('a', $byte);
+  if( lc($c) eq 'i' ) {
+    if( length($rev) == 1 ) {
+      $rev = $rev . $c;
+      print $rev;
+    }
+    if( length($lib) == 1 ) {
+      $lib = $lib . $c;
+      print $lib;
+    }
+    sysread($fh, $byte, 1);
+    if( lc($c) eq 'd' ) {
+      if( length($rev) == 2 ) {
+        $rev = $rev . $c;
+        my $rev = fetchRevision($rev, $fh);
+        print $rev;
+      }
+    }
+    if( lc($c) eq 'b' ) {
+      if( length($lib) == 2 ) {
+        $lib = $lib . $c;
+        $lib = fetchLibName($lib, $fh);
+        print $lib;
+      }
+    }
+  }
+}
+

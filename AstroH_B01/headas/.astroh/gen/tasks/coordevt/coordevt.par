@@ -1,0 +1,36 @@
+infile,s,a,"events_in.fits",,,"Name of FITS event file to read"
+outfile,s,a,"events_out.fits",,,"Name of FITS event file to write"
+teldeffile,s,a,"teldef.fits",,,"Name of teldef calibration file or CALDB"
+attfile,s,a,"attitude.fits",,,"Name of FITS attitude file"
+dattfile,s,h,"deltaattitude.fits",,,"Name of FITS delta attitude file"
+
+startsys,s,h,"LOWEST",,,"Initial origin coordinate system"
+stopsys,s,h,"HIGHEST",,,"Final destination coordinate system"
+
+aberration,b,h,yes,,,"Should aberration be included in aspecting?"
+follow_sun,b,h,yes,,,"Recalculate the Sun position for each event?"
+attinterpolation,s,h,LINEAR,LINEAR|CONSTANT,,"Attitude interpolation method"
+dattinterpolation,s,h,LINEAR,LINEAR|CONSTANT,,"Delta attitude interpolation method"
+atttimemargin,r,h,32.,,,"Allowed margin for time extrapolation in attfile (sec)"
+datttimemargin,r,h,32.,,,"Allowed margin for time extrapolation in dattfile (sec)"
+
+randomize,b,h,yes,,,"Randomize coordinates when rebinning?"
+seed,i,h,-1956,,,"Random number generator seed"
+randsys,s,h,"CALDB",,,"If randomize=yes, origin coordinate system (default read from CALDB)"
+
+eventext,s,h,"EVENTS",,,"Name of extension containing events"
+timecol,s,h,"TIME",,,"Name of column containing event time"
+
+blankcol,b,h,yes,,,"Should null values be assigned to columns not calculated?"
+nullvalue,i,h,-999,,,"Null value to write when coordinates are out of bounds"
+
+ra,r,a,278.715,,,"Right ascension of nominal pointing"
+dec,r,a,-8.03162,,,"Declination of nominal pointing"
+roll,r,a,0.0,,,"Roll angle of nominal pointing"
+ea1,r,a,0.0,,,"Euler angle 1 for average attitude"
+ea2,r,a,0.0,,,"Euler angle 2 for average attitude"
+ea3,r,a,0.0,,,"Euler angle 3 for average attitude"
+
+history,b,h,yes,,,"Write HISTORY keywords to output?"
+chatter,i,h,3,0,3,"Verbosity level"
+mode,s,h,"ql",,,"Mode"

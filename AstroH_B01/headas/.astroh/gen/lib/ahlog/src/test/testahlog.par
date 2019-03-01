@@ -1,0 +1,5 @@
+runtype    , s, a, "function",  ,  , "'function', 'class', or 'stacktrace'? "
+chatter    , i, h,  2        , 0, 3, "Chatter level for output" 
+debug      , b, h, no        ,  ,  , "Debug messages on?" 
+logfile    , s, h, "!DEFAULT",  ,  , "Name of log file, DEFAULT, or NONE; '!' to clobber" 
+mode       , s, h, "ql"      ,  ,  , "Mode of automatic parameters"

@@ -1,0 +1,33 @@
+$Name: AstroH_B01 $ $Id: README,v 1.2 2012/07/24 20:18:54 dhon Exp $
+
+There are three runtime libraries constructed from the source code and headers
+under this directory via the standard HEADAS hmake mechanism.
+
+All general telemetry (TLM) related functions which support both HXI and SGD are
+organized into libahtlm.
+
+All HXI instrument specific functions should be organized into libhxi.so.
+
+All SGD instrument specific functions should be organized into libsgd.so.
+
+As library functions and data structures become more mature in the build process,
+general functionally shall be "refactored" out of instrument specific implementations
+into the general library -- i.e. moved from either libahhxi or libahsgd into libahtlm,
+and/or perhaps a new (Build 2.0) library called libahinstrum.
+
+Essential contents of the library source directories:
+
+README -- this file.
+Makefile -- standard hmake Makefile.
+
+Composition of libahtlm.so:
+ahtlm/ahtlm:  ahBits.h ahSlice.h ahTLM.h ahTLMinfoCache.h ahTLMIO.h
+ahtlm/src: ahBits.cxx ahErrHashFITS.cxx ahSlice.cxx ahTLM.cxx ahTLMinfoCache.cxx ahTLMIO.cxx
+
+Composition of libahhxi.so:
+ahhxi/ahhxi: ahHXItyps.h
+ahhxi/src: doHXI.cxx doHXItest.cxx HXItemplate.cxx ioHXI.cxx lutHXI.cxx
+
+Composition of libahsgd.so:
+ahsgd/ahsgd: ahSGDtyps.h 
+ahsgd/src: doSGD.cxx doSGDtest.cxx ioSGD.cxx lutSGD.cxx SGDtemplate.cxx

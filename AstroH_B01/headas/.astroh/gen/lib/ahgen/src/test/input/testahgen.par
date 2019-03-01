@@ -1,0 +1,5 @@
+infile, f, a, , , , "Enter the input FITS file name and extension containing SEGMENT and ASIC_MOCKUP columns"
+outfile, f, a, , , , "Enter output FITS file name"
+chatter, i, h, 3, 0, 5, "Chatter Level"
+clobber, b, h, no, , , "Overwrite existing output file?"
+mode, s, h, "ql", , , "Mode of automatic parameters"

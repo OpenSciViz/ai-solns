@@ -1,0 +1,8 @@
+/**
+\defgroup mod_ahmath Math Library (ahmath)
+@ingroup mod_gen_lib
+
+The ahmath library performs general mathematical operations:
+ - interpolation
+
+*/

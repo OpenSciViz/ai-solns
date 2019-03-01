@@ -1,0 +1,136 @@
+HD_COMPONENT_NAME	= heacore
+
+HD_COMPONENT_VERS	= 
+
+HD_LIBRARY_ROOT		= ${AST}
+
+HD_LIB_STYLE		= ${HD_LIB_STYLE_F77}
+
+HD_LIBRARY_SRC_c	= axis.c box.c c2f77.c channel.c circle.c \
+			cmpframe.c cmpmap.c cmpregion.c dsbspecframe.c dssmap.c \
+			ellipse.c error.c fbox.c fchannel.c fcircle.c \
+			fcmpframe.c fcmpmap.c fcmpregion.c fdsbspecframe.c \
+			fdssmap.c fellipse.c ferror.c ffitschan.c \
+			ffluxframe.c fframe.c fframeset.c fgrismmap.c \
+			finterval.c fintramap.c fitschan.c fkeymap.c flutmap.c \
+			fluxframe.c fmapping.c fmathmap.c fmatrixmap.c \
+			fnullregion.c fobject.c fpcdmap.c fpermmap.c fplot.c \
+			fplot3d.c fpointlist.c fpolygon.c fpolymap.c fprism.c \
+			frame.c frameset.c fratemap.c fnormmap.c fregion.c \
+			fshiftmap.c fskyframe.c fslamap.c fspecfluxframe.c \
+			fspecframe.c fspecmap.c ftimeframe.c ftimemap.c \
+			fsphmap.c ftranmap.c fselectormap.c fswitchmap.c \
+			funitmap.c fwcsmap.c fwinmap.c fxmlchan.c fzoommap.c \
+			globals.c grismmap.c interval.c intramap.c keymap.c \
+			loader.c lutmap.c mapping.c mathmap.c matrixmap.c \
+			memory.c nullregion.c object.c pcdmap.c permmap.c \
+			plot.c plot3d.c proj.c pointlist.c pointset.c polygon.c \
+			polymap.c prism.c normmap.c ratemap.c region.c \
+			shiftmap.c skyaxis.c skyframe.c slamap.c \
+			specfluxframe.c specframe.c specmap.c sphmap.c stc.c \
+			stcresourceprofile.c stcsearchlocation.c \
+			stccatalogentrylocation.c stcobsdatalocation.c fstc.c \
+			fstcresourceprofile.c fstcsearchlocation.c \
+			fstccatalogentrylocation.c fstcobsdatalocation.c \
+			timeframe.c timemap.c tranmap.c selectormap.c \
+			switchmap.c unit.c unitmap.c wcsmap.c winmap.c xml.c \
+			xmlchan.c zoommap.c pal.c tpn.c wcstrig.c grf3d_pgplot.c \
+			grf_pgplot.c
+
+# do not compile:
+# err_null.c astbad.c ast_test.c err_ems.c grf_2.0.c grf_3.2.c sla.c
+
+HD_CFLAGS		= ${COPT} ${CFLAGS} ${HD_IFLAGS}
+
+HD_INSTALL_HEADERS      = ast.h wcsmath.h
+
+HD_INSTALL_LIBRARIES	= ${HD_LIBRARY_ROOT}
+
+HD_DISTCLEAN		= ast.h ast_cpp ast_link Makefile .deps \
+			  component.xml config.h config.log config.status \
+			  libtool stamp-h1
+
+# Copied from ast/Makefile.am: Header files which contribute to the
+# "ast.h" file, organised to correspond with the class hierarchy.
+AST_H_FILES = \
+    xml.h \
+    wcstrig.h \
+    proj.h \
+    memory.h \
+    error.h \
+    globals.h \
+    unit.h \
+    ast_err.h \
+    version.h \
+    object.h \
+       keymap.h \
+       pointset.h \
+       axis.h \
+          skyaxis.h \
+       mapping.h \
+          cmpmap.h \
+          dssmap.h \
+          grismmap.h \
+          intramap.h \
+          lutmap.h \
+          mathmap.h \
+          matrixmap.h \
+          pcdmap.h \
+          permmap.h \
+          polymap.h \
+          ratemap.h \
+          normmap.h \
+          shiftmap.h \
+          slamap.h \
+          specmap.h \
+          sphmap.h \
+          timemap.h \
+          selectormap.h \
+          switchmap.h \
+          tranmap.h \
+          unitmap.h \
+          wcsmap.h \
+          winmap.h \
+          zoommap.h \
+          frame.h \
+             cmpframe.h \
+                specfluxframe.h \
+             fluxframe.h \
+             frameset.h \
+                plot.h \
+		   plot3d.h \
+             skyframe.h \
+             specframe.h \
+                dsbspecframe.h \
+             region.h \
+                box.h \
+                circle.h \
+                cmpregion.h \
+                ellipse.h \
+                interval.h \
+                nullregion.h \
+                pointlist.h \
+                polygon.h \
+                prism.h \
+                stc.h \
+                    stcresourceprofile.h \
+                    stcsearchlocation.h \
+                    stccatalogentrylocation.h \
+                    stcobsdatalocation.h \
+             timeframe.h \
+       channel.h \
+          fitschan.h \
+          xmlchan.h 
+
+default: build-ast
+
+all: default publish
+
+include ${HD_STD_MAKEFILE}
+
+build-ast: ast.h
+	@${HD_MAKE} ${AST}
+
+# Copied from ast/Makefile.am:
+ast.h: ${AST_H_FILES} makeh config.h
+	${PERL} ./makeh ${AST_H_FILES} >$@

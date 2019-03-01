@@ -1,0 +1,24 @@
+$Name: AstroH_B01 $ $Id: README,v 1.2 2012/07/24 19:44:14 dhon Exp $
+
+The headas/astroh/hxisgd combined AstroH HXI and SGD instrument 
+calibration software source directory Build 1.0 snapshot:
+
+./Makefile -- hmake Makefile for all software elements under headas/astroh/hxisgd
+./lib -- runtime libraries specifically developed HXI and SGD FITS (Ftool) apps.
+./tasks -- Ftool application main(s)
+./b01tests.tgz -- simple simulated test input files that crudely partially appoximate real
+                  raw telemetry (TLM) data stored in variable length FITS binary table.
+./README -- this file.
+./lib/ahtlm/src/README -- specific description and discussion of libahtlm C/C++ source code.
+./lib/ahtlm/ahtlm/README -- specific description and discussion of the libahtlm C/C++ headers.
+./lib/ahtlm/README -- general description of the ahtlm runtime library.
+./lib/README -- general discussion of the all the HXI and SGD runtime libraries.
+./lib/ahsgd/src/README -- specific description and discussion of libahsgd C/C++ source code.
+./lib/ahsgd/README -- general description of the ahsgd runtime library.
+./lib/ahsgd/ahsgd/README -- specific description and discussion of the libahtlm C/C++ headers.
+./lib/ahhxi/src/README -- specific description and discussion of libahhxi C/C++ source code.
+./lib/ahhxi/README -- general description of the ahhxi runtime library.
+./lib/ahhxi/ahhxi/README -- specific description and discussion of the libahhxi C/C++ headers.
+./tasks/hxisgdsff/README -- general description and discussion of Ftool application "hxisgdsff",
+                            along with specifics about the C/C++ header and source code.
+./tasks/README -- general discussion of all HXI and SGD tasks (Ftool apps.).

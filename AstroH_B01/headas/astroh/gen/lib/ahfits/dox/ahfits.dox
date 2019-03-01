@@ -1,0 +1,19 @@
+/**
+\defgroup mod_ahfits FITS file Library (ahfits)
+@ingroup mod_gen_lib
+
+A thin wrapper to cfitsio providing functions for
+ - file operations: open, close, clone (copy)
+ - read/write header values
+ - describe columns: name, type, units, etc
+ - read/write/traverse rows
+
+Reading and writing of row values is done by making connections of local
+variables with columns in the active HDU. Once connections are made, the read
+function can be called to load the next row's values into the local variables.
+Similarly, a write function exists to take values from the local variables and
+write them into the current row (or make a new row, if at the end of the table).
+
+Currently, ahfits acts only on binary tables (bintables).
+
+*/

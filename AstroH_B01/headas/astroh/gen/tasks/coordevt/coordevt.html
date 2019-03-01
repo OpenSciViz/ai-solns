@@ -1,0 +1,186 @@
+<!--=======================================-->
+<!--  HEADAS HTML HELP FILE TEMPLATE, v1.1 -->
+<!--=======================================-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<style type="text/css">
+  body { margin-left: 5%; margin-right: 5%; }
+  h1,h2,h3,h4 { margin-left: -5%;}
+</style>
+<title>HEADAS help file</title>
+</head>
+<body>
+
+<h2>NAME</h2>
+
+coordevt - converts coordinates between raw, detector, and sky coordinate systems in an event file
+
+<h2>USAGE</h2>
+
+<tt>coordevt infile outfile teldeffile attfile
+
+<h2>DESCRIPTION</h2>
+
+This is a mission-independent tool for taking raw coordinate columns
+in an event file and converting them to detector and sky coordinates.
+In other words it fills the appropriate coordinate columns in the
+events extension of the event FITS file.  Note that the details of
+which columns to read and write are specified in the "teldef"
+calibration file.  This tool is being designed to work with Astro-H,
+Suzaku, and Swift instruments to and support TelDef file formats 0-0.2.
+
+<p>
+
+
+<h2>PARAMETERS</h2>
+<dl>
+
+<dt>infile [string]
+<dd>This parameter is the name of the input event file containing the coordinates (usually raw) to start the first coordinate conversion.
+<p>
+
+<dt>outfile [string]
+<dd>This parameter is the name of the output event file containing coordinates for each coordinate system in the events extension.
+<p>
+
+<dt>teldeffile [string]
+<dd>This parameter is the name of the telescope definition (TelDef) CALDB file, which specifies the coordinate systems and transformation properties.
+<p>
+
+<dt>attfile [string] [not yet implemented]
+<dd>This parameter is the name of the attitude file used in the conversion to sky coordinates.
+<p>
+
+<dt>(dattfile [string])  [not yet implemented]
+<dd>This parameter is the name of or list of the names of the auxiliary ("delta") attitude files needed for certain coordinate transformations (e.g., ASTRO-H HXI RAW-->ACT).
+<p>
+
+<dt>(startsys [string] = LOWEST)
+<dd>This parameter is the name of the bottom-level (usually raw) coordinate system from which the coordinate conversions begin.  Set this parameter to LOWEST to choose the lowest-level coordinate system.  Setting startsys=LOWEST and stopsys=HIGHEST will convert the bottom-level coordinates into all the other coordinate systems.
+<p>
+
+<dt>(stopsys [string] = HIGHEST)
+<dd>This parameter is the name of the top-level (usually sky) coordinate system from which the coordinate conversions end.  Set this parameter to HIGHEST to choose the highest-level coordinate system.
+<p>
+
+<dt>(aberration = yes) [boolean]  [not yet implemented]
+Should the effects of aberration be taken into account when
+calculating the sky coordinate values?  Aberration is the
+apparent bending of light due to the Earth's orbit around the
+Sun.  This is at most a ~20 arcsec effect.
+<dd>
+<p>
+
+<dt>(follow_sun = yes) [boolean]  [not yet implemented]
+Should aberration be recalculated for each event time?  If set
+to "no" the aberration at the time given by the MJDOBS keyword
+will be used for all events.  Setting this to "no" is acceptable
+except for very long observations and will make the program run
+slightly faster.  The "yes" setting should be used for highest
+accuracy.
+<dd>
+<p>
+
+<dt>(attinterpolation = LINEAR) [string] [not yet implemented]
+<dd>Attitude interpolation method.  The value LINEAR results in
+the attitude being linearly interpolated to the event time.  The
+value CONSTANT results in the attitude being taken from the nearest
+attitude record.
+<p>
+
+<dt>(dattinterpolation = LINEAR) [string] [not yet implemented]
+<dd>Delta attitude interpolation method.  The value LINEAR results in
+the delta attitude being linearly interpolated to the event time.  The
+value CONSTANT results in the attitude being taken from the nearest
+delta attitude record. 
+<p>
+
+<dt>(atttimemargin = 32.0) [real] [not yet implemented]
+<dd>Allowed time to extrapolate the spacecraft attitude before the
+first or after the last row in the attitude file.  Events beyond
+this time margin will have their coordinates set to the value of the nullvalue parameter.
+<p>
+
+<dt>(datttimemargin = 10.0) [real] [not yet implemented]
+<dd>Allowed time to extrapolate the auxiliary ("delta") attitude before the
+first or after the last row in the attitude file.  Events beyond
+this time margin will have their coordinates set to the value of the nullvalue parameter.
+<p>
+
+<dt>(randomize = yes) [boolean] [not yet implemented]
+<dd>If this is set to "no" the program will assume that each event
+occured at the center of its raw coordinate pixel.  If it is set
+to "yes", the coordinates from system randsys onward will be calculated
+assuming a random location within the randsys system pixel.  In general
+this should be set to "yes", however, randomization may be
+undesirable if the raw pixels are much larger than the detector
+or sky pixels.
+<p>
+
+<dt>(seed = -1956) [integer] [not yet implemented]
+<dd>Random number generator seed to be used if the "randomize" parameter
+is set to "yes".  For a given seed value, the same results will be
+produced each time the program is run.
+<p>
+
+<dt>(randsys [string] = CALDB) [not yet implemented]
+<dd>This parameter is the name of the coordinate system where randomization is performed if randomization is selected by the randomize parameter.  If set to CALDB, the value of the RANCOORD keyword (if present) of the TelDef file specifies this system.
+<p>
+
+<dt>(eventext = EVENT) [string]
+<dd>This parameter is the name of the FITS file extension containing the event list.
+<p>
+
+<dt>(timecol = TIME) [string]
+<dd>This parameter is the name of the FITS column containing time values.
+<p>
+
+<dt>(blankcol = yes) [boolean] [not yet implemented]
+<dd>This parameter is set to yes to fill with NULL any coordinate columns of the outfile that are not calculated.  The parameter nullvalue is used for integer colummns, and a preset null value is used for floating point columns. If blankcol is set to no, such columns will not be changed.
+<p>
+
+<dt>(nullvalue = -999) [integer]
+<dd>This parameter sets the null integer value for any integer coordinate that cannot be calculated.  
+<p>
+
+<dt>(ra = 0.) [real] [not yet implemented]
+<dd>This parameter is the Right Ascension in decimal degrees of the point
+to appear in the center of sky coordinate images.
+<p>
+
+<dt>(dec = 0.) [real] [not yet implemented]
+<dd>This parameter is the Declination in decimal degrees of the point
+to appear in the center of sky coordinate images.
+<p>
+
+<dt>(roll = 0.) [real] [not yet implemented]
+<dd>This parameter is the roll angle about the center of the sky coordinate in decimal degrees.
+<p>
+
+<dt>(timemargin = 32.0) [real] [not yet implemented]
+<dd>Allowed time to extrapolate the spacecraft attitude before the
+first or after the last row in the attitude file.  Events beyond
+the time margin will have their coordinates set to the "skyxnull"
+and "skyynull" values.
+<p>
+
+<dt>(history = yes) [boolean] [not yet implemented]
+<dd>Write parameter history?
+<p>
+
+<dt>(chatter = 3) [integer]
+<dd>Standard Astro-H chatter parameter. 
+<p>
+
+</dl>
+<h2>EXAMPLES</h2>
+
+<h2>SEE ALSO</h2>
+<p>
+
+<h2>LAST MODIFIED</h2>
+July 2012
+
+</body>
+</html>

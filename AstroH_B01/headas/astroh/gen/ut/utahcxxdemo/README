@@ -1,0 +1,40 @@
+This directory contains the aht-driven unit test for utahcxxdemo.
+
+Please check aht.pl is installed and in the PATH via `which aht.pl`
+If it is, consider setting a sym-link abbreviation for it via:
+ln -s `which aht.pl` aht
+in this working directory and start/init the unit test activity via:
+
+aht -i 
+
+Currently the 'aht.pl -i' places a reference aht_manifest.pl in this
+working directory (./) and provides intial versions of
+./etc/{setup.sh,setup.csh}
+
+To actually start running & testing things, first
+
+source ./etc/setup.csh
+or 
+. ./etc/setup.sh
+
+The above can/should be edit/customized by the developer,
+and note that it (re)sets a number of env. variables including
+HEADAS and PFILES.
+
+Also note 'aht.pl -i' will cp $PFILES/whatever.par to ./input/ 
+
+One may find some sample inptu FITS files and cp them here:
+
+cp -p ../../../gen/lib/astroh/src/test/input/[Re]* input
+
+So try:
+
+aht.pl -i
+aht.pl -e
+aht.pl -n
+aht.pl -t
+aht.pl -u
+
+and retest the updates via
+aht.pl -t
+

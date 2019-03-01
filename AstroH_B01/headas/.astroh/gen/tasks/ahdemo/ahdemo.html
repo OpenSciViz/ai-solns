@@ -1,0 +1,113 @@
+<!--=======================================-->
+<!--  HEADAS HTML HELP FILE TEMPLATE, v1.1 -->
+<!--=======================================-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<style type="text/css">
+  body { margin-left: 5%; margin-right: 5%; }
+  h1,h2,h3,h4 { margin-left: -5%;}
+</style>
+<title>HEADAS help file</title>
+</head>
+<body>
+
+<h2>NAME</h2>
+
+ahdemo - Repackage data from a variable-sized column to an output file of the same format, but with exactly 3 values per row.
+
+<h2>USAGE</h2>
+
+<tt>ahdemo infile outfile</tt> 
+
+<h2>DESCRIPTION</h2>
+
+The intent of ahdemo is to show a proof of concept for a tool that would convert from an Astro-H First FITS File (FFF) format to a Second Fits File (SFF) format. Each row in the FFF format shall use variable-sized arrays to store an uncalibrated "occurrence", which is some arbitrary number of "hits". Each row in the SFF format shall contain one calibrated "photon event". To show the general flavor of this algorithm using a greatly simplified input and very simple algorithm, ahdemo converts between two files of the same format, leaving the data and format the same, but re-packing the rows.
+<p>
+This task reads an input file containing a binary table extension named EVENTS. At minimum, this extension must have two columns: "SEGMENT", of type 1J (a single 4 byte integer), and "ASIC_MOCKUP", of type 1PD(9) (a variable-size double array of at most 9 values). Ahdemo uses a template to create an output file that contains the same two columns. However, the data are repackaged in the output file. The input file may have 3, 6, or 9 double values in the ASIC_MOCKUP column, whereas the output file always has exactly 3 double values in its ASIC_MOCKUP column. For each row, ahdemo reads the SEGMENT column to determine how many values are in the ASIC_MOCKUP.
+<p>
+The sample data files included with ahdemo are Suzaku data files that were modified to add the ASIC_MOCKUP variable-size column. The template file sff_mockup_template.tpl is also of this type. It is assumed that each "hit" in the input file's "occurrence" requires 3 double values to describe it; hence 3, 6, or 9 values in each row in ASIC_MOCKUP. Further, it is assumed that each "photon event" in the output file also requires 3 double values to describe it. In other words, for purposes of ahdemo, each "hit" corresponds to one "photon event". The ASIC_MOCKUP column in the sample file event_file_1.fits was written by testahfits according to this formula:
+<p>
+<dd>ASIC_MOCKUP = (FITS row #) * 100 + (Hit number) * 10 + (Data number)
+<p>  
+where FITS row # is the row in the FITS file, "Hit identifier" is 0, 1, or 2 (depending on how many "hits" are in the row), and "Data number" is either 0, 1, or 2. These data are set up in this way so that when one examines the output file one may easily see where each repackaged row in the output file comes from in the input file. For example, the value 7512. would be found in row 75 of the input file, where it would be the sixth value after 7500, 7501, 7502, 7510, and 7511.
+<p> The "SEGMENT" column in the output file has a slightly different interpretation: it is uniformly 1 for every row, signaling one output event.
+<h2>PARAMETERS</h2>
+<dl>
+
+<dt>infile [filename]
+
+<dd>Input file name, with or without any extension or filtering specified.
+However, note that ahdemo will move automatically to the first "EVENTS" binary
+table. The EVENTS extension must contain the necessary columns as
+specified above.
+<p>
+
+<dt>outfile [filename]
+
+<dd>Output file name. The file format is the augmented Suzaku data
+format described above. Precede the filename value with an exclamation point,
+!, (or \! on the Unix command line) to overwrite a preexisting file with the
+same name (or set the clobber parameter to YES).
+<p>
+
+<dt>(templatefile = input/sff_mockup_template.tpl) [filename]
+
+<dd>Name of the FITS template file used to create the output file.
+The file format is the augmented Suzaku data format described above.
+<p>
+
+<dt>(chatter = 1) [integer, 0 - 5]
+
+<dd>Controls the amount of informative text written to standard output.
+Setting chatter = 5 will produce detailed diagnostic output. Note that this
+is not implemented in Build 0, i.e., the same output is produced regardless
+of chatter.
+<p>
+
+<dt>(clobber = NO) [boolean]
+
+<dd>If outfile already exists, then "clobber = yes" will overwrite it.
+<p>
+
+<dt>(mode = "ql") [string]
+
+<dd>Standard "mode" parameter dictating how "automatic" variables are
+to be treated.
+
+</dl>
+
+<h2>EXAMPLES</h2>
+
+Note that when commands are issued on the Unix command line, strings
+containing special characters such as '[' or ']' must be enclosed in
+single or double quotes.
+<p>
+
+1. Create output that was repackaged from the file input/event_file_1.fits (nominal function).
+<p>
+
+<pre>
+      ahdemo infile.fits outfile.fits
+</pre>
+
+2. This is the 2nd example which uses a different template file to create the output. Also it
+overwrites the first file created in the previous example.
+<p>
+
+<pre>
+      ahdemo infile.fits outfile.fits templatefile = mytemplate.tpl clobber = YES
+</pre>
+
+<h2>SEE ALSO</h2>
+
+<!--  The following are hyperlinks to related help files.  These files  -->
+<!--  should be located in the same directory as the current file. -->
+
+<a href="testahfits.html">testahfits</a>
+
+<h2>LAST MODIFIED</h2>
+
+February 7, 2012
+</body>
+</html>

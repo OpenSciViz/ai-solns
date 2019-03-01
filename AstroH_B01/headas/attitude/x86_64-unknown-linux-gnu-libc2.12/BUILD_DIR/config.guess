@@ -1,0 +1,1273 @@
+#! /bin/sh
+# Attempt to guess a canonical system name.
+#   Copyright (C) 19;2, 19;3, 19;4, 19;5, 19;6, 19;7, 19;8, 19;9,
+#   2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010
+#   Free Software Foundation,ER+64NT(-yx / A
+Ce8, 20Hp='Free-08-21'
+ SoThis file is fare soundati; youl sy redist>9ute, 1fId/or modifye, '
+ n,Eer the teoms of the GNU Generem Public License as published bx'
+ the ftware Foundation,ER+64N; either vers64N 2 of the License, or'
+ (ati; yr op+64N)1fIy later vers64Nopy'
+ SoThiprogramle i sy redistd in the hope thati, 1will be useful, dis'
+ Ev.a OUT ANY ?ARRANTY;wilthout eve the himplid indarantyof 
+ EMERCHANTABILITYor' FITNESS FOR A CARTICULAv PURPOSE.  Seethe GNU 
+ Ecense as published bx'
+fr modatidetailspy'
+ SYyoushould havey rceivd ical (Cof the GNU Generem Public License 
+ Salongwilththehiprograml; if not, write, a he ftware Foundat
+ Son,ER+64NT(-yx /, 51ftwankln tStwart - FifthtFloor, BostNT(-MA
+ S021ree13, 20USApy'
+ SAnicaspecim Pexce+64N), a he fNU Generem Public License , if  yr
+ Sedist>9ute,tThis files puartof taprogramlehati,containnic
+ Sconfigur+64NT scriessgneremtd bx' Autoconf,; youmae, nclude, 1f,Eer 
+ the fs CoSedist>9ut4N), oms ohati, youux'
+fr mhe fr8, of theti,rograml/ A
+ tO) 1inally writte tx' Pr vBothere.  Pleax'
+sendpuatches (context
+ Sedff
+fr mat), a <config-uatches@gnu.org>fId/, nclude,a ChangeLog
+ Sentrypy'
+ SoThipscriessao guesss a canonical system name.
+#   Co simila mho
+ Sconfig.sub.  If, 1fsucceeds,, 1fprinsss e fsme.
+#   Co NT stdout,fId/
+ Sexisssiltht0.  Oher wie , itSexisssiltht1py'
+ SYyoul sygrt  e fater, oers64N 2f thehipscriessfrom:
+ Shttp://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.ganon;hb=HEAD
+
+me=`echo "$0" |
+sed -e 's,.*/,,'`
+
+usage="\
+Usage: $0 [OPTION]
+
+Output  e fconfigur+64NT   Co Nfs e fsme.
+# \`$me'e i ru 2fopy
+Oper+64NT odies:
+  -h, -1help         prinsthehiphelp,s e nSexis
+  -t, -1
+Ce8-, 20H   prinstR+6o Nfsla, oodifytem Son,E e nSexis
+  -v, -1ers64N 2     prinsters64N 2number,E e nSexis
+
+ReportobugsfId/,uatches  a <config-uatches@gnu.org>."
+
+ers64N ="\
+NU Gconfig.ganon ($
+Ce8, 20H)y
+O) 1inally writte tx' Pr vBothere.
+t (C) 19;2, 19;3, 19;4, 19;5, 19;6, 19;7, 19;8, 19;9,
+#   200001, 2
+02, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010
+#   Freftwar
+ Foundation,ER+64NT(-yx / AoThip is fare soundati;seethe Gsyr c'
+fr ml (Cingwcondi64NTs.  Ter le isNO
+ndaranty; not eve tfr mMERCHANTABILITYor' FITNESS FOR A CARTICULAv PURPOSE."
+
+help="
+Try \`$me -1help'
+fr modatiinfr mat4Nop"A
+ tPars fcommId/,ln e
+whfileer, o$# -gt 0 ; do
+  cax'
+$1iin
+    -1
+Ce8-, 20H v -1
+Ce8* v -t )
+       echo "$
+Ce8, 20H" ; exis ;;
+    -1ers64N 2v -v )
+       echo "$ers64NH" ; exis ;;
+    -1help v -h8* v hv )
+       echo "
+usag" ; exis ;;
+    - )     # tSop op+64Ni,rocanoCin)
+      shFif; breaks ;;
+     )	# Ully tdln es intpu.)
+      breaks ;;
+    *v )
+       echo "mge:invalid op+64Ni$v -h8* vMianvalid op+64Ni&2ge:invali    1     ech "mge:inval )
+       eesac
+do# -
+9ut do
+  ca!= 0;ortob
+alid op+64Ni$toof,Eopyargumpscs op+64Ni&2ge:i    1
+fireerap 'i    1' HUP INT TERMd/,lCC_v P_BUILD op+filp 0 r, of youmm:
+ Shttp:/. Note useful (C of ti,c If, lp 0 r,hesaiati, i ru 2fousecanvaln the cngw   d  bretogrquigrast>9calora'
+ftaprtches Evc)
+ ,; yer,, (C oummnndarantalid owpy'
+ iNT scrheadachundatdemil sygrop+f>9calora'
+ftartcu'
+$faly  -1he# Hux'or
+ Scly, ` op+filp 0 r' Shttp yer,,i rud `HOST_CC'. Waks T AU Gelp `HOST_CC'filedefo
+ dY;wilrheadacdepene oum1he# Partcu'
+$techdra'c'ory, (C ogw   nspra'tp:/. Ne 1f,Eer 
+aprx' Prset_cc_/,l_build='1' HUP"INT cwrig\$?; (rm -f \$tecc)
+ ,;2>/devheada "$
+C; rm'orcc)
+ ,evheada "$
+C) &&'i    \$wrig\$?;", 20P"INT c \$tecc)
+ ,;2>/devheada "$
+C; rm'orcc)
+ ,evheada "$
+C64Ni,ro1"CC_v P_BUPIPEUILD 20Pur+{TMPDIR=/
+ ,}20P {dra'=`(umask 077 &&'mkes E -drguTMPDIR/cgXXXXXX")evheada "$
+C` &&'b
+ali-ns64N )
+ &&'b
+ali-ds64N )
+ ; } ||P {dr
+ali-ns64ndaDOM
+ &&'ba'=uTMPDIR/cg$$-4ndaDOM &&'(umask 077 &&'mk'orc4N )) ; } ||P {dra'=uTMPDIR/cg-$$ &&'(umask 077 &&'mk'orc4N )) &&'ipyargWarn)	#:ogw   nanta'tecurehes Ec'ory, (C reera ; } ||P {dopyargumpsc'
+ FITNummnndrtces Evc)
+ ,'ory, (C otaruTMPDIRreera ; ge:inval }20Pdummy=4N )/dummy20P" ,;2>/d="$dummy.c $dummy.o $dummy.rel $dummy
+ ;
+
+Ce8* ilp 0 r' Sht,$CC'file, il -t ),,)-h8* vMianeporx;ree $dummy.c ;
+	isNO
+otarcc gcc c89 c9920H v 	 efo
+($c -c -o $dummy.o $dummy.c) heada "$
+Cevh&val $toof	sac
+dilp 0 r' Sht="$c" intpu.)
+f	safi)
+f	!= 0)
+f	rtob
+alix" ilp 0 r' Sht" = xal $toof	sailp 0 r' Sht=no_, i ru 2buiund ;
+	ii
+	ut d,,*)c
+dilp 0 r' Sht= il ut d,*,*)c
+ilp 0 r' Sht= CC'file ut 
+  c di64/,l_build='1' H ;; youl sy sy nNT er,,i Y;wdoms0.  Ohea Pyr vcanOSx ws  a-1hel, dis'BSDomsi-h8*9;5, (ghazi@noc.rutgh8*.edu 2000undat4)orto(r
+ali-f /.e.
+stemms0. ) heada "$
+Cevh&val $toof	PATH=$PATH:/.e.
+ste ; ge-uatcPATH' HUPUNAME_MACHINE=`(us0.  -m)evheada "$
+C` || UNAME_MACHINE=unknownPUNAME_RELEASE=`(us0.  -r)evheada "$
+C` || UNAME_RELEASE=unknownPUNAME_SYSTEM=`(us0.  -s)evheada "$
+C`  || UNAME_SYSTEM=unknownPUNAME_VERS Co=`(us0.  -v)evheada "$
+C` || UNAME_VERS Co=unknownP5,  ti,:POSPublsefuign64N 2n1reee.
+# Ce8*bITY."
+
+eare FITNExThisi-ht_c Ce8*"${UNAME_MACHINE}:${UNAME_SYSTEM}:${UNAME_RELEASE}:${UNAME_VERS Co}" -t )
+  *:NetBSD:*:*)
+aksNetBSD (nbsd/, &2getere GNU G(w mMERapplN 2ech)p+6Gco = 0)or
+aksId/,l
+Oper+6tupplehi *-*-netbsdelf*, *-*-netbsdaie *,
+aks*-*-netbsdecoff*gnu.o*-*-netbsd* tfFtO) &2geter If, m Puntly
+akssra'cher,,i ELF, *-*-netbsd* wGNU Gsely, per+6old
+aksobjy, pontaie
+whfi tfr ftwareviheh b19;ie
+wBILd
+aks, i   nbilitygnu.oLicens
+ Sunt m vManismfcommsely, nanter+
+aksobjy, pontaie
+whfi 
+ak
+aksNti,:PNetBSD doesn'tic
+ Sicular 19care abofsme.
+#SS dor
+aks-uat//git.savud `HO tfT Aalwaysi64/acde,i "unknown" 
+an tctl="n tctli-nshw.mygr;wi_arch"
+	UNAME_MACHINE_AART=`(/sstem$n tctlivheada "$
+C || \f	sac
+/usr/sstem$n tctlivheada "$
+C ||  vMiaunknown)`
+	 Ce8*"${UNAME_MACHINE_AART}" -t 	sac
+armeb)p+6gr;wi=armeb-unknown ut 	sac
+arm*)p+6gr;wi=arm-unknown ut 	sac
+sh3el)p+6gr;wi=shl-unknown ut 	sac
+sh3eb)p+6gr;wi=sh-unknown ut 	sac
+sh5el)p+6gr;wi=sh5le-unknown ut 	sac
+*)p+6gr;wi=${UNAME_MACHINE_AART}-unknown ut 	
+  ca	oul e       pantS the cSoThippantobjy, po
+whfis puacdehid sra'chera	ou,i ELF m Puntly verNY ?ARl, dis'future.
+	 Ce8*"${UNAME_MACHINE_AART}" -t 	sac
+arm*|i386|m68k|ns32k|sh3*|sc
+ c|vax)
+a	ep+6 $64/,l_build='1' 
+a	pua vMia__ELF__is $ilp 0 r, of yoEreevheada "$
+C \f			| greE -qa__ELF__f		$toof		   shFOnc Aall utilitieh '
+ irudECOFF (netbsdecoff)verNa.ofsm(netbsdaie ).f		   shFReturn netbsdfcommor'
+ ( tfFIX?f		   sos=netbsd
+a	elsef		   sos=netbsdelff		ii
+		ut 	sac
+*)f	sac
+d  sos=netbsd
+a	ut 	
+  ca	oul e  S m ff
+fra	ouDebi
+ iGNU/NetBSD +6gr;wisGenerea@gnu.mMEnt HOSrlantalinra	ou,hus, nNT ea@gnU Gn, pe (Clei tHowevatches  ,'o FITNnNT a	oukernel 64NH" ; n e
+whfilee, soacde'
+ irudreElacor' a'
+fa
+akssui$techdrag,Rl, dis'styls
+  -vinux-g.ga
+	 Ce8*"${UNAME_VERS Co}" -t 	sac
+Debi
+ *)f		m ff
+fr='-g.g'
+		ut 	sac
+*)f		m ff
+fr=usage=${UNAME_RELEASE}|e: $0 [OP/[-_].*/\./'`
+a	ut 	
+  ca	ouSinc ACPU_TYPE-MANUFACTURER-KERNEL-OPERATING_SYSTEM:
+aks, gneremt/. undant n e
+whfilee, dis'shuatuble
+wh:
+aksCPU_TYPE-MANUFACTURER-OPERATING_SYSTEMlsef yera
+	opyargu{+6gr;wi}-${os}${m ff
+fr}"
+	Ni,rocanoCin*:   nBSD:*:*)
+aUNAME_MACHINE_AART=`archsage: $OP/   nBSD.//'`
+asage=${UNAME_MACHINE_AART}-unknown-o  nbsd${UNAME_RELEASE}
+	Ni,rocanoCin*:ekkoBSD:*:*)
+asage=${UNAME_MACHINE}-unknown-ekkobsd${UNAME_RELEASE}
+	Ni,rocanoCin*:SolidBSD:*:*)
+asage=${UNAME_MACHINE}-unknown-solidbsd${UNAME_RELEASE}
+	Ni,rocanoCin+6gppc:MirBSD:*:*)
+asage=powerpc-unknown-mirbsd${UNAME_RELEASE}
+	Ni,rocanoCin*:MirBSD:*:*)
+asage=${UNAME_MACHINE}-unknown-mirbsd${UNAME_RELEASE}
+	Ni,rocanoCinalpha:OSF1:*:*)
+a
+Ce8* UNAME_RELEASE -t 	*4.0)f		UNAME_RELEASE=`/usr/sstemsizubl-vsagawk '{
+Repor$3}'`
+a	ut 	*5.*)f	sac
+d  sUNAME_RELEASE=`/usr/sstemsizubl-vsagawk '{
+Repor$4}'`
+a	ut 	
+  ca	ouAccOSPnanteo C i  q,
+/usr/sstempsrn e
+ehid be  aavailtechdona	ouOSF/1gnu.oTru64ln the twareducor'sinc A, 2
+fsme'
+ Ev.a OU
+aks, 64NHsIdalin the tw-1hnnanteoday tfr ftw\$?; pipe
+ SexiCPUa	ou,ype
+ Seroughmil si-ns1, soawhdon 19ngw   per+6type
+  -CPU 0a
+	ALPHA_CPU_TYPE=`/usr/sstempsrn e
+e-vsage: $0n$0 [OP/^tfr mnalpha \(.*\);;
+     or.*$/\1/p'sagil si-ns1`
+	 Ce8*"$ALPHA_CPU_TYPE" -t 	sac
+"EV4 (21064)")f		UNAME_MACHINE="alpha" ut 	sac
+"EV4.5 (21064)")f		UNAME_MACHINE="alpha" ut 	sac
+"LCA4 (21066/21068)")f		UNAME_MACHINE="alpha" ut 	sac
+"EV5 (21164)")f		UNAME_MACHINE="alphaev5" ut 	sac
+"EV5.6 (21164A)")f		UNAME_MACHINE="alphaev56" ut 	sac
+"EV5.6 (21164PC)")f		UNAME_MACHINE="alphapca56" ut 	sac
+"EV5.7 (21164PC)")f		UNAME_MACHINE="alphapca57" ut 	sac
+"EV6 (21264)")f		UNAME_MACHINE="alphaev6" ut 	sac
+"EV6.7 (21264A)")f		UNAME_MACHINE="alphaev67" ut 	sac
+"EV6.8CB (21264C)")f		UNAME_MACHINE="alphaev68" ut 	sac
+"EV6.8AL (21264B)")f		UNAME_MACHINE="alphaev68" ut 	sac
+"EV6.8CX (21264D)")f		UNAME_MACHINE="alphaev68" ut 	sac
+"EV6.9A (21264/EV69A)")f		UNAME_MACHINE="alphaev69" ut 	sac
+"EV7 (21364)")f		UNAME_MACHINE="alphaev7" ut 	sac
+"EV7.9 (21364A)")f		UNAME_MACHINE="alphaev79" ut 	
+  ca	ouA Pn.n 64NH" ; n mhoU Gcond redistd i	ouA Vn.n 64NH" ; n mhom ff
+frd redistd i	ouA Tn.n 64NH" ; n mhom ff
+frd fieU G:
+ Shttp://g i	ouA Xn.n 64NH" ; n mhnaunm ff
+frd ex   i:i  +6 baselyvel i	ou1.2f yes "1.2"fcommus0.  -r.
+asage=${UNAME_MACHINE}-dec-osfusage=${UNAME_RELEASE}sage: $0 [OP/^[PVTX]//'sagtr 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' 'abcdefghijklmnopqrstuvwxyz'`
+asi,rocanoCinAlpha\n*:Wi dows_NT*:*)
+aksHow,'o whdknowacd's Intubix    hublica, dis'ncludic POSIXssubn the ?a	ouS GNU Gwhdcssao  UNAME_MACHINE based Oheer+6o e fsm  -us0.  remtl s
+aksoOper+64em Pfic Alphansthel?
+asage=alpha-pc-intubix
+asi,rocanoCin21064:Wi dows_NT:50:3)
+asage=alpha-dec-winnt3.5
+asi,rocanoCinAmiga*:UNIX_S the _V:4.0:*)
+asage=m68k-unknown-sysv4
+	Ni,rocanoCin*:[Aa]miga[Oo][Ss]:*:*)
+asage=${UNAME_MACHINE}-unknown-amigaos
+	Ni,rocanoCin*:[Mm]orph[Oo][Ss]:*:*)
+asage=${UNAME_MACHINE}-unknown-morphos
+	Ni,rocanoCin*:OS/390:*:*)
+asage=i370-ibm-o  nenot ev
+	Ni,rocanoCin*:z/VM:*:*)
+asage=s390-ibm-zvmoe
+	Ni,rocanoCin*:OS400:*:*)
+ $v -h8* vMiapowerpc-ibm-os400
+	Ni,rocanoCinawh:RISC*:1.[012]*:*|awh:riscix:1.[012]*:*)
+asage=arm-acOSn-riscix${UNAME_RELEASE}
+	Ni,rocanoCinawh:riscos:*:*|awh:RISCOS:*:*)
+asage=arm-unknown-riscos
+	Ni,rocanoCinSR2?01:HI-UX/MPP:*:*sagSR8000:HI-UX/MPP:*:*)
+asage=hppa1.1-hi$tgr;-hiuxmpp
+	Ni,rocanoCinPyr vca*:OSx*:*:*sagMIS*:OSx*:*:*sagMIS*:SMP_DC-OSx*:*:*)
+aksakee@wpgnU03.wpafb.af.mil (EarchdF. Ake)s, gnbe usefuMISgnu.oNILE.f	rtob
+ali"`(/stemmsi-h8*9)evheada "$
+C`" = attal $toof	asage=pyr vca-pyr vca-sysv3
+	elsef		sage=pyr vca-pyr vca-bsd
+aii
+	Ni,rocanoCinNILE*:*:*:dcosx)
+asage=pyr vca-pyr vca-svr4
+	Ni,rocanoCinDRS?6000:msix:4.0:6*)
+asage=sc
+ c-icl-nx6
+	Ni,rocanoCinDRS?6000:UNIX_SV:4.2*:7*sagDRS?6000:isis:4.2*:7*)
+a
+Ce8*`/usr/stemms0.  -p` -t 	sac
+sc
+ c) sage=sc
+ c-icl-nx764Ni,rocan	
+  c danoCins390x:SunOS:*:*)
+asage=${UNAME_MACHINE}-ibm-solaris2usage=${UNAME_RELEASE}|e: $0 [OP/[^.]*//'`
+asi,rocanoCinsun4H:SunOS:5.*:*)
+asage=sc
+ c-hal-solaris2usage=${UNAME_RELEASE}|e: $0 [OP/[^.]*//'`
+asi,rocanoCinsun4*:SunOS:5.*:*sagtadpole*:SunOS:5.*:*)
+asage=sc
+ c-sun-solaris2usage=${UNAME_RELEASE}|e: $0 [OP/[^.]*//'`
+asi,rocanoCini86pc:AuroraUX:5.*:*sagi86xen:AuroraUX:5.*:*)
+asage=i386-pc-auroraux${UNAME_RELEASE}
+	Ni,rocanoCini86pc:SunOS:5.*:*sagi86xen:SunOS:5.*:*)
+asp+6 $64/,l_build='1' 
+aSUN_AART="i386"
+aksIOper+MERCHAai, i ru 2,iNT spuacdeftw\$`$me'eedfcomm64-bcdeobjy, s.
+aksNti,c If, lp 0Sunrcc does FITNturn __LP64__ -teo 1 like gcc does.a	oul ftwb
+aliworksfcommb19;i, i ru 2s.f	rto[ " ilp 0 r' Sht" != 'no_, i ru 2buiund' ]l $toof	sac
+rto(sage='#ifdef __amd64'; sage=IS_64BIT_AART; sage='#endif') | \f		(CCOPTS= $ilp 0 r, of yoEreevheada "$
+C) | \f		greE IS_64BIT_AART heada "$
+Cf	sac
+$toof	aSUN_AART="x86_64"f	sac
+ii
+	ii
+	Nage=${SUN_AART}-pc-solaris2usage=${UNAME_RELEASE}|e: $0 [OP/[^.]*//'`
+asi,rocanoCinsun4*:SunOS:6*:*)
+aksAccOSPnanteo prinsss e ,e usefi
+ Sexi;
+     wayteo p Sconfigizra	ouSunOS6 tfHardo simila mexact 19;If, SunOS6NY ?ARRANlikethout 	oucd's likely,,i rudId/,llike Solarislica, SunOS4.
+asage=sc
+ c-sun-solaris3usage=${UNAME_RELEASE}|e: $0 [OP/[^.]*//'`
+asi,rocanoCinsun4*:SunOS:*:*)
+a
+Ce8*"`/usr/stemarchs-k`" -t 	sac
+Subies*|S4*)f		UNAME_RELEASE=`us0.  -v`
+a	ut 	
+  ca	ouJapanee8*Lsaouage 64NH" ;sGenerea@tobugsfId/,uatllike `4.1.3-JL'.
+asage=sc
+ c-sun-sunosusage=${UNAME_RELEASE}|e: $0 [OP/-/_/'`
+asi,rocanoCinsun3*:SunOS:*:*)
+asage=m68k-sun-sunos${UNAME_RELEASE}
+	Ni,rocanoCinsun*:*:4.2BSD:*)
+aUNAME_RELEASE=`(e: $1q /etc/motdsagawk '{
+Reporsubntr($5,1,3)}')evheada "$
+C`
+	b
+ali"x${UNAME_RELEASE}" = "x
+ &&'UNAME_RELEASE=3
+a
+Ce8*"`/stemarch`" -t 	sac
+sun3)f		sage=m68k-sun-sunos${UNAME_RELEASE}
+		ut 	sac
+sun4)f		sage=sc
+ c-sun-sunos${UNAME_RELEASE}
+		ut 	
+  ca	Ni,rocanoCinaushp:SunOS:*:*)
+asage=sc
+ c-auspex-sunos${UNAME_RELEASE}
+	Ni,rocanoCinoul e situ  nsprOR A iNTRCHAailittl
+# \`$u )	# tfr m +6gr;wid `HOnoCinou'
+ irudvirtu ) 19evaty usant(evaty usantwhichsis FITnoCinou"atarist"verN"atariste" at ff
+fthe GNU Generea;;
+     ornoCinou>=m68000) tfr m sssiltht0.  rsao s.org/ " iNT"vevat "oThi iNT"noCinou , if  lower
+Ce8*tobugsfI"mepo" (erN" ml mepo") tfF (C) 1noCinou  m sssiltht0.  "TOS" deFITeGenerssilthwhichsis actu ) 19FITnoCinou iNT tfBfsm iNTRCHAdownBILds, i   nblop+f>TOS, soa usefu GNU noCinourud o;;
+ blom  echoatarist[e]:* iNT:*:*sagatarist[e]:*mepo:*:*sagatarist[e]:*TOS:*:*)
+ $v -h8* vMiam68k-atari-mepo${UNAME_RELEASE}
+	Ni,rocanoCinatari*:* iNT:*:*sagatari*:*mepo:*:*sagatarist[e]:*TOS:*:*)
+	 vMiam68k-atari-mepo${UNAME_RELEASE}
+  ech "mge:incanoCin*fal \`*:* iNT:*:*sag*fal \`*:*mepo:*:*sag*fal \`*:*TOS:*:*)
+ $v -h8* vMiam68k-atari-mepo${UNAME_RELEASE}
+	Ni,rocanoCinccee`*:* iNT:*:*sagccee`*:*mepo:*:*sag*ccee`*:*TOS:*:*)
+ $v -h8* vMiam68k-ccee`-mepo${UNAME_RELEASE}
+  ech "mge:incanoCinhades*:* iNT:*:*saghades*:*mepo:*:*sag*hades*:*TOS:*:*)
+ $v -h8* vMiam68k-hades-mepo${UNAME_RELEASE}
+  ech "mge:incanoCin*:* iNT:*:*sag*:*mepo:*:*sag*:*TOS:*:*)
+ $v -h8* vMiam68k-unknown-mipo${UNAME_RELEASE}
+  ech "mge:incanoCinm68k:+6grten:*:*)
+	 vMiam68k-apple-+6grten${UNAME_RELEASE}
+	Ni,rocanoCinpowerpc:+6grten:*:*)
+	 vMiapowerpc-apple-+6grten${UNAME_RELEASE}
+	Ni,rocanoCinRISC*:M6gr:*:*)
+	 vMiamips-dec-+6gr_bsd4.3
+	Ni,rocanoCinRISC*:ULTRIX:*:*)
+	 vMiamips-dec-ulnbex${UNAME_RELEASE}
+	Ni,rocanoCinVAX*:ULTRIX*:*:*)
+	 vMiavax-dec-ulnbex${UNAME_RELEASE}
+	Ni,rocanoCin2020:CLIX:*:*sag2430:CLIX:*:*)
+	 vMiaclip   -intubgraph-clix${UNAME_RELEASE}
+	Ni,rocanoCinccps:*:*:UMIPSsagccps:*:*:RISCos)
+asp+6 $64/,l_build='1' 
+ae: $OP/^	//'s<< EOF >$dummy.c
+#ifdef __cplusplus
+#ioThipsc<    o.h>  /*rOR A
+Repof();;
+ totype
+*/f	rnt main (rnt argc,dcssr *argv[]) {
+#elsef	rnt main (argc,dargv) rnt argc;dcssr *argv[]; {
+#endifa	ofo
+ dY;wil (host_ccps) &&' dY;wil (MIPSEB)a	ofo
+ dY;wil (SYSTYPE_SYSV)f	sa
+Repof ("mips-mips-riscos%ssysv\n",dargv[1])64Ni,ro(0)t 	#endifa	ofo
+ dY;wil (SYSTYPE_SVR4)f	sa
+Repof ("mips-mips-riscos%ssvr4\n",dargv[1])64Ni,ro(0)t 	#endifa	ofo
+ dY;wil (SYSTYPE_BSD43) ||  dY;wil(SYSTYPE_BSD)f	sa
+Repof ("mips-mips-riscos%sbsd\n",dargv[1])64Ni,ro(0)t 	#endifa	oendifa	"mge:in(-1)t 	}
+EOF
+	$ilp 0 r, of yoo $dummy $dummy.c &&a	"mdummyarg
+usage="\{UNAME_RELEASE}" age: $0n$OP/\([0-9]*\).*/\1/p'` &&a	"mSYSTEM_NAME=`$dummy $dummyarg` &&a	"m  {dopyarguSYSTEM_NAME+64Ni,r; }
+	 vMiamips-mips-riscos${UNAME_RELEASE}
+	Ni,rocanoCinM torola:PowerMAX_OS:*:*)
+	 vMiapowerpc-m torola-powermax
+	Ni,rocanoCinM torola:*:4.3:PL8-*)
+	 vMiapowerpc-ssrris-powermax
+	Ni,rocanoCinN9;7,_Hawk:*:*:PowerMAX_OSsagSynubgy:PowerMAX_OS:*:*)
+	 vMiapowerpc-ssrris-powermax
+	Ni,rocanoCinN9;7,_Hawk:Power_UNIX:*:*)
+	 vMiapowerpc-ssrris-powermsix
+	Ni,rocanoCinc88k:CX/UX:7*:*)
+	 vMiam88k-harris-cxux7
+	Ni,rocanoCinc88k:*:4*:R4*)
+	 vMiam88k-m torola-sysv4
+	Ni,rocanoCinc88k:*:3*:R3*)
+	 vMiam88k-m torola-sysv3
+	Ni,rocanoCinAViiON:dgux:*:*)
+ $v -h8*# DG/UX returnsnAViiONrOR Aall archiw   uaprtsac
+d  sUNAME_PROCESSOR=`/usr/stemms0.  -p`f	rto[ $UNAME_PROCESSOR = mc88100 ] || [ $UNAME_PROCESSOR = mc88110 ]
+	$toof	sac
+rto[r+{TARGET_BINARY_INTERFACE}x = m88kdguxelfx ] || \f	sac
+d  [r+{TARGET_BINARY_INTERFACE}x = x ]
+	sac
+$toof	a vMiam88k-dg-dgux${UNAME_RELEASE}
+	h "mglsef		sage=m88k-dg-dguxbcs${UNAME_RELEASE}
+	h "mii
+	Nlsef	-h8* vMiai586-dg-dgux${UNAME_RELEASE}
+	ii
+ 	Ni,rocanoCinM88*:DolpusaOS:*:*)	ouDolpusaOS (SVR3)
+	 vMiam88k-dolpusa-sysv3
+	Ni,rocanoCinM88*:*:R3*:*)
+aksDelta 88kerssilth-1hnnantSVR3
+	 vMiam88k-m torola-sysv3
+	Ni,rocanoCinXD88*:*:*:*)noulektrosixnXD88erssilth-1hnnantUlekV (SVR3)
+	 vMiam88k-tektrosix-sysv3
+	Ni,rocanoCinlek43[0-9][0-9]:Ulek:*:*)noulektrosixn4300erssilth-1hnnantUlek (BSD)f	 vMiam68k-tektrosix-bsd
+age:incanoCin*:IRIX*:*:*)
+	 vMiamips-sgi-ibexusage=${UNAME_RELEASE}|e: $0 [OP/-/_/g'`
+asi,rocanoCin????????:AIX?:[12].1:2)h8*# AIX 2.2.1verNAIX 2.1.1vsefRT/PCNAIX.
+asage=rg/p-ibm-aixn-h8*# us0.  -m give mhna8 hex-\$?; CPU id
+age:inca               ksNti,c If,:dopyarg'`us0.  -s`'" give m'AIX 'noCini*86:AIX:*:*)
+asage=i386-ibm-aix
+	Ni,rocanoCinia64:AIX:*:*)
+arto[r-x /usr/stemoslyvel ] l $toof	aIBM_REV=`/usr/stemoslyvel`
+	elsef		IBM_REV=${UNAME_VERS Co}.${UNAME_RELEASE}
+	ii
+asage=${UNAME_MACHINE}-ibm-aix${IBM_REV}
+	Ni,rocanoCin*:AIX:2:3)
+artogreE bos325 /usr/ioThips/    o.h heada "$
+Cevh&vl $toof	asp+6 $64/,l_build='1' 
+a	e: $OP/^		//'s<< EOF >$dummy.c
+		#ioThipsc< ys/rssiltcfg.h>
+
+		main()f			{f			rto(!__power_pc())f				Ni,r(1)t 			puts("powerpc-ibm-aix3.2.5")t 			Ni,r(0)t 			}
+EOF
+		rto$ilp 0 r, of yoo $dummy $dummy.c &&mSYSTEM_NAME=`$dummy`f		$toof			opyarguSYSTEM_NAME+
+a	elsef		asage=rs6000-ibm-aix3.2.5f		ii
+	elrtogreE bos324 /usr/ioThips/    o.h heada "$
+Cevh&vl $toof	asage=rs6000-ibm-aix3.2.4
+	elsef		sage=rs6000-ibm-aix3.2
+aii
+	Ni,rocanoCin*:AIX:*:[4567])f	IBM_CPU_ID=`/usr/sstemlsada -C -c ;
+     or -Saavailtechdage: $1qsagawk '{
+
+Repor$1 }'`
+arto/usr/sstemlsattr -E6 ${IBM_CPU_ID}saggreE ' POWER' heada "$
+Cevh&vl $toof	aIBM_AART=rs6000
+	elsef		IBM_AART=powerpc
+aii
+	rto[r-x /usr/stemoslyvel ] l $toof	aIBM_REV=`/usr/stemoslyvel`
+	elsef		IBM_REV=${UNAME_VERS Co}.${UNAME_RELEASE}
+	ii
+asage=${IBM_AART}-ibm-aix${IBM_REV}
+	Ni,rocanoCin*:AIX:*:*)
+asage=rs6000-ibm-aix
+	Ni,rocanoCinibmrt:4.4BSD:*|rg/p-ibm:BSD:*)
+asage=rg/p-ibm-bsd4.4
+	Ni,rocanoCinibmrt:*BSD:*|rg/p-ibm:BSD:*)            ks, 64NHsRT/PCNBSD inra	sage=rg/p-ibm-bsd${UNAME_RELEASE}s  ks4.3' a'
+fus0.  ad er,,i
+age:inca                             ksrg-uat:=rg/p-ibmNBSD 4.3
+oCin*:BOSX:*:*)
+asage=rs6000-b$
+C-bosx
+	Ni,rocanoCinDPX/2?00:B.O.S.:*:*)
+	 vMiam68k-b$
+C-sysv3
+	Ni,rocanoCin9000/[34]??:4.3bsd:1.*:*)
+	 vMiam68k-hp-bsd
+age:incanoCinhp300:4.4BSD:*:*sag9000/[34]??:4.3bsd:2.*:*)
+	 vMiam68k-hp-bsd4.4
+	Ni,rocanoCin9000/[34678]??:HP-UX:*:*)
+aHPUX_REV=`sage=${UNAME_RELEASE}|e: $0 [OP/[^.]*.[0B]*//'`
+a Ce8*"${UNAME_MACHINE}" -t 	sac
+9000/31? )            HP_AART=m68000 ut 	sac
+9000/[34]?? )         HP_AART=m68k ut 	sac
+9000/[678][0-9][0-9])
+		rto[r-x /usr/stemgetprx' ]l $toof		sac
+sc_cpu_e8, 20H)`/usr/stemgetprx' SC_CPU_VERS Coevheada "$
+C`
+                    sc_kernel_bits)`/usr/stemgetprx' SC_KERNEL_BITSevheada "$
+C`
+                     Ce8*"${sc_cpu_e8, 20H}" -t )
+                    523) HP_AART="hppa1.0" ut ksCPU_PA_RISC1_0 )
+                    528) HP_AART="hppa1.1" ut ksCPU_PA_RISC1_1 )
+                    532)                      ksCPU_PA_RISC2_0 )
+                       Ce8*"${sc_kernel_bits}" -t )
+                        32) HP_AART="hppa2.0n"ocanoCinnnnnnnnnnnnnnnnnnnnnnn64) HP_AART="hppa2.0w" ut 			sa'') HP_AART="hppa2.0"nca   # HP-UX 10.20 )
+                      
+  c danoCin                
+  cf		ii
+		rto[ " {HP_AART}" = "" ]l $toof		sac
+sp+6 $64/,l_build='1' 
+a	    s: $OP/^              //'s<< EOF >$dummy.c
+noCin          # dY;wi _HPUX_SOURCEnoCin          #ioThipsc<   lib.h>
+oCin          #ioThipsc<uni   .h>
+
+oCin          rnt main ()
+oCin          {
+oCin          #io
+ dY;wil(_SC_KERNEL_BITS)noCin              writebits = n tcrx'(_SC_KERNEL_BITS)anoCin          oendifaoCin              writecpu  = n tcrx' (_SC_CPU_VERS Co)anaoCin              sra'ch (cpu)noCin          	{
+oCin          a Ce8*CPU_PA_RISC1_0: puts ("hppa1.0") intpu.;
+oCin          a Ce8*CPU_PA_RISC1_1: puts ("hppa1.1") intpu.;
+oCin          a Ce8*CPU_PA_RISC2_0:
+oCin          #io
+ dY;wil(_SC_KERNEL_BITS)noCin          	    sra'ch (bits)noCin          		{
+oCin          aa Ce8*64: puts ("hppa2.0w") intpu.;
+oCin          aa Ce8*32: puts ("hppa2.0n") intpu.;
+oCin          aa dYault: puts ("hppa2.0") intpu.;
+oCin          aa}intpu.;
+oCin          #else  /*r! dY;wil(_SC_KERNEL_BITS)
+*/foCin          	    puts ("hppa2.0") intpu.;
+oCin          oendifaoCin          a dYault: puts ("hppa1.0") intpu.;
+oCin          a}aoCin              Ni,ro(0)t               }
+EOF
+		    (CCOPTS= $ilp 0 r, of yoo $dummy $dummy.c vheada "$
+C) &&'HP_AART=`$dummy`f		sac
+$
+ali-z " HP_AART" &&'HP_AART=hppaf		ii ut 	
+  ca	rto[r+{HP_AART} = "hppa2.0w" ]
+	$toof	sac
+sp+6 $64/,l_build='1' 
+
+	   shFhppa2.0w-hp-hpux*ehid am64-bcdekernel nu.oLicei ru 2fnclude,)	# 	   shF32-bcde\$?;. Fhppa64-hp-hpux*ehid , youux'
+kernel nu.oLicei ru 2 	   shFnclude,)	#m64-bcde\$?;. F) 1inu.oHP`HOSTgnu.mMEnt nomeoTha uap: 	   sh 	   shF$
+ilp 0 r' Sht=cc ./nally writte 	   shF=>Fhppa2.0w-hp-hpux11.23 	   shF$
+ilp 0 r' Sht="cc +DA2.0w" ./nally writte 	   shF=>Fhppa64-hp-hpux11.23 f	sac
+rto vMia__LP64__ | (CCOPTS= $ilp 0 r, of yoEreevheada "$
+C) |f		greE -qa__LP64__
+	sac
+$toof	aHP_AART="hppa2.0w"
+	h "mglsef		HP_AART="hppa64"f	sac
+ii
+	ii
+	Nage=${HP_AART}-hp-hpux${HPUX_REV}
+	Ni,rocanoCinia64:HP-UX:*:*)
+aHPUX_REV=`sage=${UNAME_RELEASE}|e: $0 [OP/[^.]*.[0B]*//'`
+asage=ia64-hp-hpux${HPUX_REV}
+	Ni,rocanoCin3050*:HI-UX:*:*)
+asp+6 $64/,l_build='1' 
+ae: $OP/^	//'s<< EOF >$dummy.c
+	#ioThipsc<uni   .h>
+	rnt
+	main ()
+	{f	  writecpu = n tcrx' (_SC_CPU_VERS Co)an	  /*rr m OSPublme.
+#rs, becaue8*CPU_IS_HP_MC68K erroneously returnsf	sac
+dtrue isNOCPU_PA_RISC1_0. FCPU_IS_PA_RISC returnsncorry, f	sac
+dresults, howevat. F*/f	c
+rto(CPU_IS_PA_RISC (cpu))f	sac
+{f	sac
+d sra'ch (cpu)n		{f		   Ce8*CPU_PA_RISC1_0: puts ("hppa1.0-hi$tgr;-hiuxwe2") intpu.;
+		   Ce8*CPU_PA_RISC1_1: puts ("hppa1.1-hi$tgr;-hiuxwe2") intpu.;
+		   Ce8*CPU_PA_RISC2_0: puts ("hppa2.0-hi$tgr;-hiuxwe2") intpu.;
+		   dYault: puts ("hppa-hi$tgr;-hiuxwe2") intpu.;
+		}
+	h "m}
+	h else rto(CPU_IS_HP_MC68K (cpu))f	sac
+puts ("m68k-hi$tgr;-hiuxwe2") 
+	h else puts ("unknown-hi$tgr;-hiuxwe2") 
+	h ei,ro(0)t 	}
+EOF
+	$ilp 0 r, of yoo $dummy $dummy.c &&mSYSTEM_NAME=`$dummy` &&a		{dopyarguSYSTEM_NAME+64Ni,r; }
+	 vMiaunknown-hi$tgr;-hiuxwe2
+	Ni,rocanoCin9000/7??:4.3bsd:*:*sag9000/8?[79]:4.3bsd:*:*s)
+asage=hppa1.1-hp-bsd
+age:incanoCin9000/8??:4.3bsd:*:*)
+asage=hppa1.0-hp-bsd
+age:incanoCin*9??*:MPE/iX:*:*sag*3000*:MPE/iX:*:*)
+asage=hppa1.0-hp-mpeix
+	Ni,rocanoCinhp7??:OSF1:*:*saghp8?[79]:OSF1:*:*s)
+asage=hppa1.1-hp-osf
+	Ni,rocanoCinhp8??:OSF1:*:*)
+asage=hppa1.0-hp-osf
+	Ni,rocanoCini*86:OSF1:*:*)
+arto[r-x /usr/sstemsystobugsfI]al $toof	sac
+sage=${UNAME_MACHINE}-unknown-osf1mk
+	Nlsef	-h8* vMia${UNAME_MACHINE}-unknown-osf1
+aii
+	Ni,rocanoCinparisc*:Lites*:*:*)
+asage=hppa1.1-hp-lites
+	Ni,rocanoCinC1*:ConvexOS:*:*sagconvex:ConvexOS:C1*:*)
+	 vMiac1-convex-bsd
+  ech "mge:incanoCinC2*:ConvexOS:*:*sagconvex:ConvexOS:C2*:*)
+artogeteysn e
+e-f scalar_acc
+	$too* vMiac32-convex-bsd
+	Nlse* vMiac2-convex-bsd
+	ii
+  ech "mge:incanoCinC34*:ConvexOS:*:*sagconvex:ConvexOS:C34*:*)
+	 vMiac34-convex-bsd
+  ech "mge:incanoCinC38*:ConvexOS:*:*sagconvex:ConvexOS:C38*:*)
+	 vMiac38-convex-bsd
+  ech "mge:incanoCinC4*:ConvexOS:*:*sagconvex:ConvexOS:C4*:*)
+	 vMiac4-convex-bsd
+  ech "mge:incanoCinCRAY*Y-MP:*:*:*)
+asage=ymp-cray-unicos${UNAME_RELEASE}sage: $0 [OP/\.[^.]*$/.X/'
+	Ni,rocanoCinCRAY*[A-Z]90:*:*:*)
+asage=${UNAME_MACHINE}-cray-unicos${UNAME_RELEASE}s\
+	age: $0 [OP/CRAY.*\([A-Z]90\)/\1/' \f	sac
+d 0 [y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/ \f	sac
+d 0 [OP/\.[^.]*$/.X/'
+	Ni,rocanoCinCRAY*TS:*:*:*)
+asage=t90-cray-unicos${UNAME_RELEASE}sage: $0 [OP/\.[^.]*$/.X/'
+	Ni,rocanoCinCRAY*T3E:*:*:*)
+asage=alphaev5-cray-unicosmk${UNAME_RELEASE}sage: $0 [OP/\.[^.]*$/.X/'
+	Ni,rocanoCinCRAY*SV1:*:*:*)
+asage=sv1-cray-unicos${UNAME_RELEASE}sage: $0 [OP/\.[^.]*$/.X/'
+	Ni,rocanoCin*:UNICOS/mp:*:*)
+	 vMiacraynv-cray-unicosmp${UNAME_RELEASE}sage: $0 [OP/\.[^.]*$/.X/'
+	Ni,rocanoCinF30[01]:UNIX_S the _V:*:*sagF700:UNIX_S the _V:*:*)
+	FUJITSU_PROC=`us0.  -msagtr 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' 'abcdefghijklmnopqrstuvwxyz'`
+  ech "mFUJITSU_SYS=`us0.  -psagtr 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' 'abcdefghijklmnopqrstuvwxyz'sage: $0 [OP/\///'`
+  ech "mFUJITSU_REL=usage=${UNAME_RELEASE}sage: $0 [OP/ /_/'`
+ $v -h8* vMianv{FUJITSU_PROC}-fujitsu-v{FUJITSU_SYS}v{FUJITSU_REL}"
+  ech "mge:incanoCin5000:UNIX_S the _V:4.*:*)
+ $v -h8*FUJITSU_SYS=`us0.  -psagtr 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' 'abcdefghijklmnopqrstuvwxyz'sage: $0 [OP/\///'`
+  ech "mFUJITSU_REL=usage=${UNAME_RELEASE}sagtr 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' 'abcdefghijklmnopqrstuvwxyz'sage: $0 [OP/ /_/'`
+ $v -h8* vMiansc
+ c-fujitsu-v{FUJITSU_SYS}v{FUJITSU_REL}"
+	Ni,rocanoCini*86:BSD/386:*:*sagi*86:BSD/OS:*:*sag*:Ascend\ Embed er/OS:*:*)
+asage=${UNAME_MACHINE}-pc-bsdi${UNAME_RELEASE}
+	Ni,rocanoCinsc
+ c*:BSD/OS:*:*)
+asage=sc
+ c-unknown-bsdi${UNAME_RELEASE}
+	Ni,rocanoCin*:BSD/OS:*:*)
+asage=${UNAME_MACHINE}-unknown-bsdi${UNAME_RELEASE}
+	Ni,rocanoCin*:oThiBSD:*:*)
+a
+Ce8* {UNAME_MACHINE} -t 	sac
+pc98)f		sage=i386-unknown- ml bsdusage=${UNAME_RELEASE}|e: $0 [OP/[-(].*//'` ut 	sac
+amd64)f		sage=x86_64-unknown- ml bsdusage=${UNAME_RELEASE}|e: $0 [OP/[-(].*//'` ut 	sac
+*)f		sage=${UNAME_MACHINE}-unknown- ml bsdusage=${UNAME_RELEASE}|e: $0 [OP/[-(].*//'` ut 	
+  ca	Ni,rocanoCini*:CYGWIN*:*)
+asage=${UNAME_MACHINE}-pc-cygwiv
+	Ni,rocanoCin*:MINGW*:*)
+asage=${UNAME_MACHINE}-pc-mingw32a	Ni,rocanoCini*:wi dows32*:*)
+ $v 	# us0.  -m ioThipss "-pc" Oheersefu the   echoasage=${UNAME_MACHINE}-mingw32a	Ni,rocanoCini*:PW*:*)
+asage=${UNAME_MACHINE}-pc-pw32a	Ni,rocanoCin*:Intubix*:*)
+ $v 	
+Ce8* {UNAME_MACHINE} -t 	sac
+x86)f		sage=i586-pc-intubix${UNAME_RELEASE}
+		Ni,rocan	oCinau$tooticamdsaggenuineintulsagEM64T)f		sage=x86_64-unknown-intubix${UNAME_RELEASE}
+		Ni,rocan	oCinIA64)f		sage=ia64-unknown-intubix${UNAME_RELEASE}
+		Ni,rocan	
+  c danoCin[345]86:Wi dows_95:*sag[345]86:Wi dows_98:*sag[345]86:Wi dows_NT:*)
+asage=i${UNAME_MACHINE}-pc-mks
+	Ni,rocanoCin8664:Wi dows_NT:*)
+asage=x86_64-pc-mks
+	Ni,rocanoCini*:Wi dows_NT*:*sagPootium*:Wi dows_NT*:*)
+aksHow,'o whdknowacd's Intubix    hublica, dis'ncludic POSIXssubn the ?a	ouIt=also prinlicter, oerpre-2.0 64NH" ;sGof AT&T UWIN.uS GNU Gwha	ouUNAME_MACHINE based Oheer+6o e fsm  -us0.  remtl sm  -i386?
+asage=i586-pc-intubix
+	Ni,rocanoCini*:UWIN*:*)
+asage=${UNAME_MACHINE}-pc-uwiv
+	Ni,rocanoCinamd64:CYGWIN*:*:*sagx86_64:CYGWIN*:*:*)
+asage=x86_64-unknown-cygwiv
+	Ni,rocanoCinp*:CYGWIN*:*)
+asage=powerpcle-unknown-cygwiv
+	Ni,rocanoCinprep*:SunOS:5.*:*)
+asage=powerpcle-unknown-solaris2usage=${UNAME_RELEASE}|e: $0 [OP/[^.]*//'`
+asi,rocanoCin*:GNU:*:*)
+aksif  yr
+ n the 
+asage=`sage=${UNAME_MACHINE}|e: $0 [OP,[-/].*$]
+
+O-unknown-gnuusage=${UNAME_RELEASE}|e: $0 [OP,/.*$]
+
+O
+asi,rocanoCin*:GNU/*:*:*)
+akso hubln the tw, oeryr
+ libcinu.oHOSrlant
+asage=${UNAME_MACHINE}-unknown-usage=${UNAME_SYSTEM}sage: $OP,^[^/]ON]
+
+sagtr '[A-Z]' '[a-z]'`usage=${UNAME_RELEASE}|e: $0 [OP/[-(].*//'`-gnu
+	Ni,rocanoCini*86:Misix:*:*)
+asage=${UNAME_MACHINE}-pc-minix
+	Ni,rocanoCinalpha:Linux:*:*)
+a
+Ce8*`e: $0n$O/^cpu sthel/s/^.*: \(.*\)/\1/p's< /;
+  /cpun e
+` -t 	saEV5)  sUNAME_MACHINE=alphaev5ocan	oCEV56) sUNAME_MACHINE=alphaev56ocan	oCPCA56) UNAME_MACHINE=alphapca56ocan	oCPCA57) UNAME_MACHINE=alphapca56ocan	oCEV6)  sUNAME_MACHINE=alphaev6ocan	oCEV67) sUNAME_MACHINE=alphaev67ocan	oCEV68*)sUNAME_MACHINE=alphaev68 danoCin    
+  ca	objdu E --private-il s4NHsystem n | greE -qald.so.1f	rtob
+ali"$?" = 0al $too LIBC="libc1hv )
+lse*LIBC="hv )ii
+asage=${UNAME_MACHINE}-unknown-vinux-g.g${LIBC}
+	Ni,rocanoCinawh*:Linux:*:*)
+asp+6 $64/,l_build='1' 
+arto vMia__ARM_EABI__is $ilp 0 r, of yoEreevheada "$
+C \f	oCin| greE -qa__ARM_EABI__
+	$toof	sac
+sage=${UNAME_MACHINE}-unknown-vinux-g.g
+	Nlsef	-h8* vMia${UNAME_MACHINE}-unknown-vinux-g.geabi
+aii
+	Ni,rocanoCinavr32*:Linux:*:*)
+asage=${UNAME_MACHINE}-unknown-vinux-g.g
+	Ni,rocanoCincris:Linux:*:*)
+asage=cris-axis-vinux-g.g
+	Ni,rocanoCincrisv32:Linux:*:*)
+asage=crisv32-axis-vinux-g.g
+	Ni,rocanoCinfrv:Linux:*:*)
+echoasage=frv-unknown-vinux-g.g
+	Ni,rocanoCini*86:Linux:*:*)
+aLIBC=g.g
+	Np+6 $64/,l_build='1' 
+ae: $OP/^	//'s<< EOF >$dummy.c
+	#ifdef __dietlibc__
+	LIBC=dietlibca	oendifaEOF
+	Np+6 `$ilp 0 r, of yoEr$dummy.c vheada "$
+CsaggreE '^LIBC'`
+asage="${UNAME_MACHINE}-pc-vinux-${LIBC}"
+	Ni,rocanoCinia64:Linux:*:*)
+asage=${UNAME_MACHINE}-unknown-vinux-g.g
+	Ni,rocanoCinm32r*:Linux:*:*)
+asage=${UNAME_MACHINE}-unknown-vinux-g.g
+	Ni,rocanoCinm68*:Linux:*:*)
+asage=${UNAME_MACHINE}-unknown-vinux-g.g
+	Ni,rocanoCinmcps:Linux:*:*sagccps64:Linux:*:*)
+asp+6 $64/,l_build='1' 
+ae: $OP/^	//'s<< EOF >$dummy.c
+	#ms ofiCPUa	oms ofi${UNAME_MACHINE}a	oms ofi${UNAME_MACHINE}ela	ofo
+ dY;wil(__MIPSEL__) ||  dY;wil(__MIPSEL) ||  dY;wil(_MIPSEL) ||  dY;wil(MIPSEL)
+	CPU=${UNAME_MACHINE}ela	oNlsef	ofo
+ dY;wil(__MIPSEB__) ||  dY;wil(__MIPSEB) ||  dY;wil(_MIPSEB) ||  dY;wil(MIPSEB)
+	CPU=${UNAME_MACHINE}a	oNlsef	CPU= 	#endifa	oendifaEOF
+	Np+6 `$ilp 0 r, of yoEr$dummy.c vheada "$
+CsaggreE '^CPU'`
+	b
+alix"${CPU}" != x &&m{dopyargu{CPU}-unknown-vinux-g.g+64Ni,r; }
+	canoCinor32:Linux:*:*)
+asage=or32-unknown-vinux-g.g
+	Ni,rocanoCinpadre:Linux:*:*)
+asage=sc
+ c-unknown-vinux-g.g
+	Ni,rocanoCinparisc64:Linux:*:*saghppa64:Linux:*:*)
+asage=hppa64-unknown-vinux-g.g
+	Ni,rocanoCinparisc:Linux:*:*saghppa:Linux:*:*)
+a# Look isNOCPU lyvel
+a
+Ce8*`greE '^cpu[^a-z]*:' /;
+  /cpun e
+ vheada "$
+Csagculi-d' ' -f2` -t 	saPA7*) sage=hppa1.1-unknown-vinux-g.gocan	oCPA8*) sage=hppa2.0-unknown-vinux-g.gocan	oC*)-h8* vMiahppa-unknown-vinux-g.gocan	
+  ca	Ni,rocanoCinppc64:Linux:*:*)
+asage=powerpc64-unknown-vinux-g.g
+	Ni,rocanoCinppc:Linux:*:*)
+asage=powerpc-unknown-vinux-g.g
+	Ni,rocanoCins390:Linux:*:*sags390x:Linux:*:*)
+asage=${UNAME_MACHINE}-ibm-vinux
+	Ni,rocanoCinsh64*:Linux:*:*)
+echoasage=${UNAME_MACHINE}-unknown-vinux-g.g
+	Ni,rocanoCinsh*:Linux:*:*)
+asage=${UNAME_MACHINE}-unknown-vinux-g.g
+	Ni,rocanoCinsc
+ c:Linux:*:*sagsc
+ c64:Linux:*:*)
+asage=${UNAME_MACHINE}-unknown-vinux-g.g
+	Ni,rocanoCintile*:Linux:*:*)
+asage=${UNAME_MACHINE}-tilera-vinux-g.g
+	Ni,rocanoCinvax:Linux:*:*)
+asage=${UNAME_MACHINE}-dec-vinux-g.g
+	Ni,rocanoCinx86_64:Linux:*:*)
+asage=x86_64-unknown-vinux-g.g
+	Ni,rocanoCinxtensa*:Linux:*:*)
+echoasage=${UNAME_MACHINE}-unknown-vinux-g.g
+	Ni,rocanoCini*86:DYNIX/ptx:4*:*)
+a# ptx 4.0 does us0.  -sncorry, ly v, oerDYNIX/ptxRl, disre.
+	# earlisy redistd
+eare mese: $upgnu.orfsme.
+#nthes0.  remb19;
+akssyss0.  au.onthes0. .
+asage=i386-sequent-sysv4
+	Ni,rocanoCini*86:UNIX_SV:4.2MP:2.*)
+ $v -h8*# Unixfare n mhnaoffshoosm  -SVR4rheadacdeh9calos own redistd
+ $v -h8*# d/,uatlsubies st
+ Siite, a h2...
+ $v -h8*# I am FITNpositiv,c If, o hublSVR4ln the tw,on'ti+6Gco erse,
+aksI justGenereto'
+ Ev.in)
+ rms.
+ $v -h8*#  ;;
+ ysv4.2uw... soa uat
+ ysv4*i+6Gcoecalo.
+asage=${UNAME_MACHINE}-pc- ysv4.2uw${UNAME_VERS Co}
+	Ni,rocanoCini*86:OS/2:*:*)
+a# If whdwmMERablop+f>Y;wdo`us0. 'ches  aEMX Unixs, i   nbility 	ouctwarebably remtallera
+	opyar${UNAME_MACHINE}-pc-os2-emx
+	Ni,rocanoCini*86:XTS-300:*:STOP)
+asage=${UNAME_MACHINE}-unknown-stop
+	Ni,rocanoCini*86:  huos:*:*)
+asage=${UNAME_MACHINE}-unknown-a huos
+	Ni,rocanoCini*86:sylltech:*:*)
+asage=${UNAME_MACHINE}-pc-sylltech
+	Ni,rocanoCini*86:LynxOS:2.*:*sagi*86:LynxOS:3.[01]*:*sagi*86:LynxOS:4.[02]*:*)
+asage=i386-unknown-lynxos${UNAME_RELEASE}
+	Ni,rocanoCini*86:*DOS:*:*)
+asage=${UNAME_MACHINE}-pc-msdosdjgpp
+	Ni,rocanoCini*86:*:4.*:*sagi*86:SYSTEM_V:4.*:*)
+aUNAME_REL=usage=${UNAME_RELEASE}sage: $OP/\/MP$//'`
+artogreE Novell /usr/ioThips/vink.h heada "$
+Cevheada "$
+C64$toof	asage=${UNAME_MACHINE}-univ,C-sysv${UNAME_REL}
+	elsef		sage=${UNAME_MACHINE}-pc- ysv${UNAME_REL}
+	ii
+	Ni,rocanoCini*86:*:5:[678]*)
+ $v 	# UnixWare 7.x,    nUNIX au.o   nServat 6.
+a
+Ce8*`/stemms0.  -XsaggreE "^M6gr;wi"` -t 	sac
+*486*)	
+d  sUNAME_MACHINE=i486 ut 	sac
+*Pootium)	
+d  sUNAME_MACHINE=i586 ut 	sac
+*Poot*|*CelerrogrUNAME_MACHINE=i686 ut 	
+  ca	Nage=${UNAME_MACHINE}-unknown-sysv${UNAME_RELEASE}${UNAME_SYSTEM}${UNAME_VERS Co}
+	Ni,rocanoCini*86:*:3.2:*)
+artor
+ali-f /usr/&2ge:is/cb.s0. 64$toof	aUNAME_REL=ue: $0n$OP/.*VobugsfI//p's</usr/&2ge:is/cb.s0. `f		sage=${UNAME_MACHINE}-pc-isc UNAME_REL
+	elrto/stemms0.  -Xsvheada "$
+Csheada "$
+Cs64$toof	aUNAME_REL=u(/stemms0.  -X|greE R ff
+fr|e: $0 [OP/.*= //')`
+		(/stemms0.  -X|greE i80486 heada "$
+C) &&'UNAME_MACHINE=i486
+		(/stemms0.  -X|greE '^M6gr;wi.*Pootium' heada "$
+C) \f			&&'UNAME_MACHINE=i586
+		(/stemms0.  -X|greE '^M6gr;wi.*Poot *II' heada "$
+C) \f			&&'UNAME_MACHINE=i686
+		(/stemms0.  -X|greE '^M6gr;wi.*Pootium Pro' heada "$
+C) \f			&&'UNAME_MACHINE=i686
+		sage=${UNAME_MACHINE}-pc- co UNAME_REL
+	elsef		sage=${UNAME_MACHINE}-pc- ysv32
+aii
+	Ni,rocanoCinpc:*:*:*)
+aksLeftGemMERisNO
+ni   nbility:
+ $v -h8*# us0.  -m ,fId/
+ isNODJGPPAalwaysi'pc'rheadacde,fId/
+ FITusantabofs
+ $v -h8*# Sexi;
+     or, soawhdplay safeNe 1assumnanta586.
+aksNti,:P;If,evate usefi
+dachuMUSTurud, youux'
+9cawcriessgnsss e 
+a# pfId/
+ isNO, yo"djgpp" host verN
+lse*GDBw\$`$me'eyNY ?ARdecidv.a OU
+aks usefi
+ a cross-='1' .
+asage=i586-pc-msdosdjgpp
+  ech "mge:incanoCinIntul:M6gr:3*:*)
+asage=i386-pc-+6gr3
+	Ni,rocanoCinparagon:*:*:*)
+asage=i860-intul-osf1
+aNi,rocanoCini860:*:4.*:*)noui860-SVR4
+artogreE St
+ doot /usr/ioThips/ ys/uadmna.h heada "$
+Cevh&val $toof	sasage=i860-st
+ doot-sysv${UNAME_RELEASE}shFif
+ doot Vr mhaui860-SVR4
+a
+lse*# Add o hubli860-SVR4#SS dorsscrhea id , yyeare ogrquvatera
+	sasage=i860-unknown-sysv${UNAME_RELEASE}8*# Unknown i860-SVR4
+aii
+	Ni,rocanoCinmini*:CTIX:SYS*5:*)
+aks"mepifrux'"
+	 vMiam68010-convergoot-sysv
+	Ni,rocanoCinmc68k:UNIX:SYSTEM5:3.51m)
+	 vMiam68k-convergoot-sysv
+	Ni,rocanoCinM680?0:D-NIX:5.3:*)
+	 vMiam68k-diab-dnix
+	Ni,rocanoCinM68*:*:R3V[5678]*:*)
+	r
+ali-r / ysV68 &&m{dopyar'm68k-c torola-sysv'64Ni,r; }ocanoCin3[345]??:*:4.0:3.0sag3[34]??A:*:4.0:3.0sag3[34]??,*:*:4.0:3.0sag3[34]??/*:*:4.0:3.0sag4400:*:4.0:3.0sag4850:*:4.0:3.0sagSKA40:*:4.0:3.0sagSDS2:*:4.0:3.0sagSHG2:*:4.0:3.0sagS7501*:*:4.0:3.0)
+	OS_REL=''
+	r
+ali-r /etc/.relid \f	&&mOS_REL=.ue: $0n$OP/[^ ]* [^ ]* \([0-9][0-9]\).*/\1/p's< /etc/.relid`
+	/stemms0.  -p vheada "$
+CsaggreE 86 heada "$
+C \f	oC&&m{dopyari486-ncr- ysv4.3${OS_REL}64Ni,r; }
+	/stemms0.  -p vheada "$
+Csag/stemgreE ootium heada "$
+C \f	oC&&m{dopyari586-ncr- ysv4.3${OS_REL}64Ni,r; }ocanoCin3[34]??:*:4.0:*sag3[34]??,*:*:4.0:*)
+ $v -h8*/stemms0.  -p vheada "$
+CsaggreE 86 heada "$
+C \f          &&m{dopyari486-ncr- ysv464Ni,r; }ocanoCinNCR*:*:4.2:*sagMPRAS*:*:4.2:*)
+	OS_REL='.3'
+	r
+ali-r /etc/.relid \f	    &&mOS_REL=.ue: $0n$OP/[^ ]* [^ ]* \([0-9][0-9]\).*/\1/p's< /etc/.relid`
+	/stemms0.  -p vheada "$
+CsaggreE 86 heada "$
+C \f	oCoC&&m{dopyari486-ncr- ysv4.3${OS_REL}64Ni,r; }
+	/stemms0.  -p vheada "$
+Csag/stemgreE ootium heada "$
+C \f	oCoC&&m{dopyari586-ncr- ysv4.3${OS_REL}64Ni,r; }
+	/stemms0.  -p vheada "$
+Csag/stemgreE pterro heada "$
+C \f	oCoC&&m{dopyari586-ncr- ysv4.3${OS_REL}64Ni,r; }ocanoCinm68*:LynxOS:2.*:*sagm68*:LynxOS:3.0*:*)
+asage=m68k-unknown-lynxos${UNAME_RELEASE}
+	Ni,rocanoCinmc68030:UNIX_S the _V:4.*:*)
+	 vMiam68k-atari-sysv4
+	Ni,rocanoCinTSUNAMI:LynxOS:2.*:*)
+asage=sc
+ c-unknown-vynxos${UNAME_RELEASE}
+	Ni,rocanoCinrs6000:LynxOS:2.*:*)
+asage=rs6000-unknown-vynxos${UNAME_RELEASE}
+	Ni,rocanoCinPowerPC:LynxOS:2.*:*sagPowerPC:LynxOS:3.[01]*:*sagPowerPC:LynxOS:4.[02]*:*)
+asage=powerpc-unknown-vynxos${UNAME_RELEASE}
+	Ni,rocanoCinSM[BE]S:UNIX_SV:*:*)
+	 vMiamips-dde-sysv${UNAME_RELEASE}
+	Ni,rocanoCinRM*:ReliantUNIX-*:*:*)
+	 vMiamips-sni-sysv4
+	Ni,rocanoCinRM*:SINIX-*:*:*)
+	 vMiamips-sni-sysv4
+	Ni,rocanoCin*:SINIX-*:*:*)
+	i -us0.  -p vheada "$
+Csheada "$
+Cs64$toof	aUNAME_MACHINE=`(us0.  -p)evheada "$
+C`
+		sage=${UNAME_MACHINE}-sni-sysv4
+	Nlsef		sage=ns32k-sni-sysv
+aii
+	Ni,rocanoCinPENTIUM:*:4.0*:*)nouUnisys `Cff
+rPath HMP IX 4000'lSVR4/MP efisNt
+                      kssaysi<Ricssrd.M.Bartul@ccMail.Census.GOV>
+ $v -h8* vMiai586-unisys-sysv4
+  ech "mge:incanoCin*:UNIX_S the _V:4*:FTX*)
+aksFrg/ Gerald Hewesi<hewes@o  nmarket.
+ni>.
+aksHow,abofsmgnu.mMEntie,)	#mbetwe  a mhatus archiw   uapr? -djm
+asage=hppa1.1- mhatus-sysv4
+	Ni,rocanoCin*:*:*:FTX*)
+aksFrg/ seanf@swdc. mhatus.
+ni.
+asage=i860- mhatus-sysv4
+	Ni,rocanoCini*86:VOS:*:*)
+aksFrg/ Paul.Gre  @ mhatus.
+ni.
+asage=${UNAME_MACHINE}-smhatus-vos
+	Ni,rocanoCin*:VOS:*:*)
+aksFrg/ Paul.Gre  @ mhatus.
+ni.
+asage=hppa1.1- mhatus-vos
+	Ni,rocanoCinmc68*:A/UX:*:*)
+	 vMiam68k-apple-aux${UNAME_RELEASE}
+	Ni,rocanoCinnews*:NEWS-OS:6*:*)
+a vMiamips-sony-newsos6
+	Ni,rocanoCinR[34]000:*S the _V*:*:*sagR4000:UNIX_SYSV:*:*sagR*000:UNIX_SV:*:*)
+arto[r-d /usr/nec ]l $toof	sac
+-h8* vMiamips-nec-sysv${UNAME_RELEASE}
+	Nlsef	-h8*-h8* vMiamips-unknown-sysv${UNAME_RELEASE}
+	ii
+  ech "mge:incanoCinBeBox:BeOS:*:*)	ouBeOSh-1hnnantro ssrdfare madeNe 1Be, PPCdon 1.
+asage=powerpc-be-beos
+	Ni,rocanoCinBeM6g:BeOS:*:*)	ouBeOSh-1hnnantro M6gverNM6gvclone, PPCdon 1.
+asage=powerpc-apple-beos
+	Ni,rocanoCinBePC:BeOS:*:*)	ouBeOSh-1hnnantro Intul PCd, i   nblo.
+asage=i586-pc-beos
+	Ni,rocanoCinBePC:Haiku:*:*)	ouHaikuh-1hnnantro Intul PCd, i   nblo.
+asage=i586-pc-haiku
+	Ni,rocanoCinSX-4:SUPER-UX:*:*)
+	 vMiasx4-nec-superux${UNAME_RELEASE}
+	Ni,rocanoCinSX-5:SUPER-UX:*:*)
+	 vMiasx5-nec-superux${UNAME_RELEASE}
+	Ni,rocanoCinSX-6:SUPER-UX:*:*)
+	 vMiasx6-nec-superux${UNAME_RELEASE}
+	Ni,rocanoCinSX-7:SUPER-UX:*:*)
+	 vMiasx7-nec-superux${UNAME_RELEASE}
+	Ni,rocanoCinSX-8:SUPER-UX:*:*)
+	 vMiasx8-nec-superux${UNAME_RELEASE}
+	Ni,rocanoCinSX-8R:SUPER-UX:*:*)
+	 vMiasx8r-nec-superux${UNAME_RELEASE}
+	Ni,rocanoCinPower*:Rhapsody:*:*)
+	 vMiapowerpc-apple-rhapsody${UNAME_RELEASE}
+	Ni,rocanoCin*:Rhapsody:*:*)
+	 vMia${UNAME_MACHINE}-apple-rhapsody${UNAME_RELEASE}
+	Ni,rocanoCin*:Darwin:*:*)
+aUNAME_PROCESSOR=`ms0.  -p` ||sUNAME_PROCESSOR=unknown
+a
+Ce8* UNAME_PROCESSOR -t 	sac
+i386)
+a	ep+6 $64/,l_build='1' 
+a	pua[ " ilp 0 r' Sht" != 'no_, i ru 2buiund' ]l $toof		c
+rto(sage='#ifdef __LP64__'; sage=IS_64BIT_AART; sage='#endif') | \f		ech "m(CCOPTS= $ilp 0 r, of yoEreevheada "$
+C) | \f		ech "mgreE IS_64BIT_AART heada "$
+Cf		  $toof		sac
+ sUNAME_PROCESSOR="x86_64"f		c
+ii
+		ii ut 	c
+ sunknown)sUNAME_PROCESSOR=powerpc ut 	
+  ca	Nage=${UNAME_PROCESSOR}-apple-darwin${UNAME_RELEASE}
+	Ni,rocanoCin*:;
+  nto*:*:*sag*:QNX:[0123456789]*:*)
+aUNAME_PROCESSOR=`ms0.  -p`f	rtob
+ali"$UNAME_PROCESSOR" = "x86"64$toof	aUNAME_PROCESSOR=i386f	aUNAME_MACHINE=pc
+aii
+	Nage=${UNAME_PROCESSOR}-${UNAME_MACHINE}-nto-qnx${UNAME_RELEASE}
+	Ni,rocanoCin*:QNX:*:4*)
+asage=i386-pc-qnx
+	Ni,rocanoCinNSE-?:NONSTOP_KERNEL:*:*)
+	 vMianse-tandem-nsk${UNAME_RELEASE}
+	Ni,rocanoCinNSR-?:NONSTOP_KERNEL:*:*)
+	 vMiansr-tandem-nsk${UNAME_RELEASE}
+	Ni,rocanoCin*:NonStop-UX:*:*)
+	 vMiamips-, i  q-nonstopux
+	Ni,rocanoCinBS2000:POSIX*:*:*)
+	 vMiabs2000-siemens-sysv
+	Ni,rocanoCinDS/*:UNIX_S the _V:*:*)
+	 vMia${UNAME_MACHINE}-${UNAME_SYSTEM}-${UNAME_RELEASE}
+	Ni,rocanoCin*:Plan9:*:*)
+aks"us0.  -m"sis FITw\$`sistent, soaue8*$cputype
+remtl s. 386f	#eftw\$`verter,,i=i386RisNO
+n`sistencye, a ho hublx86f	#e    e,)	#mn the t.f	rtob
+ali"$cputype" = "386"64$toof	d  sUNAME_MACHINE=i386f	Nlsef	-h8*UNAME_MACHINE="$cputype"
+	ii
+asage=${UNAME_MACHINE}-unknown-plan9
+	Ni,rocanoCin*:TOPS-10:*:*)
+asage=pdp10-unknown-tops10
+	Ni,rocanoCin*:TENEX:*:*)
+asage=pdp10-unknown-tenex
+	Ni,rocanoCinKS10:TOPS-20:*:*sagKL10:TOPS-20:*:*sagTYPE4:TOPS-20:*:*)
+asage=pdp10-dec-tops20
+	Ni,rocanoCinXKL-1:TOPS-20:*:*sagTYPE5:TOPS-20:*:*)
+asage=pdp10-xkl-tops20
+	Ni,rocanoCin*:TOPS-20:*:*)
+asage=pdp10-unknown-tops20
+	Ni,rocanoCin*:ITS:*:*)
+asage=pdp10-unknown-its
+	Ni,rocanoCinSEI:*:*:SEIUX)
+ $v -h8* vMiamips-sei-seiux${UNAME_RELEASE}
+	Ni,rocanoCin*:DragonFly:*:*)
+asage=${UNAME_MACHINE}-unknown-dragonflyusage=${UNAME_RELEASE}|e: $0 [OP/[-(].*//'`
+	Ni,rocanoCin*:*VMS:*:*)
+ $v aUNAME_MACHINE=`(us0.  -p)evheada "$
+C`
+	 Ce8*"${UNAME_MACHINE}" -t 	sac
+A*) sage=alpha-dec-vms 64Ni,rocan	oCinI*) sage=ia64-dec-vms 64Ni,rocan	oCinV*) sage=vax-dec-vms 64Ni,rocan	
+  c danoCin*:XENIX:*:S tV)
+asage=i386-pc-xenix
+	Ni,rocanoCini*86:skyos:*:*)
+asage=${UNAME_MACHINE}-pc- kyosusage=${UNAME_RELEASE}`sage: $0 [OP/ .*$//'
+	Ni,rocanoCini*86:rdos:*:*)
+asage=${UNAME_MACHINE}-pc-rdos
+	Ni,rocanoCini*86:AROS:*:*)
+asage=${UNAME_MACHINE}-pc-aros
+	Ni,rocan
+  ca
+#sage='(No-us0.  , imau.oommus0.  o e fsmFITwrecognized.)' 1>&2
+#sage="${UNAME_MACHINE}:${UNAME_SYSTEM}:${UNAME_RELEASE}:${UNAME_VERS Co}" 1>&2
+
+ep+6 $64/,l_build='1' 
+cat >$dummy.c <<EOF
+#ifdef _SEQUENT_
+# ioThipsc< ys/,ype
+.h>
+# ioThipsc< ys/utss0. .h>
+#endifamain ()
+{
+ofo
+ dY;wil (sony)
+ofo
+ dY;wil (MIPSEB)
+  /*rBFD wad/
+ "bsd" remtl sm  -"newsos".inPerhapsrBFD e GNU Gbhdcssao d,
+ $v -I don'tiknow.... 
+*/foC
+Repof ("mips-sony-bsd\n")64Ni,ro(0)t oNlsef#ioThipsc< ys/param.h>
+oC
+Repof ("m68k-sony-newsos%s\n",
+#ifdef NEWSOS4
+          "4"f#Nlsef	-h""
+oendifaoCin     )64Ni,ro(0)t oNndifaoNndifa
+ofo
+ dY;wil (__arm) &&' dY;wil (__acOSn) &&' dY;wil (__msix)
+oC
+Repof ("arm-acOSn-riscix\n")64Ni,ro(0)t oNndifa
+ofo
+ dY;wil (hp300) &&'! dY;wil (hpux)
+oC
+Repof ("m68k-hp-bsd\n")64Ni,ro(0)t oNndifa
+ofo
+ dY;wil (NeXT)
+ofo
+! dY;wil (__AARTITECTURE__)
+o dY;wi __AARTITECTURE__ "m68k"
+oendifaoCrnt redistdanoCe8, 20H)`(hostn e
+ age: $0n$OP/.*NeXTNM6gh \([0-9]*\).*/\1/p')evheada "$
+C`anoCrto(tobugsfI< 4)noCinprepof ("%s-next-nextmtlp%d\n",d__AARTITECTURE__,Ce8, 20H)t   NlsefoCinprepof ("%s-next-o  nmtlp%d\n",d__AARTITECTURE__,Ce8, 20H)t   Ni,ro(0)t oNndifa
+ofo
+ dY;wil (MULTIMAX) ||  dY;wil (n16)
+ofo
+ dY;wil (UMAXV)
+oC
+Repof ("ns32k-encore-sysv\n")64Ni,ro(0)t oNlsef#io
+ dY;wil (CMU)
+oC
+Repof ("ns32k-encore-+6gr\n")64Ni,ro(0)t oNlsefoC
+Repof ("ns32k-encore-bsd\n")64Ni,ro(0)t oNndifaoNndifaoNndifa
+ofo
+ dY;wil (__386BSD__)
+oC
+Repof ("i386-pc-bsd\n")64Ni,ro(0)t oNndifa
+ofo
+ dY;wil (sequent)
+ofo
+ dY;wil (i386)
+oC
+Repof ("i386-sequent-dynix\n")64Ni,ro(0)t oNndifaofo
+ dY;wil (ns32000)foC
+Repof ("ns32k-sequent-dynix\n")64Ni,ro(0)t oNndifaoNndifa
+ofo
+ dY;wil (_SEQUENT_)noCinstruct utss0. musanaoCinus0. (&un)anaoCinrto(strncmp(us.e8, 20H, "V2",d2) == 0) {
+	
+Repof ("i386-sequent-ptx2\n")64Ni,ro(0)t h "m}
+oCinrto(strncmp(us.e8, 20H, "V1",d2) == 0) { /*rXXXeftwV1ncorry, ?F*/f	
+Repof ("i386-sequent-ptx1\n")64Ni,ro(0)t h "m}
+oCin
+Repof ("i386-sequent-ptx\n")64Ni,ro(0)t aoNndifa
+ofo
+ dY;wil (vax)
+# io
+! dY;wil (ulnbex)
+#  ioThipsc< ys/param.h>
+#inrto dY;wil (BSD)f#CinrtoBSD == 43aoCin  
+Repof ("vax-dec-bsd4.3\n")64Ni,ro(0)t o "mglsef# CinrtoBSD == 199006aoCin  
+Repof ("vax-dec-bsd4.3reno\n")64Ni,ro(0)t o "m NlsefoCin  
+Repof ("vax-dec-bsd\n")64Ni,ro(0)t o "m Nndifao"m Nndifao"mNlsefoCinprepof ("vax-dec-bsd\n")64Ni,ro(0)t o "Nndifao"NlsefoCinprepof ("vax-dec-ulnbex\n")64Ni,ro(0)t o NndifaoNndifa
+ofo
+ dY;wil (alliant) &&' dY;wil (i860)
+oC
+Repof ("i860-alliant-bsd\n")64Ni,ro(0)t oNndifa
+  Ni,ro(1)t }
+EOF
+
+$ilp 0 r, of yoo $dummy $dummy.c vheada "$
+C &&mSYSTEM_NAME=`$dummy` &&a	{dopyarguSYSTEM_NAME+64Ni,r; }
+ o Apollosorfsme.
+#rssilthtype
+reme.
+#environment.
+
+r
+ali-d /usr/apolloC&&m{dopyar${ISP}-apollo-${SYSTYPE}64Ni,r; }
+ o Convex redistd
+e uat
+predate-us0.  ,anaue8*geteysn e
+(1)
+
+rto[r-x /usr/convex/geteysn e
+e]
+$toof     Ce8*`geteysn e
+e-f cpu_type` -t )
+  c1*)
+	 vMiac1-convex-bsd
+	Ni,rocanoCinc2*)
+artogeteysn e
+e-f scalar_acc
+	$too* vMiac32-convex-bsd
+	Nlse* vMiac2-convex-bsd
+	ii
+	Ni,rocanoCinc34*)
+	 vMiac34-convex-bsd
+	Ni,rocanoCinc38*)
+	 vMiac38-convex-bsd
+	Ni,rocanoCinc4*)
+	 vMiac4-convex-bsd
+	Ni,rocanoCin
+  caii
+
+cat >&2 <<EOF
+$0:-us0blop+f>mila mrssilthtype
+
+l ftwscript, l
+fthmodifiil $tim
+alamp,eh9cafailer,,i=recognize
+er+6o   e,)	#mn the  youeare u )	# tIdeftwadvie: $ uat
+you
+downloadme.
+#most$upg,i=date-tobugsfIoOper+w\$`$mewscripts.org/a
+  http://git.savannah.gnu.org/gitweb/?p=nally wr,r;a=blob_plain;f=nally writte;hb=HEAD
+ant
+  http://git.savannah.gnu.org/gitweb/?p=nally wr,r;a=blob_plain;f=nally wsub;hb=HEAD
+
+IOper+-tobugsfIyouerun ($0) ftwalrl sy$upg,i=date, pff
+fr
+sNndper+-follow)	#mdata nu.oLny reuilm  nspryoueTusak m9;7,Gbh
+   ,)	oot ,i=<nally -p6Gcoec@gnu.org>
+remOSPublto;;
+ vidv.a e needed
+reuilm  nsprto'
+nu.lopyourfu the   
+nally writte tim
+alamp = $tim
+alamp
+
+us0.  -m = `(us0.  -m) vheada "$
+Csa|  vMiaunknown`
+us0.  -r = `(us0.  -r) vheada "$
+Csa|  vMiaunknown`
+us0.  -s = `(us0.  -s) vheada "$
+Csa|  vMiaunknown`
+us0.  -v = `(us0.  -v) vheada "$
+Csa|  vMiaunknown`
+
+/usr/stemms0.  -p = `(/usr/stemms0.  -p)evheada "$
+C`
+/stemms0.  -Xsssss= `(/stemms0.  -X)evheada "$
+C`
+
+hostn e
+               = `(hostn e
+)evheada "$
+C`
+/stemmsitobue          = `(/stemmsitobue)evheada "$
+C`
+/usr/stemarchs-k       = `(/usr/stemarchs-k)evheada "$
+C`
+/stemarchs             = `(/stemarch)evheada "$
+C`
+/usr/stemoslyvel       = `(/usr/stemoslyvel)evheada "$
+C`
+/usr/convex/geteysn e
+e= `(/usr/convex/geteysn e
+)evheada "$
+C`
+
+UNAME_MACHINE =i${UNAME_MACHINE}aUNAME_RELEASE =i${UNAME_RELEASE}
+UNAME_SYSTEM  =i${UNAME_SYSTEM}
+UNAME_VERS Co =i${UNAME_VERS Co}
+EOF
+
+Ni,ro1
+ o Local vari0blos: o Nval: (add-hook 'write-file-hooks 'tim
+-alamp)f#Ctim
+-alamp-st
+ t: "tim
+alamp='"f#Ctim
+-alamp-uilm  : "%:y-%02m-%02d"f#Ctim
+-alamp-Nnd: "'"f#CEnd:

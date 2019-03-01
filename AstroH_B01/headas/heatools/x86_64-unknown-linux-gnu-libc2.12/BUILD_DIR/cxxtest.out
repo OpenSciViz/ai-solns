@@ -1,0 +1,29 @@
+Using built-in specs.
+Target: x86_64-redhat-linux
+Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-bootstrap --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-languages=c,c++,objc,obj-c++,java,fortran,ada --enable-java-awt=gtk --disable-dssi --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-1.5.0.0/jre --enable-libgcj-multifile --enable-java-maintainer-mode --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --disable-libjava-multilib --with-ppl --with-cloog --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux
+Thread model: posix
+gcc version 4.4.6 20110731 (Red Hat 4.4.6-3) (GCC) 
+COLLECT_GCC_OPTIONS='-Wall' '-pedantic' '-Wno-long-long' '-g' '-v' '-o' '/tmp/24441.out' '-shared-libgcc' '-mtune=generic'
+ /usr/libexec/gcc/x86_64-redhat-linux/4.4.6/cc1plus -quiet -v -D_GNU_SOURCE /tmp/24441.c -quiet -dumpbase 24441.c -mtune=generic -auxbase 24441 -g -Wall -pedantic -Wno-long-long -version -o /tmp/ccWN89za.s
+ignoring nonexistent directory "/usr/lib/gcc/x86_64-redhat-linux/4.4.6/include-fixed"
+ignoring nonexistent directory "/usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../x86_64-redhat-linux/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6
+ /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/x86_64-redhat-linux
+ /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/backward
+ /usr/local/include
+ /usr/lib/gcc/x86_64-redhat-linux/4.4.6/include
+ /usr/include
+End of search list.
+GNU C++ (GCC) version 4.4.6 20110731 (Red Hat 4.4.6-3) (x86_64-redhat-linux)
+	compiled by GNU C version 4.4.6 20110731 (Red Hat 4.4.6-3), GMP version 4.3.1, MPFR version 2.4.1.
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+Compiler executable checksum: 7b333492b2a4df0042b59ed85fa814bd
+COLLECT_GCC_OPTIONS='-Wall' '-pedantic' '-Wno-long-long' '-g' '-v' '-o' '/tmp/24441.out' '-shared-libgcc' '-mtune=generic'
+ as -V -Qy -o /tmp/cc8Ghe4c.o /tmp/ccWN89za.s
+GNU assembler version 2.20.51.0.2 (x86_64-redhat-linux) using BFD version version 2.20.51.0.2-5.28.el6 20091009
+COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/4.4.6/:/usr/libexec/gcc/x86_64-redhat-linux/4.4.6/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/4.4.6/:/usr/lib/gcc/x86_64-redhat-linux/:/usr/libexec/gcc/x86_64-redhat-linux/4.4.6/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/4.4.6/:/usr/lib/gcc/x86_64-redhat-linux/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/4.4.6/:/usr/lib/gcc/x86_64-redhat-linux/4.4.6/:/usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-Wall' '-pedantic' '-Wno-long-long' '-g' '-v' '-o' '/tmp/24441.out' '-shared-libgcc' '-mtune=generic'
+ /usr/libexec/gcc/x86_64-redhat-linux/4.4.6/collect2 --eh-frame-hdr --build-id -m elf_x86_64 --hash-style=gnu -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o /tmp/24441.out /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/4.4.6/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/4.4.6 -L/usr/lib/gcc/x86_64-redhat-linux/4.4.6 -L/usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../.. /tmp/cc8Ghe4c.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-redhat-linux/4.4.6/crtend.o /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../lib64/crtn.o

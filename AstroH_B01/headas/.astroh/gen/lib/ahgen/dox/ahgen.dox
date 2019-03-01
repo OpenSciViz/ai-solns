@@ -1,0 +1,12 @@
+/**
+\defgroup mod_ahgen Application support (ahgen)
+@ingroup mod_gen_lib
+
+Supporting functions for tools:
+- initialize/close the logger
+- prepare APE for reading parameter file
+- set/report error status of tool
+- retrieve universal parameters, i.e. chatter
+
+
+*/

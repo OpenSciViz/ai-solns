@@ -1,0 +1,152 @@
+#! /bin/sh
+# This is the LHEA perl script: /Home/xtelab/dhon/jul2012/AstroH_B01/headas/heatools/x86_64-unknown-linux-gnu-libc2.12/bin/ftselfjoin
+# The purpose of this special block is to make this script work with
+# the user's local perl, regardless of where that perl is installed.
+# The variable LHEAPERL is set by the initialization script to
+# point to the local perl installation.
+#-------------------------------------------------------------------------------
+eval '
+if [ "x$LHEAPERL" = x ]; then
+  echo "Please run standard LHEA initialization before attempting to run /Home/xtelab/dhon/jul2012/AstroH_B01/headas/heatools/x86_64-unknown-linux-gnu-libc2.12/bin/ftselfjoin."
+  exit 3
+elif [ "$LHEAPERL" = noperl ]; then
+  echo "During LHEA initialization, no acceptable version of Perl was found."
+  echo "Cannot execute script /Home/xtelab/dhon/jul2012/AstroH_B01/headas/heatools/x86_64-unknown-linux-gnu-libc2.12/bin/ftselfjoin."
+  exit 3
+elif [ `$LHEAPERL -v < /dev/null 2> /dev/null | grep -ic "perl"` -eq 0 ]; then
+  echo "LHEAPERL variable does not point to a usable perl."
+  exit 3
+else
+  # Force Perl into 32-bit mode (to match the binaries) if necessary:
+  if [ "x$HD_BUILD_ARCH_32_BIT" = xyes ]; then
+    if [ `$LHEAPERL -V 2> /dev/null | grep -ic "USE_64_BIT"` -ne 0 ]; then
+      VERSIONER_PERL_PREFER_32_BIT=yes
+      export VERSIONER_PERL_PREFER_32_BIT
+    fi
+  fi
+  exec $LHEAPERL -x $0 ${1+"$@"}
+fi
+'
+if(0);
+# Do not delete anything above this comment from an installed LHEA script!
+#-------------------------------------------------------------------------------
+#!/usr/bin/perl
+#
+# ftselfjoin - This is a wrapper for ftjoin intersecting a table with itself
+#
+#
+# $Id: ftselfjoin,v 1.1 2009/08/26 02:00:55 craigm Exp $
+#
+# $Log: ftselfjoin,v $
+# Revision 1.1  2009/08/26 02:00:55  craigm
+# Add the task 'ftselfjoin', which is a matcher specialized for finding duplicates within a table --CM
+#
+#
+#
+
+use HEACORE::HEAINIT;
+
+# ===================================
+# Execute main subroutine, with error trapping
+$status = 0;
+eval {
+    $status = headas_main(\&ftselfjoin);
+};
+
+# ===================================
+# Check for errors and report them to the console
+if ($@) {
+    if ($status == 0) { $status = -1; }
+    warn $@;
+    exit $status;
+}
+exit 0;
+
+# ===================================
+# Main subroutine
+sub ftselfjoin {
+    # Makes all environment variables available
+    use Env;
+    use Cwd;
+
+    # The HEAUTILS module provides access to HDpar_stamp()
+    # set_toolname(), set_toolversion(), and headas_clobberfile()
+    use HEACORE::HEAUTILS;
+    use HEACORE::PIL;
+    # include the file specification functions
+    use Astro::FITS::CFITSIO qw( :shortnames :constants );
+
+    my $taskname = "ftselfjoin";
+    my $version = "1.0";
+
+    # Use the standard HEAdas methods for registering the toolname and version number to be
+    # used in error reporting and in the record of parameter values written by HDpar_stamp
+    set_toolname($taskname);
+    set_toolversion($version);
+
+    eval {
+	$status = &ftselfjoin_work();
+    };
+
+    if ($@) {
+	if ($status == 0) { $status = -1; }
+	warn $@;
+	return $status;
+    }
+
+    return $status;
+}
+
+sub ftselfjoin_work {
+
+    # --------------- parameters
+    ($status = PILGetFname('infile', $leftfile)) == 0 || die "error getting leftfile parameter";
+    $rightfile = "$leftfile";
+    ($status = PILGetFname('outfile', $outfile)) == 0 || die "error getting outfile parameter";
+
+
+    ($status = PILGetString('expr', $selexpr)) == 0 || die "error getting 'expr' parameter";
+
+    ($status = PILGetString('leftnameprefix', $leftnameprefix)) == 0 || die "error getting 'leftnameprefix' parameter";
+    ($status = PILGetString('leftnamesuffix', $leftnamesuffix)) == 0 || die "error getting 'leftnamesuffix' parameter";
+    ($status = PILGetString('rightnameprefix', $rightnameprefix)) == 0 || die "error getting 'rightnameprefix' parameter";
+    ($status = PILGetString('rightnamesuffix', $rightnamesuffix)) == 0 || die "error getting 'rightnamesuffix' parameter";
+
+    ($status = PILGetString('outcolumns', $outcolumns)) == 0 || die "error getting 'outcolumns' parameter";
+
+    ($status = PILGetBool('cleanup', $cleanup)) == 0 || die "error getting 'cleanup' parameter";
+    ($status = PILGetString('debugfile', $debugfile)) == 0 || die "error getting 'debugfile' parameter";
+    ($status = PILGetBool('clobber', $clobber)) == 0 || die "error getting 'clobber' parameter";
+    ($status = PILGetBool('history', $history)) == 0 || die "error getting 'history' parameter";
+    ($status = PILGetBool('commutative', $commutative)) == 0 || die "error getting 'commutative' parameter";
+
+
+    $jointype = 'INNER';   # Self-joint is always just intersection
+    ($status = PILGetInt('chatter', $chatter)) == 0 || die "error getting chatter parameter";
+    if ($chatter >= 5) { $verbose = 1; }
+
+    $clobber = $clobber ? "YES" : "NO";
+    $cleanup = $cleanup ? "YES" : "NO";
+    $history = $history ? "YES" : "NO";
+
+    if ($commutative) {
+      # If expr is commutative, then 
+      $newexpr = "( $selexpr ) && (#L_ROW < #R_ROW)";
+    } else {
+      $newexpr = "( $selexpr ) && (#L_ROW != #R_ROW)";
+    }
+
+    $cmd = "ftjoin ".
+      "leftfile='$leftfile' rightfile='$rightfile' ".
+      "outfile='$outfile' expr='$newexpr' ".
+      "leftnameprefix='$leftnameprefix' leftnamesuffix='$leftnamesuffix' ".
+      "rightnameprefix='$rightnameprefix' rightnamesuffix='$rightnamesuffix' ".
+      "outcolumns='$outcolumns' debugfile='$debugfile' dupcolnames=YES ".
+      "cleanup='$cleanup' chatter='$chatter' clobber='$clobber' history='$history' ";
+
+    system($cmd);
+
+    return $? >> 8;
+}
+
+

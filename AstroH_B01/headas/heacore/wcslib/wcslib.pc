@@ -1,0 +1,11 @@
+prefix=/Home/xtelab/dhon/jul2012/AstroH_B01/headas/heacore/x86_64-unknown-linux-gnu-libc2.12
+exec_prefix=/Home/xtelab/dhon/jul2012/AstroH_B01/headas/heacore/x86_64-unknown-linux-gnu-libc2.12
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include/wcslib
+
+Name: WCSLIB
+Description: An implementation of the FITS World Coordinate System standard
+Version: 4.4.4
+Requires:
+Libs: -L${libdir} -lwcs -lm
+Cflags: -I${includedir}

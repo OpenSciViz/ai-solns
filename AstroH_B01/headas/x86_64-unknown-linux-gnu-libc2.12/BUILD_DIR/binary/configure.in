@@ -1,0 +1,119 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT()
+
+AC_REVISION($Revision: 1.19 $)
+
+AC_PREREQ(2.13)
+
+UNAME_SYSTEM=`(uname -s) 2>/dev/null` || UNAME_SYSTEM=unknown
+
+AC_PREFIX_DEFAULT(`cd ../..; pwd`)
+
+#-------------------------------------------------------------------------------
+
+AC_ARG_ENABLE(
+  register,
+  [ --disable-register Do not send registration info to GSFC (not recommended) ],
+  lhea_register=$enableval,
+  lhea_register=yes
+)
+
+h_this_script=`echo $0 | sed 's%.*/%%'`
+h_this_dir=`echo $0 | sed "s%$h_this_script\$%%"`
+h_top=`cd $h_this_dir/..; pwd`
+HD_SRC=$h_top
+AC_SUBST(HD_SRC)
+
+AC_PATH_PROGS(PERL, perl5 perl)
+$PERL -v 2> /dev/null > /tmp/$$.log
+if test `cat /tmp/$$.log | grep -c '5\.00[01234]'` -ne 0 -o `cat /tmp/$$.log | grep -c '[1234]\.[0123456789]'` -ne 0; then
+  AC_MSG_ERROR(Perl version 5.005 or better is required!)
+fi
+rm -f /tmp/$$.*
+AC_SUBST(PERL)
+
+AC_SUBST(UNAME_SYSTEM)
+
+case ${UNAME_SYSTEM} in
+  CYGWIN*)
+    EXT=win
+    ;;
+  Darwin*)
+    EXT=darwin
+    # ASSUME that these pre-compiled binaries are 32-bit!:
+    HD_BUILD_ARCH_32_BIT=yes
+    ;;
+  Linux*)
+    EXT=lnx
+    ;;
+  OSF*)
+    EXT=osf
+    ;;
+  SunOS*)
+    EXT=sol
+  ;;
+esac
+AC_SUBST(EXT)
+AC_SUBST(HD_BUILD_ARCH_32_BIT)
+
+AC_OUTPUT(headas-setup fermi-setup)
+
+if test -f headas-setup; then chmod +x headas-setup; fi
+if test -f fermi-setup; then chmod +x fermi-setup; fi
+if test -f lhea-fixperl; then chmod +x lhea-fixperl; fi
+if test -f lhea-fixpfiles; then chmod +x lhea-fixpfiles; fi
+
+# Export variables for substitution during .parin -> .par file generation:
+LHEA_DATA=`cd ..; pwd`/refdata
+LHEA_HELP=`cd ..; pwd`/help
+export LHEA_DATA
+export LHEA_HELP
+
+# Generate .par files from .parin files (if any):
+if test -x lhea-fixpfiles -a -d ../syspfiles; then
+   if test `find ../syspfiles/ -name \*.parin 2> /dev/null | wc -l` -ne 0; then
+      touch ../syspfiles/*.parin
+      ./lhea-fixpfiles ../syspfiles/*
+   fi
+fi
+
+# Prepend LHEAPERL header to perl scripts:
+if test -x lhea-fixperl -a -d ../bin; then
+   cd ../bin; ../BUILD_DIR/lhea-fixperl; cd ../BUILD_DIR
+fi
+
+# Test whether VERSIONER_PERL_PREFER_32_BIT=yes is needed for mismatch test:
+if test "x$HD_BUILD_ARCH_32_BIT" = xyes; then
+   $PERL -V > /tmp/$$.log
+   if test `cat /tmp/$$.log | grep -c 'USE_64_BIT'` -ne 0; then
+      VERSIONER_PERL_PREFER_32_BIT=yes; export VERSIONER_PERL_PREFER_32_BIT
+   fi
+   rm -f /tmp/$$.log
+fi
+
+# Test for mismatch between Perl used at GSFC and configured $PERL:
+if test -x ../bin/perldemo2; then
+   echo "Checking for Perl mismatch..."
+   LHEAPERL="$PERL"; export LHEAPERL
+   PERLLIB="$HD_SRC/lib/perl"; export PERLLIB
+   LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HD_SRC/lib"; export LD_LIBRARY_PATH
+   DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH:$HD_SRC/lib"; export DYLD_LIBRARY_PATH
+   ../bin/perldemo2 $LHEA_DATA/leapsec.fits /tmp/$$.fits ptest 42 2> /tmp/$$.log
+   if test `cat /tmp/$$.log | grep -ci 'symbol'` -ne 0; then
+      AC_MSG_WARN(Potential Perl mismatch detected!)
+      AC_MSG_WARN(Conflict may exist between these binaries and $PERL.)
+      AC_MSG_WARN(Switching to PERL=/usr/bin/perl may help.)
+      AC_MSG_WARN(Please visit the link below for more information.)
+      AC_MSG_WARN(http://heasarc.gsfc.nasa.gov/lheasoft/perl.html)
+   else
+      echo "No Perl mismatch detected."
+   fi
+   rm -f /tmp/$$.*
+fi
+
+#if test $lhea_register = yes; then
+#  chmod +x ./hd_register.sh
+#  ./hd_register.sh 2> /dev/null
+#fi
+
+echo "Finished"

@@ -1,0 +1,3 @@
+input/event_file_1.fits[EVENTS]
+input/event_file_2.fits[EVENTS]
+input/event_file_3.fits[EVENTS]

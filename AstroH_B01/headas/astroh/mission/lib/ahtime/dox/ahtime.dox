@@ -1,0 +1,36 @@
+/**
+\defgroup mod_ahtime Time Library (ahtime)
+@ingroup mod_mission_lib
+
+The ahtime library contains classes and functions related to time assignment
+and conversion.
+The functionality of the library can be split into mission-specific and
+mission-independent components.
+Below are listed the header files included in the module with a brief
+description.
+
+Mission-independent:
+ - ahtime.h -- general time support and formatting functions, e.g. return 
+number of days in a month
+ - ahleapsec.h -- functions to locate (in CALDB) and read leap second FITS file
+ - AhTimeUTC.h -- class to hold a Coordinated Universal Time (UTC) supporting
+leap seconds automatically
+ - AhTimeTAI.h -- class to hold an International Atomic Time (TAI) relative to
+a provided UTC epoch
+ - AhTimeTT.h -- class to hold a Terrestrial Time (TT) stored as a Modified
+Julian Date (MJD)
+ - ahtimeconv.h -- class to convert between the above three types
+
+Mission-specific:
+ - ahcolumndef.h -- locate and read FITS file giving columns needed for time
+assignment based on the science instrument
+ - ahdelay.h -- locate and read FITS file containing instrument delay times
+ - ahtimeassign.h -- perform time assignment for a HK or event FITS file
+ - ahtimfile.h -- read S_TIME and TI data from TIM file
+
+Note: the minumum date supported by AhTimeUTC is 1972-01-01.  Just prior to the
+start of this day, 10 seconds were added to synchronize UTC with the number of
+TAI seconds since 1965.  The library does not know how to express a UTC time
+during these 10 seconds, so earlier dates are disallowed.
+
+*/

@@ -1,0 +1,17 @@
+This section is provided for background. Users of CCfits need not read it  except to understand how the library was conceived and therefore what its strengths and weaknesses are likely to be in this initial release.
+
+\hypertarget{aboutXspec}{}\subsection{About XSPEC}\label{aboutXspec}
+
+
+XSPEC is a general-purpose, multi-mission X-Ray spectral data analysis program which fits data with theoretical models by convolving those models  through the instrumental responses. In XSPEC 11.x and all prior versions that use FITS format data, each individual data file format that is supported can have up to 4 anciliary files. That is, for each data file, there can be a response, correction, background and auxiliary response (efficiency) file. Additionally there are table models that read FITS format data. All told, therefore, much duplicated procedural code for reading FITS data can be eliminated by use of the greater encapsulation provided by CCfits.  XSPEC's primary need is to read FITS floating point Binary Tables. XSPEC also creates simulated data by convolving users' models with  detector responses, so it also has a need for writing tabular data. Images are  not used in XSPEC. We have provided a support for image operations which has  undergone limited testing compared to the reading interface for table extensions.
+
+\hypertarget{new}{}\subsection{New Data Formats}\label{new}
+
+
+New formats to be read in XSPEC that are specialized for a particular satellite mission can be supported almost trivially by adding new classes that read data specified with different FITS format files. A single constructor call specifying the required columns and keys is all that is needed to read FITS files, rather than a set of individual cfitsio calls. The library is designed to encourage the ``resource acquisition is initialization'' model of resource management; CCfits will perform more efficiently if data are read on construction.
+
+\hypertarget{module}{}\subsection{Modularity}\label{module}
+
+
+Third, in an object oriented design, it is possible to make a program only loosely dependent on current implementation assumptions. In XSPEC, data are read as SF and FITS format (of three different varieties) and the user interface is written in tcl/tk. Both of these assumptions could be changed over the future life of the program. Thus the design of XSPEC, and any similar program, consists of defining an abstract Data\-Set class which has a subclass that uses FITS data. The virtual functions that support reading and writing can easily be overloaded by alternatives to FITS. Thus, the class library specified here fits in with the need for modularity in design.
+

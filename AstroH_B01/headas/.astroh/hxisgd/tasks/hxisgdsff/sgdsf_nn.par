@@ -1,0 +1,6 @@
+clobber, b, h, no, , , "Overwrite existing output file?"
+precheck, b, h, no, , , "Check pre-requisites?"
+templatefile, f, a, "./input/SGD_SF2012June.tpl", , , "Enter the output FITS Template file name"
+infile, f, a, "./input/ahSGD_tlm.fits", , , "Enter the input FITS file name"
+outfile, f, a, "./output/ahSGD_tlm_extract.fits", , , "Enter the output FITS file name"
+mode, s, h, "ql", , , "Mode of automatic parameters"

@@ -1,0 +1,210 @@
+#!/usr/local/bin/perl
+#
+#   fhelp --
+#
+#   This program takes a tool name and searches various possible installations
+#   (HEASOFT, HEADAS, SAS, CIAO) for the corresponding help file or utility.
+#
+#
+#   $Id: fhelp,v 3.15 2008/11/03 18:03:46 elwinter Exp $
+#
+#   Larry Brown 9/21/1995
+#   Hughes STX for GSFC/HEASARC
+#   
+
+#require "utils.pl";
+require "getopt.pl";
+
+$more = "$ENV{PAGER}";
+if ($more !~ /\S/) { $more = "more";}
+
+$browser = "firefox";
+$linemode = "lynx";
+
+&Getopt('mb');
+if (defined $opt_m) { $more = $opt_m;}
+if (defined $opt_b) { $browser = $opt_b;}
+
+if (defined $opt_h) { print<<EOHELP;
+
+fhelp - Lists the help file for a given task.
+
+If the help file for a given task exists as a text file, fhelp will
+use your default pager (the value of your PAGER environment variable)
+to scroll through the file.
+
+If the help file exists as HTML, behavior is platform-dependent:
+
+ - Mac OS X:
+     fhelp will simply 'open' the help file (using the browser
+     specified with -b, if given).
+
+ - Elsewhere:
+     fhelp will attempt to use the linemode browser 'lynx' to convert the
+     HTML to readable text, which is then displayed using your pager.
+     You may choose instead to view help files (html or text) using a
+     Mozilla-based browser (firefox, netscape, or mozilla) or an alternate
+     pager by giving the appropriate flag(s) listed below.
+
+USAGE:
+
+fhelp [FLAGS] task
+
+Where 'task' is an individual task name OR the name of a whole package (e.g.
+'rosat').  'fhelp ftools' will give you a concise list of all of the ftools.
+
+FLAGS:
+
+Flags must be given before the argument (i.e. the name of the task).
+
+-h            Print this help
+
+-i            Browse help file online at HEASARC or CIAO site.  This is the
+              default on Darwin (Mac OS X) for html help files.
+
+-w            Browse help file in your local installation.  Currently this
+              option is only available on non-Darwin platforms.
+
+-b <browser>  Allows selection of an html browser.  Choices are Mozilla
+              variants: firefox, netscape, or mozilla (default is 'firefox').
+
+-m <pager>    Allows you to select a paging program (default is your current
+              default $PAGER, or "more" if none is found).
+
+-l            Only look for help locally within HEASOFT (no recursion)
+
+EOHELP
+exit 0;
+}
+
+if ( !defined $ARGV[0] ) {
+    print "Enter FTOOL: ";
+    $tool = <STDIN>;
+    chop $tool;
+    $tool =~ s/\W//g;
+}else{
+    $tool = $ARGV[0];
+}
+
+# Handle the case of attitude.html (package) and attitude.txt (ASCA tool):
+if ( $tool eq "attitude" ) {
+    print "attitude package or task? [pkg|task]: ";
+    $atthelp = <STDIN>;
+    chop $atthelp;
+    $atthelp =~ s/\W//g;
+}
+
+# HEASOFT help options:
+$htmlhelp = "$ENV{LHEA_HELP}/$tool.html";
+$texthelp = "$ENV{LHEA_HELP}/$tool.txt";
+$perlhelp = "$ENV{LHEASOFT}/bin/$tool";
+$webtxt = "http://heasarc.gsfc.nasa.gov/ftools/fhelp/$tool.txt";
+$webhtml = "http://heasarc.gsfc.nasa.gov/ftools/fhelp/$tool.html";
+
+# EXTERNAL:
+$fermihtml = "$ENV{FERMI_DIR}/help/$tool.html";
+$fermitext = "$ENV{FERMI_DIR}/help/$tool.txt";
+$sastool = "$ENV{SAS_DIR}/bin/$tool";
+$ciao = "$ENV{ASCDS_INSTALL}";
+
+# If the user wants help on the attitude tool (attitude.txt), trick the
+# following conditionals into finding attitude.txt instead of the attitude
+# package help file (attitude.html):
+if ( $tool eq "attitude" && $atthelp eq "task" ) {
+     $htmlhelp = "$ENV{LHEA_HELP}/placeholder.html";
+}
+
+if (-e $fermihtml) { $htmlhelp = $fermihtml; }
+if (-e $fermitext) { $texthelp = $fermitext; }
+
+if (-e $htmlhelp) {
+	if ("$ENV{EXT}" eq "darwin") {
+	    system("open $htmlhelp 2>&1 > /dev/null");
+	} elsif (defined $opt_i || defined $opt_w) {
+	    $query = `$browser --version 2>&1`;
+	    if ($query =~ /not found/) { die "Cannot run $browser\n"; }
+	    if (defined $opt_i) {
+#		print "Opening $webhtml\n";
+		system("$browser -remote 'openURL($webhtml)' 2>&1 > /dev/null");
+		if ($? ne 0) {
+			print "Launching $browser... please wait\n";
+			system("$browser $webhtml &");
+		}
+	    } elsif (defined $opt_w) {
+#		print "Opening $htmlhelp\n";
+		system("$browser -remote 'openFile($htmlhelp)' 2>&1 > /dev/null");
+		if ($? ne 0) {
+			print "Launching $browser... please wait\n";
+			system("$browser $htmlhelp &");
+		}
+	    }
+	} else {
+ 	    if ($linemode eq "www") {
+		system("www -na $htmlhelp");
+	    } elsif ($linemode eq "lynx") {
+ 	        $query = `lynx --version 2>&1`;
+ 	        if ($? == 0) {
+ 		 system("lynx -nolist -dump $htmlhelp | $more");
+	        } else {
+	         die "Attempt to convert html to text with linemode browser 'lynx' failed.\nYou might try browsing the help file online using the -i or -w flag instead.\n";
+ 	        }
+ 	    } else {
+	       die "Not sure how to use $linemode.\n";
+ 	    }
+	}
+
+} elsif (-e $texthelp) {
+	if (defined $opt_i || defined $opt_w) {
+	    $query = `$browser --version 2>&1`;
+	    if ($query =~ /not found/) { die "Cannot run $browser\n"; }
+	    if (defined $opt_i) {
+#		print "Opening $webtxt\n";
+		system("$browser -remote 'openURL($webtxt)' 2>&1 > /dev/null");
+		if ($? ne 0) {
+			print "Launching $browser... please wait\n";
+			system("$browser $webtxt &");
+		}
+	    } elsif (defined $opt_w) {
+#		print "Opening $texthelp\n";
+		system("$browser -remote 'openFile($texthelp)' 2>&1 > /dev/null");
+		if ($? ne 0) {
+			print "Launching $browser... please wait\n";
+			system("$browser $texthelp &");
+		}
+	    }
+	} else {
+		system("$more $texthelp");
+	}
+
+} elsif (!defined $opt_l && -e $sastool) {
+        system("$sastool -m");
+#       system("$sastool -help | $more");
+
+} elsif (-e $perlhelp) {
+	system("(echo \"$tool is a Perl script\n\n\"; $perlhelp -h < /dev/null) | $more");
+
+} else {
+	$query = `ahelp -k 2>&1`;
+	if (!defined $opt_l && $query =~ /usage/) {
+		if (defined $opt_i) {
+			$queryi = `ahelp -i $tool`;
+			if ($queryi =~ /does not exist in any context/) {
+			   die "Cannot find help for $tool\n";
+			}
+		} elsif (defined $opt_w) {
+			$queryw = `ahelp -w $tool`;
+			if ($queryw =~ /does not exist in any context/) {
+			   die "Cannot find help for $tool\n";
+			}
+		} else {
+			$querye = `ahelp $tool`;
+			if ($querye =~ /does not exist in any context/) {
+			   die "Cannot find help for $tool\n";
+			} else {
+			   system("ahelp $tool");
+			}
+		}
+	} else {
+		die "Cannot find help for $tool\n";
+	}
+}

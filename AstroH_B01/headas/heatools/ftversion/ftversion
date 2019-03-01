@@ -1,0 +1,11 @@
+#!/usr/bin/perl
+#
+#	ftversion
+#		report current version of the HEATOOLS software
+#
+#	options
+#		none
+#
+$VERS = "12Mar2012_V3.1";
+print "$VERS\n";
+exit;

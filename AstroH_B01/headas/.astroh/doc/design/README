@@ -1,0 +1,4 @@
+This contains all design documentaion. In addition to higher-level
+design and requirements documents, this includes lower-level design
+documents, which are formatted in plain text header files such that
+they may be included by the code that meets those requirements.

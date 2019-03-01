@@ -1,0 +1,43 @@
+#! /bin/sh
+# This is the LHEA perl script: /Home/xtelab/dhon/jul2012/AstroH_B01/headas/heatools/x86_64-unknown-linux-gnu-libc2.12/bin/ftversion
+# The purpose of this special block is to make this script work with
+# the user's local perl, regardless of where that perl is installed.
+# The variable LHEAPERL is set by the initialization script to
+# point to the local perl installation.
+#-------------------------------------------------------------------------------
+eval '
+if [ "x$LHEAPERL" = x ]; then
+  echo "Please run standard LHEA initialization before attempting to run /Home/xtelab/dhon/jul2012/AstroH_B01/headas/heatools/x86_64-unknown-linux-gnu-libc2.12/bin/ftversion."
+  exit 3
+elif [ "$LHEAPERL" = noperl ]; then
+  echo "During LHEA initialization, no acceptable version of Perl was found."
+  echo "Cannot execute script /Home/xtelab/dhon/jul2012/AstroH_B01/headas/heatools/x86_64-unknown-linux-gnu-libc2.12/bin/ftversion."
+  exit 3
+elif [ `$LHEAPERL -v < /dev/null 2> /dev/null | grep -ic "perl"` -eq 0 ]; then
+  echo "LHEAPERL variable does not point to a usable perl."
+  exit 3
+else
+  # Force Perl into 32-bit mode (to match the binaries) if necessary:
+  if [ "x$HD_BUILD_ARCH_32_BIT" = xyes ]; then
+    if [ `$LHEAPERL -V 2> /dev/null | grep -ic "USE_64_BIT"` -ne 0 ]; then
+      VERSIONER_PERL_PREFER_32_BIT=yes
+      export VERSIONER_PERL_PREFER_32_BIT
+    fi
+  fi
+  exec $LHEAPERL -x $0 ${1+"$@"}
+fi
+'
+if(0);
+# Do not delete anything above this comment from an installed LHEA script!
+#-------------------------------------------------------------------------------
+#!/usr/bin/perl
+#
+#	ftversion
+#		report current version of the HEATOOLS software
+#
+#	options
+#		none
+#
+$VERS = "12Mar2012_V3.1";
+print "$VERS\n";
+exit;

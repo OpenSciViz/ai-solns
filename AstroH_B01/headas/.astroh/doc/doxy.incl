@@ -1,0 +1,17 @@
+mission/dox
+mission/lib/dox
+mission/tasks/dox
+gen/dox
+gen/lib/dox
+gen/tasks/dox
+gen/lib/st_stream
+gen/lib/ahlog
+gen/lib/ahgen
+gen/lib/ahmath
+gen/lib/ahfits
+gen/tasks/ahdemo
+mission/lib/ahcore
+mission/lib/ahapp
+mission/lib/ahtime
+mission/tasks/ahtime
+mission/tasks/ahtimeconv

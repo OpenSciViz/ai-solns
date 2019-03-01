@@ -1,0 +1,6 @@
+infile, f, a, input/event_file_1.fits, , , "Enter the input EVENTS file with SEGMENT and ASIC_MOCKUP columns"
+outfile, f, a, output/sff_mockup_1.fits, , , "Enter output FITS file name"
+templatefile, f, h, input/sff_mockup_template.tpl, , , "Enter FITS template file name"
+chatter, i, h, 3, 0, 5, "Chatter Level"
+clobber, b, h, no, , , "Overwrite existing output file?"
+mode, s, h, "ql", , , "Mode of automatic parameters"
